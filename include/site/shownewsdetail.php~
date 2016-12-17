@@ -1,0 +1,73 @@
+<?php require_once('../../connections/webshop.php'); ?>
+<?php require('../../include/system.php'); ?>
+<?php  //------------------------------取得最新消息內容--------------------------------//
+$currentPage = $_SERVER["PHP_SELF"];
+
+$colname_NewsRec = "-1";
+if (isset($_GET['NewsID'])) {
+  $colname_NewsRec = $_GET['NewsID'];
+}
+
+mysql_select_db($database_webshop, $webshop);
+$query_NewsRec = sprintf("SELECT * FROM news where NewsID=%s",GetSQLValueString($_GET['NewsID'], "int"));
+$newsRec = mysql_query($query_NewsRec, $webshop) or die(mysql_error());
+$row_newsRec = mysql_fetch_assoc($newsRec);
+$totalRows_newsRec = mysql_num_rows($newsRec);
+?>
+<?php //-------------------------------更新人氣值------------------------------------//
+if (isset($_GET["NewsID"])) {	
+  $updateSQL = sprintf("UPDATE news SET cktimes=cktimes+1 where NewsID=%s", 
+					    GetSQLValueString($_GET['NewsID'], "int"));
+
+  mysql_select_db($database_webshop, $webshop);
+  $Result = mysql_query($updateSQL, $webshop) or die(mysql_error());
+}
+?>
+<!----------------------------------------------------------------------------------->
+
+<title>最新消息</title>
+<table width="50%" border="0" BORDERCOLOR="#000000" cellspacing="20" align="center" cellpadding="1">
+<?php
+	  if($totalRows_newsRec > 0){?>
+  <tr align="center">
+  <td>
+      <table width="100%" border="0" BORDERCOLOR="#000000" cellspacing="0" align="center" cellpadding="0">
+      <!-------------------------------------------------------------->
+      <tr align="center">
+        <td colSpan="2" width="100%"><b><font color=#ff6600><?php echo $row_newsRec["NewsTitle"];?></font></b></td>
+      </tr>
+      <!-------------------------------------------------------------->
+      <tr align="center">
+        <td colspan="2" width="100"><font color=#448697>來源：<?php echo $row_newsRec["Source"];?> | 日期：<?php echo date('Y-m-d',strtotime($row_newsRec["PubDate"]));?> | 瀏覽次數：<?php echo $row_newsRec["cktimes"];?></font></td>
+      </tr>
+      <tr align="center">
+        <td width="10%"><img src="../../images/newsimg/medium/<?php echo $row_newsRec['imgfull']; ?>" alt="" name="image" width="600px" height="500px" id="image" align="center" style="padding:5px;"/></td>
+      </tr>
+      <!-------------------------------------------------------------->
+  	  </table>
+  </td>
+  </tr>
+  <!-------------------------------------------------------------->
+  <tr align="center">
+  <td>
+  <table width="100%" border="0" BORDERCOLOR="#000000" cellspacing="2" align="center" cellpadding="10">
+      <tr class="p" valign="top">
+        <td><?php echo $row_newsRec["NewsContain"];?></td>
+      </tr>
+  </table>
+  </td>
+  </tr>
+  <!-------------------------------------------------------------->
+<?php }else{ ?>
+  <tr align="center">
+     <td colspan="2" width="100%" height="50%">對不起，文章內容不存在,或者已經過期！</td>
+  </tr>
+<?php } ?>
+  <tr>
+  <td><p align="center"><input name="print" type="button" value="列印本頁" onclick="print()"/></p>
+  </td>
+  </tr>
+</table>
+<?php
+mysql_free_result($newsRec);
+?>

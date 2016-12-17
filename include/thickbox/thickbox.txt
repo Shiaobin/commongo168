@@ -1,0 +1,6 @@
+<script type="text/javascript" src="thickbox/jquery.js"></script> 
+<script type="text/javascript" src="thickbox/thickbox.js"></script> 
+<link rel="stylesheet" href="thickbox/thickbox.css" type="text/css" media="screen" />
+
+
+<span class="img2"><a href=&keepThis=true&TB_iframe=true&height=465&width=600' class='thickbox' ><img class="imgborder2" border='0' src=''></a></span>

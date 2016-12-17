@@ -1,0 +1,11 @@
+<?php  //------------------------------取得首頁圖片資訊------------------------------//
+mysql_select_db($database_webshop, $webshop);
+$query_showpagesRec = "SELECT * FROM index_image_slide ORDER BY slide_index ASC";
+$showpagesRec = mysql_query($query_showpagesRec, $webshop) or die(mysql_error());
+$row_showpagesRec = mysql_fetch_assoc($showpagesRec);
+$totalRows_showpagesRec = mysql_num_rows($showpagesRec);
+?>
+<?php do { ?>
+	<a href="http://<?php echo $row_showpagesRec['slide_url']; ?>" target="_blank"><img src="../../images/slideimg/<?php echo $row_showpagesRec['slide_img']; ?>" alt="" name="image" width="150px" height="75px" id="image" align="center" style="padding:5px;"/></a>
+
+<?php }while ($row_showpagesRec = mysql_fetch_assoc($showpagesRec)); ?>

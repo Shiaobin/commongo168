@@ -1,0 +1,146 @@
+<?php  //-----------------------------取得討論區資訊----------------------------------//
+$currentPage = $_SERVER["PHP_SELF"];
+
+$maxRows_msgRec = 20;
+$pageNum_msgRec = 0;
+if (isset($_GET['pageNum_msgRec'])) {
+  $pageNum_msgRec = $_GET['pageNum_msgRec'];
+}
+$startRow_msgRec = $pageNum_msgRec * $maxRows_msgRec;
+
+mysql_select_db($database_webshop, $webshop);
+$query_msgRec = "SELECT * FROM shop_member_msg ORDER BY msg_send_date DESC";
+$query_limit_msgRec = sprintf("%s LIMIT %d, %d", $query_msgRec, $startRow_msgRec, $maxRows_msgRec);
+$msgRec = mysql_query($query_limit_msgRec, $webshop) or die(mysql_error());
+$row_msgRec = mysql_fetch_assoc($msgRec);
+$total_msgRec = mysql_num_rows($msgRec);
+
+
+
+if (isset($_GET['totalRows_msgRec'])) {
+  $totalRows_msgRec = $_GET['totalRows_msgRec'];
+} else {
+  $all_msgRec = mysql_query($query_msgRec);
+  $totalRows_msgRec = mysql_num_rows($all_msgRec);
+}
+$totalPages_msgRec = ceil($totalRows_msgRec/$maxRows_msgRec)-1;
+
+$queryString_msgRec = "";
+if (!empty($_SERVER['QUERY_STRING'])) {
+  $params = explode("&", $_SERVER['QUERY_STRING']);
+  $newParams = array();
+  foreach ($params as $param) {
+    if (stristr($param, "pageNum_msgRec") == false && 
+        stristr($param, "totalRows_msgRec") == false) {
+      array_push($newParams, $param);
+    }
+  }
+  if (count($newParams) != 0) {
+    $queryString_msgRec = "&" . htmlentities(implode("&", $newParams));
+  }
+}
+$queryString_msgRec = sprintf("&totalRows_msgRec=%d%s", $totalRows_msgRec, $queryString_msgRec);
+?>
+<?php  //-----------------------------取得使用者IP---------------------------------//
+if (!empty($_SERVER['HTTP_CLIENT_IP']))
+{
+  $ip=$_SERVER['HTTP_CLIENT_IP'];
+}
+else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+{
+  $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+}
+else
+{
+  $ip=$_SERVER['REMOTE_ADDR'];
+}
+?>
+<!--------------------------------------------------------------------------------->
+<h3 class="ttl01">討論區</h3>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableLayout01">
+  <tr>
+    <th >公告時間</th>
+    <th >文章標題</th>
+    <th >發表人</th>
+    <th >回應</th>
+    <th >點閱</th>
+  </tr>
+  <!-------------------------------------------------------------->
+  <?php if ($total_msgRec > 0) { // Show if recordset not empty ?> 
+    <?php 
+	    do { ?>
+          <tr>
+            <td bgcolor="#CCCCCC">
+              <?php echo date('Y-m-d',strtotime($row_msgRec['msg_send_date']));?>
+            </td>
+            <!-------------------------------------------------------------->
+            <td >
+              <a href="../discussdetail.php?msg_no=<?php echo $row_msgRec["msg_no"];?>">
+	            <?php echo $row_msgRec["msg_title"];?>
+              </a>
+            </td>
+            <!-------------------------------------------------------------->
+            <td bgcolor="#CCCCCC">
+              <?php echo $row_msgRec["mem_nickname"];?>
+            </td>
+            <!-------------------------------------------------------------->
+            <td >
+            <?php 
+				mysql_select_db($database_webshop, $webshop);
+				$query_subRec = sprintf("SELECT * FROM shop_member_sub_msg WHERE msg_no = %s", GetSQLValueString($row_msgRec['msg_no'], "int"));
+				$subRec = mysql_query($query_subRec, $webshop) or die(mysql_error());
+				$row_subRec = mysql_fetch_assoc($subRec);
+				$totalRows_subRec = mysql_num_rows($subRec);
+ 			
+				 echo $totalRows_subRec;?>
+            </td>
+            <!-------------------------------------------------------------->
+            <td bgcolor="#CCCCCC">
+              <?php echo $row_msgRec["cktimes"];?>
+            </td>
+          </tr>
+    <?php 
+	} while ($row_msgRec = mysql_fetch_assoc($msgRec)); ?>		
+  <?php } // Show if recordset not empty ?>
+  <!-------------------------------------------------------------->
+  <tr>
+    <td colspan="5" align="right" bgcolor="#dddddd">
+      <table width="10%" border="0" cellspacing="0" cellpadding="0" class="tableLayout01">
+        <tr><td><a href="showadddiscuss.php"><img src="../../img/recruit_btn04.jpg"></a></td>
+          <td>
+          <?php if ($pageNum_msgRec > 0) { // Show if not first page ?>
+            <a href="<?php printf("%s?pageNum_msgRec=%d%s", $currentPage, 0, $queryString_msgRec); ?>">
+              <img src="../../images/symbol/First.gif" class="img"/>
+            </a>
+          <?php } // Show if not first page ?>
+          </td>
+          <td>
+          <?php if ($pageNum_msgRec > 0) { // Show if not first page ?>
+            <a href="<?php printf("%s?pageNum_msgRec=%d%s", $currentPage, max(0, $pageNum_msgRec - 1), $queryString_msgRec); ?>">
+              <img src="../../images/symbol/Previous.gif" class="img"/>
+            </a>
+          <?php } // Show if not first page ?>
+          </td>
+          <td>
+          <?php if ($pageNum_msgRec < $totalPages_msgRec) { // Show if not last page ?>
+            <a href="<?php printf("%s?pageNum_msgRec=%d%s", $currentPage, min($totalPages_msgRec, $pageNum_msgRec + 1), $queryString_msgRec); ?>">
+              <img src="../../images/symbol/Next.gif" class="img"/>
+            </a>
+          <?php } // Show if not last page ?>
+          </td>
+          <td>
+          <?php if ($pageNum_msgRec < $totalPages_msgRec) { // Show if not last page ?>
+            <a href="<?php printf("%s?pageNum_msgRec=%d%s", $currentPage, $totalPages_msgRec, $queryString_msgRec); ?>">
+              <img src="../../images/symbol/Last.gif" class="img"/>
+            </a>
+          <?php } // Show if not last page ?>
+          </td>
+        </tr>
+      </table>
+</td>
+  <tr>
+  </table>
+
+<?php
+mysql_free_result($msgRec);
+?>

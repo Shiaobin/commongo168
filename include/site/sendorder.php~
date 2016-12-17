@@ -1,0 +1,369 @@
+<?php
+$currentPage = $_SERVER["PHP_SELF"];
+
+
+$maxRows_productRec = 6;
+$pageNum_productRec = 0;
+if (isset($_GET['pageNum_productRec'])) {
+  $pageNum_productRec = $_GET['pageNum_productRec'];
+}
+$startRow_productRec = $pageNum_productRec * $maxRows_productRec;
+
+$colname_productRec = "-1";/////////////////////////////////
+if (isset($_GET['goods_id'])) {
+  $colname_productRec = $_GET['goods_id'];//
+}
+mysql_select_db($database_webshop, $webshop);
+$query_productRec = sprintf("SELECT * FROM prodmain WHERE ProdId = %s", GetSQLValueString($colname_productRec, "text"));
+$query_limit_productRec = sprintf("%s LIMIT %d, %d", $query_productRec, $startRow_productRec, $maxRows_productRec);
+$productRec = mysql_query($query_limit_productRec, $webshop) or die(mysql_error());
+$row_productRec = mysql_fetch_assoc($productRec);
+
+if (isset($_GET['totalRows_productRec'])) {
+  $totalRows_productRec = $_GET['totalRows_productRec'];
+} else {
+  $all_productRec = mysql_query($query_productRec);
+  $totalRows_productRec = mysql_num_rows($all_productRec);
+}
+$totalPages_productRec = ceil($totalRows_productRec/$maxRows_productRec)-1;
+
+$colname_carRec = "-1";
+if (isset($_SESSION['MM_Username'])) {
+  $colname_carRec = $_SESSION['MM_Username'];
+  $query_carRec = sprintf("SELECT * FROM shop_car WHERE mem_no = %s", GetSQLValueString($colname_carRec, "text"));
+}
+else if (isset($_SESSION['tempord_id'])) {
+  $colname_carRec = $_SESSION['tempord_id'];
+  $query_carRec = sprintf("SELECT * FROM shop_car WHERE ord_id = %s", GetSQLValueString($colname_carRec, "text"));
+}
+mysql_select_db($database_webshop, $webshop);
+$carRec = mysql_query($query_carRec, $webshop) or die(mysql_error());
+$row_carRec = mysql_fetch_assoc($carRec);
+$totalRows_carRec = mysql_num_rows($carRec);
+
+$queryString_productRec = "";
+if (!empty($_SERVER['QUERY_STRING'])) {
+  $params = explode("&", $_SERVER['QUERY_STRING']);
+  $newParams = array();
+  foreach ($params as $param) {
+    if (stristr($param, "pageNum_productRec") == false && 
+        stristr($param, "totalRows_productRec") == false) {
+      array_push($newParams, $param);
+    }
+  }
+  if (count($newParams) != 0) {
+    $queryString_productRec = "&" . htmlentities(implode("&", $newParams));
+  }
+}
+$queryString_productRec = sprintf("&totalRows_productRec=%d%s", $totalRows_productRec, $queryString_productRec);
+?>
+<?php  //------------------------------發送訂單----------------------------------//
+if ((isset($_POST["buy"])) && ($_POST["buy"] == "確認進行訂購")) {
+  
+  echo "<script language=\"javascript\">";
+  echo "window.alert(\"確定以上資料無誤，提交訂單！\");";
+  //echo "window.location.href='$insertGoTo'";
+  echo "</script>";
+  if(isset($_SESSION['MM_Username']) && $_SESSION['MM_Username'] != ""){
+	$username = $_SESSION['MM_Username'];
+	
+	mysql_select_db($database_webshop, $webshop);
+	$query_username = sprintf("SELECT * FROM UserMain WHERE usernum = %s", GetSQLValueString($username, "text"));
+	$username = mysql_query($query_username, $webshop) or die(mysql_error());
+	$row_username = mysql_fetch_assoc($username);
+  }else
+    $username = "";
+	
+	
+//-----------------------------取得運費----------------------------------//
+  if(isset($_POST['pei'])&& $_POST['pei'] != 0){
+  
+	  $query_costRec = "SELECT * FROM shopsetup";
+	  $costRec = mysql_query($query_costRec, $webshop) or die(mysql_error());
+	  $row_costRec = mysql_fetch_assoc($costRec);
+	  $class = $_POST['pei']; 
+	  if($class == 1){
+		$cost = $row_costRec["fei1"];
+		$pei = $row_costRec["pei1"];
+	  }else if($class == 2){
+		$cost = $row_costRec["fei2"];
+		$pei = $row_costRec["pei2"];
+	  }else if($class == 3){
+		$cost = $row_costRec["fei3"];
+		$pei = $row_costRec["pei3"];
+	  }else if($class == 4){
+		$cost = $row_costRec["fei4"];
+		$pei = $row_costRec["pei4"];
+	  }
+  /*if($_POST['OrderSum'] >= $row_costRec["payway_limit"]) $cost = 0;
+  else $cost = $row_costRec["fei"];*/
+  
+  //$class = $_POST['pei'];
+  }else{
+	  $class = 0;
+	  $cost = 0;
+  } 
+
+	
+  $insertSQL = sprintf("INSERT INTO OrderList (OrderNum, UserId, RecName, RecMail, RecPhone, RecAddress, OrderSum, fei, pei, ZipCode, Notes, Gettime) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                       GetSQLValueString($_POST['OrderNum'], "text"),
+					   GetSQLValueString($row_username['UserId'], "text"),
+                       GetSQLValueString($_POST['RecName'], "text"),
+                       GetSQLValueString($_POST['RecMail'], "text"),
+                       GetSQLValueString($_POST['RecPhone'], "text"),
+                       GetSQLValueString($_POST['RecAddress'], "text"),
+                       GetSQLValueString($_POST['OrderSum'], "int"),
+					   GetSQLValueString($cost, "int"),
+					   GetSQLValueString($pei, "text"),
+					   GetSQLValueString($_POST['ZipCode'], "text"),
+					   GetSQLValueString($_POST['Notes'], "text"),
+					   GetSQLValueString($_POST['gettime'], "text"));
+
+  mysql_select_db($database_webshop, $webshop);
+  $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());
+  
+  //Insert the data from shop_car table to OrderDetail table 
+  if(isset($_SESSION['MM_Username']) && $_SESSION['MM_Username'] != "") {
+      //Update shop_car table
+	  $updateSQL = sprintf("UPDATE shop_car SET ord_id=%s WHERE mem_no=%s",
+	                        GetSQLValueString($_POST['OrderNum'], "text"),
+							GetSQLValueString($_SESSION['MM_Username'], "text"));
+      $update = mysql_query($updateSQL, $webshop) or die(mysql_error());
+
+      $insertSQL = sprintf("INSERT INTO OrderDetail(OrderNum, UserId, ProdId, ProdName, ProdUnit, BuyPrice) 
+	  SELECT ord_id, mem_no, goods_id, goods_name, ord_num, goods_price FROM shop_car WHERE mem_no = %s",
+	  GetSQLValueString($_SESSION['MM_Username'],"text"));
+  }
+  else
+      $insertSQL = sprintf("INSERT INTO OrderDetail(OrderNum, UserId, ProdId, ProdName, ProdUnit, BuyPrice) 
+	  SELECT ord_id, mem_no, goods_id, goods_name, ord_num, goods_price FROM shop_car WHERE ord_id = %s",GetSQLValueString($_POST['OrderNum'],"text"));
+  $Result2 = mysql_query($insertSQL, $webshop) or die(mysql_error());
+  
+  //Clear the data in shop_car table
+  if(isset($_SESSION['MM_Username']) && $_SESSION['MM_Username'] != "")
+      $DelSQL = sprintf("DELETE FROM shop_car WHERE mem_no = %s",GetSQLValueString($_SESSION['MM_Username'],"text"));
+  else 
+      $DelSQL = sprintf("DELETE FROM shop_car WHERE ord_id = %s",GetSQLValueString($_POST['OrderNum'],"text"));
+  mysql_select_db($database_webshop, $webshop);
+  $Result3 = mysql_query($DelSQL, $webshop) or die(mysql_error());
+  
+  //Clear session
+  //session_unset();
+  //$_SESSION['tempord_id'] = "";
+  
+  $insertGoTo = "previeworder.php";
+   
+  //Send information
+  /*$headers = "Content-Type:text/html; charset = UTF-8";
+  $body = "親愛的顧客 ".$_POST['RecName']."您好!!<br>";
+  $body = $body."您的訂單編號: ".$_POST['OrderNum']."<br>";
+  $body = $body."訂單總金額: ".$_POST['OrderSum']."<br>";
+  $body = $body."訂單商品我們會儘快完成出貨!非常感謝您的惠顧!!";
+  mail($_POST['RecMail'],"感謝您的訂購!!",$body,$headers)*/;
+  
+  //Show message window
+  echo "<script language=\"javascript\">";
+  //echo "window.alert(\"您已完成訂購手續,我們將會儘快與您聯絡出貨事宜!!\");";
+  echo "window.location.href='$insertGoTo'";
+  echo "</script>";
+}
+?>
+<?php  //------------------------------取消訂單----------------------------------//
+if ((isset($_POST["cancel"])) && ($_POST["cancel"] == "取消本訂購單")) {
+  $url = "index.php";
+  echo "<script type='text/javascript'>";
+  echo "window.location.href='$url'";
+  echo "</script>"; 
+}
+?>
+<?php  //---------------------------取得綜合設置訂購方式---------------------------------//
+$query_paywayRec = "SELECT * FROM shopsetup";
+$paywayRec = mysql_query($query_paywayRec, $webshop) or die(mysql_error());
+$row_paywayRec = mysql_fetch_assoc($paywayRec);
+?>
+<!----------------------------------------------------------------------------------->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../../style.css" rel="stylesheet" type="text/css" />
+<title>填寫訂單內容</title>
+<!--------------------javascript更改order_pei id變數------------------------------>
+<Script>    
+  function changeOrderpei(){ 
+    var pei;
+    pei=document.adminRec.pei.value;
+	location.href="order.php?pei="+pei;
+  }
+</Script> 
+
+<script type="text/javascript">
+function checkform(form){ 
+  if(document.sendOrder.RecName.value.length == 0) 
+    alert('請輸入真實姓名\n');
+  else if(document.sendOrder.RecPhone.value.length == 0) 
+    alert('請輸入聯絡手機\n');
+  else if(document.sendOrder.RecMail.value.length == 0) 
+    alert('請輸入電子信箱\n');
+  else if (document.sendOrder.RecMail.value.indexOf('@') < 1 || 
+           document.sendOrder.RecMail.value.indexOf('@')==(document.sendOrder.RecMail.value.length-1) )
+    alert('電子信箱輸入錯誤\n');
+  else if(document.sendOrder.RecAddress.value.length == 0) 
+    alert('請輸入聯絡地址\n');
+  else if(document.sendOrder.pei.value == 0) 
+    alert('請選擇運送方式\n');
+  else  {
+	document.forms["buy"].submit(); 
+  }
+}
+function MM_callJS(jsStr) { //v2.0
+  return eval(jsStr)
+}
+</script>
+
+<!-------------------------訂購明細------------------------------>
+<h2>商品明細</h2>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableLayout01">  
+  <tr bgcolor="#DFDFDF">
+    <td width="15%"  align="center">商品貨號</td>
+      <td width="35%"  align="center">商品名稱</td>
+        <td width="10%"  align="center">數量</td>
+    	<td width="20%"  align="center">單價</td>
+    	<td width="20%"  align="center">合計</td>
+  </tr>
+  <!-------------------------------------------------------------->
+  <?php 
+	$total = 0;
+	do { ?>
+      <tr>
+        <td  align="center"><?php echo $row_carRec['goods_id']; ?></td>
+        <td  align="left"><label for="ord_num"><?php echo $row_carRec['goods_name']; ?></label></td>
+        <td  align="center"><?php echo $row_carRec['ord_num']; ?></td>
+        <td  align="center">NT$<?php echo $row_carRec['goods_price']; ?></td>
+        <td  align="center">NT$<?php echo $row_carRec['ord_sum']; ?></td>
+      </tr>
+    <?php 
+    $total=$total+$row_carRec['ord_sum'];
+  } while ($row_carRec = mysql_fetch_assoc($carRec)); ?>
+  <!-------------------------------------------------------------->
+  <tr>
+    <td  align="right" colspan="5">共訂購<?php echo $totalRows_carRec ?> 種商品</td>
+  </tr>
+  <!-------------------------------------------------------------->
+</table><p><br></p>
+<h3 class="ttl01"><font color="#FF3333"><b>您選購的商品總價為：<?php echo $total; ?> 元</b></font></h3>
+
+
+<!-------------------------填寫訂購單------------------------------>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
+  <!-------------------------------------------------------------->
+  <tr bgcolor="#DFDFDF">
+     <td colspan="4" align="center" >訂購單（請認真填寫以下表格，<font color="#FF3333">帶 * 號的必須填寫</font>）</td>
+  </tr>
+  <!-------------------------------------------------------------->
+  <form action="" method="POST" name="sendOrder" id="sendOrder">
+  <tr>
+    <td align="center">訂單編號</td>
+    <td align="left">
+      <input type="hidden" name="OrderNum" id="OrderNum" value="<?php if(isset($_SESSION['MM_Username'])) {
+		                                                             $date = date('Ymdhis');
+		                                                             echo $date.$_SESSION['MM_Username'];
+	                                                              }
+	                                                              else echo $_SESSION['tempord_id'];?>"/>
+	  <?php if(isset($_SESSION['MM_Username']))echo $date.$_SESSION['MM_Username'];
+	        else echo $_SESSION['tempord_id'];?>
+    </td>
+    <td align="center">訂單日期</td>
+    <td align="left">
+	  <?php echo date('Y-m-d');?>
+      <input type="hidden" name="OrderSum" id="OrderSum" value="<?php echo $total;?>"/>
+    </td>
+  </tr>
+  <!-------------------------------------------------------------->
+  <tr>
+    <td align="center">運送方式</td>
+    <td align="left" colspan="3">
+      <!--<select id="pei" name="pei" onchange="this.form.submit()" style=" font-size:20px; width:50%; height:90%; margin: 2px">-->
+      <select id="pei" name="pei" onchange="changeOrderpei();" style="font-size:20px; width:50%; height:90%; margin: 2px">
+      <option value="0">------請選擇運送方式------</option>
+      <!-------------------------------------------------------------->
+      <?php if($row_paywayRec['pei1'] != ""){ ?>
+      <option value="1"> 
+		  <?php echo $row_paywayRec['pei1'];?></option>
+	  <?php }?>
+      <!-------------------------------------------------------------->
+      <?php if($row_paywayRec['pei2'] != ""){ ?>    
+      <option value="2">
+		  <?php echo $row_paywayRec['pei2'];?></option>
+      <?php }?>
+      <!-------------------------------------------------------------->
+      <?php if($row_paywayRec['pei3'] != ""){ ?> 
+      <option value="3">
+		  <?php echo $row_paywayRec['pei3'];?></option>
+      <?php }?>
+      <!-------------------------------------------------------------->
+      <?php if($row_paywayRec['pei4'] != ""){ ?> 
+      <option value="4">
+		  <?php echo $row_paywayRec['pei4'];?></option>
+      <?php }?>
+      </select><font color="#FF3333"> *</font>
+    </td>
+  </tr>
+  <!-------------------------------------------------------------->
+  <tr>
+    <td  align="center">收貨人姓名</td>
+    <td  align="left" colspan="3">
+       <input type="text" name="RecName" id="RecName" value="<?php if(isset($_POST['RecName'])) echo $_POST['RecName']?>" class="sizeS"/><font color="#FF3333"> *</font></td>
+  </tr>
+  <!-------------------------------------------------------------->
+  <tr>
+    <td  align="center">收貨人電話</td>
+    <td  align="left" colspan="3">
+      <input type="text" name="RecPhone" id="RecPhone" value="<?php if(isset($_POST['RecPhone'])) echo $_POST['RecPhone']?>" class="sizeS"/><font color="#FF3333"> *</font>
+    </td>
+  </tr>
+  <tr>
+     <td  align="center">收貨人信箱</td>
+     <td  align="left" colspan="3">
+       <input type="text" name="RecMail" id="RecMail" value="<?php if(isset($_POST['RecMail'])) echo $_POST['RecMail']?>" class="sizeM"/><font color="#FF3333"> *</font></td>
+  </tr>
+  <!-------------------------------------------------------------->
+  <tr>
+  	<td align="center">郵遞區號</td> 
+    <td colspan="3"  align="left"><input type="text" name="ZipCode" value="<?php if(isset($_POST['ZipCode'])) echo $_POST['ZipCode']?>" class="sizeSs"></td>
+  </tr>    
+  <tr>
+     <td  align="center">收貨人地址</td>
+     <td  align="left" colspan="3">
+       	<input type="text" name="RecAddress" id="RecAddress" value="<?php if(isset($_POST['RecAddress'])) echo $_POST['RecAddress']?>" class="sizeL"/><font color="#FF3333"> *</font></td>
+  </tr>
+  <!-------------------------------------------------------------->
+  <tr>
+  	 <td align="center">指定送達時間</td>
+  	 <td colspan="3">
+      <input type="radio" value="早上" checked name="gettime">早上
+      <input type="radio" name="gettime" value="下午">下午
+      <input type="radio" name="gettime" value="晚上">晚上
+      <font color="#FF3333"> *</font>
+     </td>		                 
+  </tr>
+  <tr>
+  	 <td align="center" >備&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;註</td>
+     <td colspan="3">
+     	<textarea name="Notes" cols="30" rows="10"></textarea><br><font color="#FF3333">您有什麼要求，請在備註中註明。</font>
+     </td>
+  </tr>
+  <tr>
+     <td  align="center" colspan="4">
+     	<input type="button" name="Submit21" onclick="javascript:history.go(-1)" value="&lt;&lt; 返回修改" style="font-size:14px;width:120px;height:30px">&nbsp;&nbsp;&nbsp; 
+        <input name="buy" type="submit" id="buy" onclick="MM_callJS('checkform(this.form)'); return false;" value="確認進行訂購" style="font-size:14px;width:120px;height:30px"/>&nbsp;&nbsp;&nbsp; 
+       	<input type="submit" name="cancel" id="cancel" value="取消本訂購單" style="font-size:14px;width:120px;height:30px"/>
+     </td>
+  </tr>
+  <!-------------------------------------------------------------->
+  </form>
+</table>
+<?php
+mysql_free_result($productRec);
+mysql_free_result($carRec);
+mysql_free_result($paywayRec);
+if(isset($row_costRec)) mysql_free_result($costRec);
+?>

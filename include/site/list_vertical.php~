@@ -1,0 +1,92 @@
+<?php  //-----------------------------取出所有選項類別------------------------------//
+  mysql_select_db($database_webshop, $webshop);
+  $query_showlistRec = "SELECT Distinct LarCode, LarSeq, pnum FROM compclass WHERE LarSeq<100 order by LarSeq";
+  $showlistRec = mysql_query($query_showlistRec, $webshop) or die(mysql_error());
+  $row_showlistRec = mysql_fetch_assoc($showlistRec);
+  $totalRows_showlistRec = mysql_num_rows($showlistRec);
+?>
+
+<!---------------------------aside分類-------------------------->
+      <?php $no = 0; 
+	  		do { ?>
+<!------------------------------顯示大項名(pnum=0)------------------------------------->
+<?php if(($row_showlistRec["pnum"] == 0)){ ?>
+<?php   
+$query_showsublistRec = sprintf("SELECT * FROM compclass WHERE LarSeq=%s order by LarSeq ASC", GetSQLValueString($row_showlistRec['LarSeq'], "text"));
+		      $showsublistRec = mysql_query($query_showsublistRec, $webshop) or die(mysql_error());
+		      $row_showsublistRec = mysql_fetch_assoc($showsublistRec);
+		      $totalRows_showsublistRec = mysql_num_rows($showsublistRec);
+			
+				if(($row_showsublistRec["url"] != "")){
+					$url = $row_showsublistRec["url"];
+					$url_test = $row_showlistRec["LarCode"];
+
+
+echo "<a href='http://".$url."' target='_blank'></dl><h3><img src=img/services.png align=absmiddle>$url_test</h3><dl></a>";	
+
+
+?>
+          
+<?php }else if(($row_showsublistRec["snum"] == 1)){ ?> 
+         
+<a href="indexpageMid.php?LarCode=<?php echo $row_showsublistRec["LarCode"]; ?>&MidCode=<?php echo $row_showsublistRec["MidCode"]; ?>&tabindex=<?php echo $no;?>">
+
+</dl><h3><img src=img/services.png align=absmiddle><?php echo $row_showlistRec["LarCode"]; ?></h3><dl></a>
+
+<?php }else{ ?>
+
+<a href="indexpage.php?LarCode=<?php echo $row_showsublistRec["LarCode"]; ?>&MidCode=<?php echo $row_showsublistRec["MidCode"]; ?>&tabindex=<?php echo $no;?>">
+
+</dl><h3><img src=img/services.png align=absmiddle><?php echo $row_showlistRec["LarCode"]; ?></h3><dl></a>
+
+
+<?php }?>
+<?php }else{ ?>
+
+</dl><h3><img src=img/services.png  align=absmiddle><?php echo $row_showlistRec["LarCode"]; ?></h3><dl>
+
+<?php
+	          $query_showsublistRec = sprintf("SELECT * FROM compclass WHERE LarSeq=%s ", GetSQLValueString($row_showlistRec['LarSeq'], "text"));
+		      $showsublistRec = mysql_query($query_showsublistRec, $webshop) or die(mysql_error());
+		      $row_showsublistRec = mysql_fetch_assoc($showsublistRec);
+		      $totalRows_showsublistRec = mysql_num_rows($showsublistRec);
+		      if (($totalRows_showsublistRec > 0)) {
+		      do { 
+			      $query_showsetRec = sprintf("SELECT url FROM compclass WHERE LarSeq=%s && MidSeq=%s" , GetSQLValueString($row_showsublistRec['LarSeq'], "text"), GetSQLValueString($row_showsublistRec['MidSeq'], "text"));
+		          $showsetRec = mysql_query($query_showsetRec, $webshop) or die(mysql_error());
+		          $row_showsetRec = mysql_fetch_assoc($showsetRec);
+				  if(($row_showsetRec["url"] != "")){
+					$url = $row_showsetRec["url"];
+					$url_test = $row_showsublistRec["MidCode"];
+echo "<a href='http://".$url."' target='_blank'>
+
+<dt></dt><dd><img src=img/icon.png align=absmiddle>$url_test</dd></a>";
+
+				  }else if(($row_showsublistRec["snum"] == 1)){ ?>          
+ <a href="indexpageMid.php?LarCode=<?php echo $row_showsublistRec["LarCode"]; ?>&MidCode=<?php echo $row_showsublistRec["MidCode"]; ?>&tabindex=<?php echo $no;?>">
+
+
+<dt></dt><dd><img src=img/icon.png align=absmiddle><?php echo $row_showsublistRec["MidCode"]; ?></dd></a>
+
+
+			<?php }else{ ?>
+ 
+<a href="indexpage.php?LarCode=<?php echo $row_showsublistRec["LarCode"]; ?>&MidCode=<?php echo $row_showsublistRec["MidCode"]; ?>&tabindex=<?php echo $no;?>">
+
+
+<dt></dt><dd><img src=img/icon.png align=absmiddle><?php echo $row_showsublistRec["MidCode"]; ?></dd></a>
+
+
+
+            <?php }?>
+  
+	   	<?php }while($row_showsublistRec = mysql_fetch_assoc($showsublistRec));}
+	   		}
+				  $no = $no+1;
+			}while ($row_showlistRec = mysql_fetch_assoc($showlistRec)); ?>
+        
+<?php
+mysql_free_result($showlistRec);
+mysql_free_result($showsublistRec);
+mysql_free_result($showsetRec);
+?>
