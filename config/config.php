@@ -1,121 +1,121 @@
 <?php
     /**
-     * ¨t²Î²ÕºAÀÉ
+     * ç³»çµ±çµ„æ…‹æª”
      *
 	 * 2013 Version 
      * 
 	 * 
      */
 
-    // ±M®×³]©w	**************************************************************************************************
-    // ±M®×¦WºÙ
+    // å°ˆæ¡ˆè¨­å®š	**************************************************************************************************
+    // å°ˆæ¡ˆåç¨±
     define('PROJECT_NAME'			, 'hfShop');
 	define('SHM_SYSTEM_ID'			, 3002);
 	
-	// ¨t²Î(«á¥xConsole)³]©w 	******************************************************************************************
-	// 	ºô­¶¦øªA¾¹³q°T¨ó©w(http:// or https://)
+	// ç³»çµ±(å¾Œå°Console)è¨­å®š 	******************************************************************************************
+	// 	ç¶²é ä¼ºæœå™¨é€šè¨Šå”å®š(http:// or https://)
 	define('SYS_WEB_PROTOCOL'		, 'http://');
-	// ¨t²Î¹êÅé¸ô®|
+	// ç³»çµ±å¯¦é«”è·¯å¾‘
 	define('SYS_DOCUMENT_ROOT'		, 'C:/hfShop/store');
 
 	define('SYS_RELATIVE_ROOT'		, '/hfShop/store');
-	// ºô­¶¦øªA¾¹IP
+	// ç¶²é ä¼ºæœå™¨IP
 	define('SYS_WEB_SERVER_IP'		, 'v88t');
-	// ºô­¶¦øªA¾¹Port
+	// ç¶²é ä¼ºæœå™¨Port
 	define('SYS_WEB_SERVER_PORT'	, '80');
 	
-	// ¸ê®Æ®w ³]©w			******************************************************************************************
-	// ¸ê®Æ®wºØÃþ(SYSTEM)
+	// è³‡æ–™åº« è¨­å®š			******************************************************************************************
+	// è³‡æ–™åº«ç¨®é¡ž(SYSTEM)
 	define('SYS_DBTYPE'       		, 'mysql' ); // 'mssql'
-	// ¸ê®Æ®wÂX¥R­ì¥ó(SYSTEM)
+	// è³‡æ–™åº«æ“´å……åŽŸä»¶(SYSTEM)
 	define('SYS_DB_EXTENSION'  		, 'mysql' ); // 'mssqlnative'
-	// ¸ê®Æ®w¥D¾÷
+	// è³‡æ–™åº«ä¸»æ©Ÿ
 	define('SYS_DBHOST'       		, 'localhost' );
-	// ¸ê®Æ®w PORT
+	// è³‡æ–™åº« PORT
 	define('SYS_DBPORT'       		, '3306' ); // '1433'
-	// ¸ê®Æ®w¦WºÙ(SYSTEM)
+	// è³‡æ–™åº«åç¨±(SYSTEM)
 	define('SYS_DBNAME'				, 'moocs' ); 
-	// ¸ê®Æ®w¹w³]»y¨t(SYSTEM)
+	// è³‡æ–™åº«é è¨­èªžç³»(SYSTEM)
 	define('SYS_DBLANG'     		, 'utf8');
-	// ¸ê®Æ®w±b¸¹(SYSTEM)
+	// è³‡æ–™åº«å¸³è™Ÿ(SYSTEM)
 	define('SYS_DBACCOUNT'    		, 'moocs');  
-	// ¸ê®Æ®w±K½X(SYSTEM)
+	// è³‡æ–™åº«å¯†ç¢¼(SYSTEM)
 	define('SYS_DBPASSWD'     		, 'moocs1590'); // '1234'
 	
 	
 	
 	/*
-	 * µ{¦¡®w¸ô®|©w¸q Code Library(API, class)			**********************************************************
+	 * ç¨‹å¼åº«è·¯å¾‘å®šç¾© Code Library(API, class)			**********************************************************
 	 * php_library: adodb5, php_mailer5.2.6
 	 * js_library: ExtJS4.2
 	 * 
 	 * library defination start
 	 */
 
-	// PHP Mailer Library¬Û¹ï¸ô®|
+	// PHP Mailer Libraryç›¸å°è·¯å¾‘
 	define('PHP_LIBRARY_MAILER_PATH'	, '/service/utility/php_mailer');
 
-	// ¶l¥ó¦r²Å¶° Charset(utf-8: ÁcÅé¤¤¤å)
+	// éƒµä»¶å­—ç¬¦é›† Charset(utf-8: ç¹é«”ä¸­æ–‡)
 	define('MAIL_CHAR_SET'				, 'utf-8');
 	
-	// «H½c±b¸¹
+	// ä¿¡ç®±å¸³è™Ÿ
 	define('MAIL_USERNAME'				, 's98113169@gmail.com');
 	
-	// «H½c±K½X
+	// ä¿¡ç®±å¯†ç¢¼
 	define('MAIL_PASSWORD'				, 'qq310441');
 	
-	// ±H¥óªÌ¶l¥ó«H½c
+	// å¯„ä»¶è€…éƒµä»¶ä¿¡ç®±
 	define('MAIL_SENDER_ADDRESS'		, 's98113169@gmail.com');
 	
-	// ±H¥óªÌ©m¦W
+	// å¯„ä»¶è€…å§“å
 	define('MAIL_SENDER_NAME'			, 'Ching-Wei');
 	
-	// »y¨t³]©w 			******************************************************************************************
+	// èªžç³»è¨­å®š 			******************************************************************************************
 	
-	// ¨ä¥¦³]©w 			******************************************************************************************
+	// å…¶å®ƒè¨­å®š 			******************************************************************************************
 
 	
-	// ¨Ï¥ÎªÌ±ÂÅv½X¶Ç°e¤è¦¡(mail,sms)
+	// ä½¿ç”¨è€…æŽˆæ¬Šç¢¼å‚³é€æ–¹å¼(mail,sms)
 	define('USER_AUTH_SENDBY'			, 'mail');
 	
-	// app_name_id app¯S©wID¿ëÃÑ¦WºÙ
+	// app_name_id appç‰¹å®šIDè¾¨è­˜åç¨±
 	define('APP_NAME_ID'	  		, 'com.chinaairlines.efb');
-	// corp_id¹w³]¤½¥q²Î¤@½s¸¹
+	// corp_idé è¨­å…¬å¸çµ±ä¸€ç·¨è™Ÿ
 	define('APP_CORP_ID'			, 'CA' );
-	// corp_name¹w³]¤½¥q¦WºÙ
+	// corp_nameé è¨­å…¬å¸åç¨±
 	define('APP_CORP_NAME'			, 'ChinaAirlines');
 	
 	// host ip
 	define("HOST_IP"		  		, SYS_WEB_SERVER_IP . ':' . SYS_WEB_SERVER_PORT);
-	// ¹w³]»y¨t
+	// é è¨­èªžç³»
     define('DEFAULT_LANG'     		, 'big5');
-	// ¹w³]§G´º
+	// é è¨­ä½ˆæ™¯
     define('DEFAULT_THEME'    		, 'blue');
-    // ³Ì°ªºÞ²zªÌÅv­­
+    // æœ€é«˜ç®¡ç†è€…æ¬Šé™
     $sys_admin                 		= array( 'administrator' , 'admin' );
-    // ¹w³]ºÞ²zªÌ
+    // é è¨­ç®¡ç†è€…
     $sys_manager              		= array( 'admin' , 'root' , 'sys' , 'system' );
-    // ¤@¯ëºÞ²zªÌ­­¨î¥\¯à
+    // ä¸€èˆ¬ç®¡ç†è€…é™åˆ¶åŠŸèƒ½
     $sys_func_limit           		= array( 'user_information' , 'action_message' , 'system_performance' );
-    // ¨C­¶¹w³]µ§¼Æ
+    // æ¯é é è¨­ç­†æ•¸
     $sys_per_page             		= 20;
-    // ¹w³]§G´º
+    // é è¨­ä½ˆæ™¯
     $sys_theme                		= 'default';
-    // ¹w³]¸ê·½ÀÉ¥Ø¿ý(µ´¹ï¸ô®|)
+    // é è¨­è³‡æºæª”ç›®éŒ„(çµ•å°è·¯å¾‘)
     $sys_resource_dir_abs     		= SYS_DOCUMENT_ROOT . '/resource';
-	// ¹w³]¸ê·½ÀÉ¥Ø¿ý(¬Û¹ï¸ô®|)
+	// é è¨­è³‡æºæª”ç›®éŒ„(ç›¸å°è·¯å¾‘)
 	$sys_resource_dir_rel	  		= SYS_RELATIVE_ROOT . '/resource';
-	// ÀÉ®×¤W²î¸ô®|
+	// æª”æ¡ˆä¸Šèˆ¹è·¯å¾‘
     $sys_upload_path_abs       		= $sys_resource_dir_abs . '/files/document_manage';
-	// ÀÉ®×¤W¶Ç¸ô®|(¬Û¹ï)
+	// æª”æ¡ˆä¸Šå‚³è·¯å¾‘(ç›¸å°)
 	$sys_upload_path_rel			= $sys_resource_dir_rel . '/files/document_manage';
-    // ¹w³] IMAGE ¸ô®|
+    // é è¨­ IMAGE è·¯å¾‘
     $sys_image      		  		= $sys_resource_dir_rel . '/' . $sys_theme . '/image';
-    // ¹w³] CSS ¸ô®|
+    // é è¨­ CSS è·¯å¾‘
     $sys_css                  		= $sys_resource_dir_abs . '/' . $sys_theme . '/css';
-    // ¶×¥XÀÉ¹w³]¸ô®|
+    // åŒ¯å‡ºæª”é è¨­è·¯å¾‘
     $export_path              		= $sys_resource_dir_abs . '/files/export';
-	// extjs tab¹w³]Åã¥Ü­¶­±(Åwªï­¶)
+	// extjs tabé è¨­é¡¯ç¤ºé é¢(æ­¡è¿Žé )
 	$sys_default_page				= SYS_RELATIVE_ROOT . '/adm/welcome.php'; 
     
     // $document_download_root 		= SYS_WEB_PROTOCOL . HOST_IP .'/console/resource/files/document_manage';
@@ -125,10 +125,10 @@
     // $http_authroization_password 	= 'efb5678';
     
     
-    // ¸ê®Æ®w¦WºÙ(MIS_LOG)
+    // è³‡æ–™åº«åç¨±(MIS_LOG)
     // define('SYS_DBNAME_2'     , 'mis_log.dbo');
     
-    // ¸ê®Æ®w¦WºÙ(Mis Web Consol)
+    // è³‡æ–™åº«åç¨±(Mis Web Consol)
     // define('SYS_DBNAME_3'     , 'mis_web.dbo');
 
     // MisCore(API) Construct IP
