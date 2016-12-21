@@ -1,4 +1,4 @@
-﻿
+
 // リダイレクト処理
 var ua = navigator.userAgent;
 // smartphone

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 列印繳款單(統一超商C2C)
     require('AllPay.Logistics.Integration.php');
     try {

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 更新門市(統一超商C2C)
     require('AllPay.Logistics.Integration.php');
     try {

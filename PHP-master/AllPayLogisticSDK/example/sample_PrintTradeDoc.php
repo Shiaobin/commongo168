@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 產生托運單(宅配)/一段標(超商取貨)
     require('AllPay.Logistics.Integration.php');
     try {

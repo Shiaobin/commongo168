@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 超商取貨逆物流訂單(全家超商B2C)
     define('HOME_URL', 'http://www.sample.com.tw/logistics_dev');
     require('AllPay.Logistics.Integration.php');

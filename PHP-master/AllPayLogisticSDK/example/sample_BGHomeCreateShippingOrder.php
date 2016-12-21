@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 宅配物流訂單幕後建立
     define('HOME_URL', 'http://www.sample.com.tw/logistics_dev');
     require('AllPay.Logistics.Integration.php');

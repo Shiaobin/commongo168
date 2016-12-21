@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 廠商修改物流資訊(統一超商B2C)
     require('AllPay.Logistics.Integration.php');
     try {

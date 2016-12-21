@@ -1,4 +1,4 @@
-﻿<?php
+<?php
    //特殊字元置換
 	function _replaceChar($value)
 	{

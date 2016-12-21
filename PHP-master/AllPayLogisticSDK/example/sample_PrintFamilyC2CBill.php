@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 全家列印小白單(全家超商C2C)
     require('AllPay.Logistics.Integration.php');
     try {

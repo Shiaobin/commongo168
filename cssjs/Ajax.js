@@ -1,4 +1,4 @@
-﻿$(function(){
+$(function(){
 	var error  = "javascript/util/ErrorMsg.js";
 	var post   = "javascript/util/PostUrl.js";
 	var config = "javascript/util/Config.js";

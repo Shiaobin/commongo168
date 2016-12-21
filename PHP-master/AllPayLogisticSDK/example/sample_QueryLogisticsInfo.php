@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 物流訂單查詢
     require('AllPay.Logistics.Integration.php');
     try {

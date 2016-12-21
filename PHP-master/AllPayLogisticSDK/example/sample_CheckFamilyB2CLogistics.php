@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 全家逆物流核帳(全家超商B2C)
     require('AllPay.Logistics.Integration.php');
     try {

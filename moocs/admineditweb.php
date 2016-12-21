@@ -1,4 +1,4 @@
-﻿<?php require('../utility/init.php'); ?>
+<?php require('../utility/init.php'); ?>
 
 <?php // ** initialize the session ** 
 if (!isset($_SESSION)) {

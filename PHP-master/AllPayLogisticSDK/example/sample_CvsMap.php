@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     // 電子地圖
     define('HOME_URL', 'http://www.sample.com.tw/logistics_dev');
     require('AllPay.Logistics.Integration.php');
