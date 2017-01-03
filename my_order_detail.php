@@ -79,7 +79,7 @@ sqlinfo = "select A.OrderNum,A.OrderTime,A.RecName,A.OrderSum,A.RecName,A.Status
 set rsorder=Server.Createobject("ADODB.RecordSet")
 rsorder.Open sqlinfo,conn,1,1
 %>*/
-$query_orderlist=  "select B.OrderTime,B.OrderNum,B.pei,B.fei,B.Memo,B.thiskou,B.RecName,B.RecPhone,B.RecMail,B.RecAddress,B.ZipCode,B.PayType,B.Discount,B.Notes,B.OrderSum,B.PayStatus,D.UserKou
+$query_orderlist=  "select B.OrderTime,B.OrderNum,B.pei,B.fei,B.Memo,B.thiskou,B.RecName,B.RecPhone,B.RecMail,B.RecAddress,B.ZipCode,B.PayType,B.Discount,B.Notes,B.OrderSum,B.PayStatus,D.UserKou,B.Status
 		  from orderlist B,usermain D
 		  where B.OrderNum='".$OrderNum."' and B.UserId=D.UserId";
 $result_orderlist=mysql_query($query_orderlist, $webshop) or die("cannot connect to table" . mysql_error( ));
@@ -94,9 +94,17 @@ else{
 while($rs_orderlist = mysql_fetch_array($result_orderlist)){
 
 ?>
-
 <font size="4">訂單號為<?php echo $rs_orderlist['OrderNum']; ?>&nbsp;&nbsp;&nbsp;&nbsp;發生時間：<?php echo $rs_orderlist['OrderTime']; ?></font><br><br>
-
+<?php if (strpos($rs_orderlist['Status'], '訂單完成') !== false): ?>
+<fieldset class="rating">
+    <legend>評價賣家</legend>
+    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="超讚">5 stars</label>
+    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="還不錯">4 stars</label>
+    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="普普通通">3 stars</label>
+    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="有點糟">2 stars</label>
+    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="遜斃了">1 star</label>
+</fieldset>
+<?php endif; ?>
 <tr><td colspan="4">付款狀態：<?php if($rs_orderlist['PayStatus']==1) echo "已付款";else echo "未付款"; ?></td></tr>
 <tr><td colspan="4">收貨人姓名：<?php echo $rs_orderlist['RecName']; ?></td></tr>
 <tr><td colspan="4">收貨人電話：<?php echo $rs_orderlist['RecPhone']; ?></td></tr>

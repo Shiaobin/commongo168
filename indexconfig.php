@@ -12,6 +12,7 @@ $shichang=$rs_head['shichang']; //市場價
 <link href="./cssjs/style.css?t=1" rel="stylesheet" media="screen">
 <link href="./cssjs/jquery-ui-1.10.4.custom.css" rel="stylesheet" media="screen">
 <link href="./cssjs/topmenu.css" rel="stylesheet" media="screen">
+<link href="./cssjs/rating.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 <script src="./cssjs/jquery.js"></script>
 <script src="./cssjs/bootstrap.min.js"></script>
@@ -45,5 +46,3 @@ var userStatusBack = function(json){
 <link href="./cssjs/video-js.css" rel="stylesheet">
 <script src="./cssjs/video.js"></script>
 <script type="text/javascript" src="./cssjs/UserLocation.js"></script>
-
-
