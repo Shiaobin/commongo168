@@ -30,11 +30,11 @@
 	// 資料庫擴充原件(SYSTEM)
 	define('SYS_DB_EXTENSION'  		, 'mysql' ); // 'mssqlnative'
 	// 資料庫主機
-	define('SYS_DBHOST'       		, '140.117.240.248' );
+	define('SYS_DBHOST'       		, 'localhost' );
 	// 資料庫 PORT
-	define('SYS_DBPORT'       		, 'test168' ); // '1433'
+	define('SYS_DBPORT'       		, '3306' ); // '1433'
 	// 資料庫名稱(SYSTEM)
-	define('SYS_DBNAME'				, 'moocs' );
+	define('SYS_DBNAME'				, 'commongo168' );
 	// 資料庫預設語系(SYSTEM)
 	define('SYS_DBLANG'     		, 'utf8');
 	// 資料庫帳號(SYSTEM)
