@@ -1,11 +1,12 @@
 <script type="text/javascript">
-$(function(){
-	var pathname = location.pathname.split("\/");
-	var jsp      = pathname[pathname.length -1];
-
-	var $a = $("#nav").find("a[href='"+ php +"']");
-	$a.parent("li").addClass("active");
-});
+//底下這段不知道是在做三小，先註解掉
+// $(function(){
+// 	var pathname = location.pathname.split("\/");
+// 	var jsp      = pathname[pathname.length -1];
+//
+// 	var $a = $("#nav").find("a href='"+ php +"'");
+// 	$a.parent("li").addClass("active");
+// });
 </script>
 <div id="nav">
 <?php
