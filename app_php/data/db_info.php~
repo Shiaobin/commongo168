@@ -1,6 +1,0 @@
-<?php
-$SERV = "127.0.0.1";
-$USER = "root";
-$PASS = "0827";
-$DBNM = "shopMudi";
-?>
