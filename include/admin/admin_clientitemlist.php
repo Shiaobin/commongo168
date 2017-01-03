@@ -21,7 +21,7 @@ if ((isset($_POST["update_class"])) && ($_POST["update_class"] == "更新")) {
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <?php  //-----------------------更新會員等級折扣----------------------------//
@@ -64,7 +64,7 @@ if ((isset($_POST["del_class"])) && ($_POST["del_class"] == "刪除")) {
   }*/
   echo "<script type='text/javascript'>";
   echo "window.location.href='$deleteGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <?php  //--------------------------取出客戶層級資訊-------------------------------//
@@ -101,12 +101,12 @@ $totalRows_showclassRec = mysql_num_rows($showclassRec);
             <tr>
               <td width="20%" align="center">會員折扣</td>
               <td width="50%" align="left">
-                <input name="class_discount" type="text" style="width:95%;font-size:20px" 
+                <input name="class_discount" type="text" style="width:95%;font-size:20px"
                  value="<?php echo $row_showclassRec['class_discount']; ?>">
               </td>
               <td width="30%" align="left" colspan="2">
                 <input type="submit" name="update_discount" value="更新">
-                 [取值0-1，數字越小優惠越大] 
+                 [取值0-1，數字越小優惠越大]
               </td>
             </tr>
             <!-------------------------------------------------------------->
@@ -115,7 +115,7 @@ $totalRows_showclassRec = mysql_num_rows($showclassRec);
             </tr>
          <!-------------------------------------------------------------->
          </form>
-         </table>  
+         </table>
       <?php } while ($row_showclassRec = mysql_fetch_assoc($showclassRec)); ?>
       </td>
       <?php }?>

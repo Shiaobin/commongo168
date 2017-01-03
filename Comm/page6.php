@@ -1,12 +1,12 @@
 <?php
-if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){ 
+if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){
 echo "<table>
  <tr><th ><font size=4px>
  會 員 中 心:&nbsp;&nbsp;";?>
  <a href="my_info.php">個人資料</a> |&nbsp; <a href="my_order.php">個人訂單 |&nbsp; <a href="userlogout.php">登出</a></font>
  </th></tr>
-   
-  <tr> 
+
+  <tr>
     <td>
     </table>
       <?php
@@ -22,32 +22,32 @@ while($rs = mysql_fetch_array($result)){ ?>
 <tr> <td>以下是您的個人資料，修改完成後單擊「確認修改」：</td></tr>
 
         <form name="myinfo" action="my_info_save.php" method="post">
-        <tr> 
+        <tr>
             <td >姓名:<input type="text" name="Username" value="<?php echo $rs['UserName']; ?>"  class="sizeS" size="20" ></td>
         </tr>
-	<tr> 
+	<tr>
             <td >密 碼:<input type="password" name="pw1" value="<?php echo $rs['UserPassword']; ?>" class="sizeS" size="20" ></td>
         </tr>
 
-        <tr> 
+        <tr>
             <td >信 箱:<input type="text" name="UserMail" value="<?php echo $rs['UserMail']; ?>" class="sizeM" size="20" ></td>
         </tr>
-		<tr> 
+		<tr>
             <td >LINE_ID:<input type="text" name="UserQQ" value="<?php echo $rs['UserQQ']; ?>" class="sizeS" size="20" ></td>
         </tr>
-		<tr> 
-            <td >性 別:<input name="Sex" type="radio" value="1" <?php if($rs['Sex']==1) echo "checked"; ?>>男<input type="radio" name="Sex" value="0" <?php if($rs['Sex']==0) echo "checked"; ?>>女		  
+		<tr>
+            <td >性 別:<input name="Sex" type="radio" value="1" <?php if($rs['Sex']==1) echo "checked"; ?>>男<input type="radio" name="Sex" value="0" <?php if($rs['Sex']==0) echo "checked"; ?>>女
         </td></tr>
-		<tr> 
-            <td >婚 姻:<input name="Maritalstatus" type="radio" value="1" <?php if($rs['MaritalStatus']==1) echo "checked"; ?>>未婚<input type="radio" name="Maritalstatus" value="0" <?php if($rs['MaritalStatus']==0) echo "checked"; ?>>已婚		  
+		<tr>
+            <td >婚 姻:<input name="Maritalstatus" type="radio" value="1" <?php if($rs['MaritalStatus']==1) echo "checked"; ?>>未婚<input type="radio" name="Maritalstatus" value="0" <?php if($rs['MaritalStatus']==0) echo "checked"; ?>>已婚
         </td></tr>
         <?php
 		$Date= $rs['Birthday'];
-		$Ym=explode('-',$Date);   
-        $day=explode('-',$Ym[2]); 
+		$Ym=explode('-',$Date);
+        $day=explode('-',$Ym[2]);
 		?>
-		
-        <tr> 
+
+        <tr>
             <td >生 日:<input type="text" name="Birthday" value="<?php echo $Ym[0];?>" class="sizeSss" size="20" >年<select size="1" name="D1">
   <option value="<?php echo $Ym[1];?>"><?php echo $Ym[1];?></option>
   <option value="1">1</option>
@@ -98,41 +98,41 @@ while($rs = mysql_fetch_array($result)){ ?>
   </select>日</td>
         </tr>
 <!--input type="hidden" name="IncomeRange" value="<%=rsinfo("IncomeRange")%>" class="sizeS" -->
-        <tr> 
+        <tr>
             <td >職 業:<input type="text" name="Occupation" value="<?php echo $rs['Occupation']; ?>" class="sizeM" size="20" ></td>
         </tr>
-        <tr> 
+        <tr>
             <td >公 司:<input type="text" name="CompanyName" value="<?php echo $rs['CompanyName']; ?>" class="sizeM" size="20" ></td>
         </tr>
-        <tr> 
+        <tr>
             <td >電 話:<input type="text" name="HomePhone" value="<?php echo $rs['HomePhone']; ?>" class="sizeM" size="20" ></td>
         </tr>
-        <tr> 
+        <tr>
             <td height="25" >手 機:<input type="text" name="CompPhone" value="<?php echo $rs['CompPhone']; ?>" class="sizeM" size="20" ></td>
         </tr>
-        <tr> 
+        <tr>
             <td >地 址:<input type="text" name="Address" value="<?php echo $rs['Address']; ?>" class="sizeML" size="20" ></td>
         </tr>
-        <tr> 
+        <tr>
             <td >郵遞區號:<input type="text" name="ZipCode" value="<?php echo $rs['ZipCode']; ?>" class="sizeSss" size="20" ></td>
         </tr>
-		 <tr> 
+		 <tr>
             <td >備 忘 錄:<br><TEXTAREA type="text" name="Memo"  ROWS="3" COLS="30"><?php echo $rs['Memo']; ?></TEXTAREA></td>
         </tr>
-        <tr> 
+        <tr>
             <td >是否接收郵件通知:<?php if($rs['WantMessage']==1) ?><input name="WantMessage" type="radio" value="1" <?php if($rs['WantMessage']==1) echo "checked"; ?>>
-            願意 
+            願意
             <input type="radio" name="WantMessage" value="0" <?php if($rs['WantMessage']==0) echo "checked"; ?>>
             暫時不要
-			
+
        </td> </tr>
 
  <tr> <td>
-		  <input type="submit" name="Submit" value="確認修改">&nbsp;&nbsp;&nbsp;&nbsp;    
+		  <input type="submit" name="Submit" value="確認修改">&nbsp;&nbsp;&nbsp;&nbsp;
           <input name="Submit2" type="reset" value="不做修改">
-        </form>        
-	</td></tr> </table> 
-<?php    
+        </form>
+	</td></tr> </table>
+<?php
 }
 }else{
 include("../usererror.php");

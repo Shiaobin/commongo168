@@ -1,6 +1,6 @@
 <?php require('../utility/init.php'); ?>
 
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -19,7 +19,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -37,40 +37,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -98,7 +98,7 @@ function click_submit()
     }
     alert(txt);
 	//document.getElementById("editpages").submit();
-}	
+}
 </script>
 </head>
 <body >
@@ -129,22 +129,22 @@ if( isset($_POST ) )
 }
 else
 {
-	echo "";	
+	echo "";
 }
-if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {	
+if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
   //move_uploaded_file($_FILES["pages_img"]["tmp_name"], "..\webimg\pagesimg\\".$_FILES["pages_img"]["name"].".jpg");
   $img_string = array();
   //print_r($_POST['post_spec1_text']);
   //上傳圖片
   foreach ($_FILES["goods_img"]["error"] as $key => $error) {
-    if ($error == UPLOAD_ERR_OK) {	 
+    if ($error == UPLOAD_ERR_OK) {
        //echo"$error_codes[$error]";
 	   $num =  date('his') + $key;
 	   $type = explode("/",$_FILES["goods_img"]["type"][$key]);
 	   $img_string[$key] = $num.".".$type[1];
 
        move_uploaded_file(
-         $_FILES["goods_img"]["tmp_name"][$key], 
+         $_FILES["goods_img"]["tmp_name"][$key],
          //"/var/www/html/sample/images/webimg/".$img_string[$key]
          "../images/goodsimg/".$img_string[$key]
        ) or die("Problems with upload");
@@ -155,73 +155,73 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
  /////////////////////////////ebooks////////////////////
   //上傳圖片
   ////////////////////////////////////////1//////////////////////////
-  if($_FILES['ebook_imgfull1']['name'] != "" ) 
+  if($_FILES['ebook_imgfull1']['name'] != "" )
   {
     $img_ebook_1 = $_GET['ProdId']."_imgfull1.jpg";
 	move_uploaded_file(($_FILES["ebook_imgfull1"]["tmp_name"]), "../images/goodsimg/".$img_ebook_1);
         resize_goods_image($img_ebook_1);
   }
-  else 
+  else
   {
     $img_ebook_1 = $_POST['imgfull1'];
   }
   ////////////////////////////////////////2//////////////////////////
-  if($_FILES['ebook_imgfull2']['name'] != "" ) 
+  if($_FILES['ebook_imgfull2']['name'] != "" )
   {
     $img_ebook_2 = $_GET['ProdId']."_imgfull2.jpg";
 	move_uploaded_file(($_FILES["ebook_imgfull2"]["tmp_name"]), "../images/goodsimg/".$img_ebook_2);
         resize_goods_image($img_ebook_2);
   }
-  else 
+  else
   {
     $img_ebook_2 = $_POST['imgfull2'];
   }
   ////////////////////////////////////////3//////////////////////////
-  if($_FILES['ebook_imgfull3']['name'] != "" ) 
+  if($_FILES['ebook_imgfull3']['name'] != "" )
   {
     $img_ebook_3 = $_GET['ProdId']."_imgfull3.jpg";
 	move_uploaded_file(($_FILES["ebook_imgfull3"]["tmp_name"]), "../images/goodsimg/".$img_ebook_3);
         resize_goods_image($img_ebook_3);
   }
-  else 
+  else
   {
     $img_ebook_3 = $_POST['imgfull3'];
   }
   ////////////////////////////////////////4//////////////////////////
-  if($_FILES['ebook_imgfull4']['name'] != "" ) 
+  if($_FILES['ebook_imgfull4']['name'] != "" )
   {
     $img_ebook_4 = $_GET['ProdId']."_imgfull4.jpg";
 	move_uploaded_file(($_FILES["ebook_imgfull4"]["tmp_name"]), "../images/goodsimg/".$img_ebook_4);
         resize_goods_image($img_ebook_4);
   }
-  else 
+  else
   {
     $img_ebook_4 = $_POST['imgfull4'];
   }
   ////////////////////////////////////////5//////////////////////////
-  if($_FILES['ebook_imgfull5']['name'] != "" ) 
+  if($_FILES['ebook_imgfull5']['name'] != "" )
   {
     $img_ebook_5 = $_GET['ProdId']."_imgfull5.jpg";
 	move_uploaded_file(($_FILES["ebook_imgfull5"]["tmp_name"]), "../images/goodsimg/".$img_ebook_5);
         resize_goods_image($img_ebook_5);
   }
-  else 
+  else
   {
     $img_ebook_5 = $_POST['imgfull5'];
   }
   ////////////////////////////////////////6//////////////////////////
-  if($_FILES['ebook_imgfull6']['name'] != "" ) 
+  if($_FILES['ebook_imgfull6']['name'] != "" )
   {
     $img_ebook_6 = $_GET['ProdId']."_imgfull2.jpg";
 	move_uploaded_file(($_FILES["ebook_imgfull6"]["tmp_name"]), "../images/goodsimg/".$img_ebook_6);
         resize_goods_image($img_ebook_6);
   }
-  else 
+  else
   {
     $img_ebook_6 = $_POST['imgfull6'];
   }
-  
-    
+
+
   //取得首張圖片資訊
   if($_POST["img_num"] > 0) {
 	$cloume_showImgRec = "%";
@@ -231,9 +231,9 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	$column = "*";
 	$table_prod_img		= SYS_DBNAME . ".prod_img";
 	$whereClause = "ProdId='{$cloume_showImgRec}'";
-	
+
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC", 
+			'mysql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC",
 			'mssql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC",
 			'oci8'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC"
 	);
@@ -242,23 +242,23 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	$img = $row_showimgRec["img_name"];
   }
   else if(count($img_string) > 0)  $img = $img_string[0];
-  else                             $img = "";    
-  
-  
-  
+  else                             $img = "";
+
+
+
   //預設圖片
   if($img == ""){
 	  $table_prodmain = SYS_DBNAME . ".prodmain";
 	  $whereClause = "ProdId='{$_POST['ProdId']}'";
 	  $record = array
-	  (	
+	  (
 		  'ProdId' => $_POST['ProdId'],
 		  'ProdName' => $_POST['ProdName'],
-		  
+
 		  'PriceList' => $_POST['PriceList'],
-		 
+
 		  'ProdDisc' => $_POST['ProdDisc'],
-		 
+
 		  'MemoSpec' => $_POST['MemoSpec'],
 		  'LarCode' => $_POST['LarCode'],
 		  'MidCode' => $_POST['MidCode'],
@@ -275,7 +275,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'imgfull4' => $img_ebook_4,
 				'imgfull5' => $img_ebook_5
 	  );
-		  
+
 	  $is_update = dbUpdate( $table_prodmain, $record, $whereClause );
 
   //商品選項
@@ -287,16 +287,16 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	  $table_prodSpec		= SYS_DBNAME . ".prodspec";
 	  $index_ProSerial_1 = $i + 1;
 	  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_1={$index_ProSerial_1}";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}"
 	  );
 	  $row_result = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 
 	  $rows_count = sizeof($row_result);
-	  
+
 	  if($rows_count>0)
 	  {
 		  //echo "rows_count>0 ";
@@ -304,24 +304,24 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $index_ProSerial_1 = $i + 1;
 		  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_1={$index_ProSerial_1}";
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'SpecName' => $post_spec1_text[$i],
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbUpdate( $table_prodSpec, $record, $whereClause );
 
 	  }
 	  else
 	  {
 		  //echo "rows_count=0 ";
-		  
+
 		  $table_prodSpec = SYS_DBNAME . ".prodspec";
 		  $index_ProSerial_1 = $i + 1;
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'ProSerial_1' => $index_ProSerial_1,
 			  'ProSerial_2' => "0",
@@ -330,9 +330,9 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbInsert( $table_prodSpec, $record );
-	
+
 	  }
   }
   for( $i = 0; $i < sizeof($post_spec2_text); $i++ )
@@ -341,9 +341,9 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	  $table_prodSpec		= SYS_DBNAME . ".prodspec";
 	  $index_ProSerial_2 = $i + 1;
 	  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_2={$index_ProSerial_2}";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}"
 	  );
@@ -356,13 +356,13 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $index_ProSerial_2 = $i + 1;
 		  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_2={$index_ProSerial_2}";
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'SpecName' => $post_spec2_text[$i],
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbUpdate( $table_prodSpec, $record, $whereClause );
 
 	  }
@@ -371,7 +371,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $table_prodSpec = SYS_DBNAME . ".prodspec";
 		  $index_ProSerial_2 = $i + 1;
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'ProSerial_1' => "0",
 			  'ProSerial_2' => $index_ProSerial_2,
@@ -380,33 +380,33 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbInsert( $table_prodSpec, $record );
 
 	  }
   }*/
-  
+
   $table_prod_img = SYS_DBNAME . ".prod_img";
 	  $record = array
-	  (	
+	  (
 		  'ProdId' => $_POST['ProdId'],
 		  'img_name' => 'none.gif'
 	  );
-		  
+
 	  $is_update = dbInsert( $table_prod_img, $record );
 
   //未上傳新圖片
-  }else if(isset($img)){  
-  
+  }else if(isset($img)){
+
   $table_prodmain = SYS_DBNAME . ".prodmain";
 	  $whereClause = "ProdId='{$_POST['ProdId']}'";
 	  $record = array
-	  (	
+	  (
 		  'ProdId' => $_POST['ProdId'],
 		  'ProdName' => $_POST['ProdName'],
-		  
+
 		  'PriceList' => $_POST['PriceList'],
-		 
+
 		  'ProdDisc' => $_POST['ProdDisc'],
 		 'Imgfull' => $img_ebook_1,
 		  'MemoSpec' => $_POST['MemoSpec'],
@@ -424,7 +424,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'imgfull4' => $img_ebook_4,
 				'imgfull5' => $img_ebook_5
 	  );
-		  
+
 	  $is_update = dbUpdate( $table_prodmain, $record, $whereClause );
 
   //商品選項
@@ -436,16 +436,16 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	  $table_prodSpec		= SYS_DBNAME . ".prodspec";
 	  $index_ProSerial_1 = $i + 1;
 	  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_1={$index_ProSerial_1}";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}"
 	  );
 	  $row_result = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 
 	  $rows_count = sizeof($row_result);
-	  
+
 	  if($rows_count>0)
 	  {
 		  //echo "rows_count>0 ";
@@ -453,24 +453,24 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $index_ProSerial_1 = $i + 1;
 		  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_1={$index_ProSerial_1}";
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'SpecName' => $post_spec1_text[$i],
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbUpdate( $table_prodSpec, $record, $whereClause );
 
 	  }
 	  else
 	  {
 		  //echo "rows_count=0 ";
-		  
+
 		  $table_prodSpec = SYS_DBNAME . ".prodspec";
 		  $index_ProSerial_1 = $i + 1;
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'ProSerial_1' => $index_ProSerial_1,
 			  'ProSerial_2' => "0",
@@ -479,7 +479,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbInsert( $table_prodSpec, $record );
 
 	  }
@@ -490,9 +490,9 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	  $table_prodSpec		= SYS_DBNAME . ".prodspec";
 	  $index_ProSerial_2 = $i + 1;
 	  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_2={$index_ProSerial_2}";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}"
 	  );
@@ -505,13 +505,13 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $index_ProSerial_2 = $i + 1;
 		  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_2={$index_ProSerial_2}";
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'SpecName' => $post_spec2_text[$i],
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbUpdate( $table_prodSpec, $record, $whereClause );
 
 	  }
@@ -520,7 +520,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $table_prodSpec = SYS_DBNAME . ".prodspec";
 		  $index_ProSerial_2 = $i + 1;
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'ProSerial_1' => "0",
 			  'ProSerial_2' => $index_ProSerial_2,
@@ -529,24 +529,24 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbInsert( $table_prodSpec, $record );
 
 	  }
   }*/
-  //有上傳新圖片 
-  }else{   
+  //有上傳新圖片
+  }else{
   //更新商品資訊
   //echo"33333333333";
   	$table_prodmain = SYS_DBNAME . ".prodmain";
 	  $whereClause = "ProdId='{$_POST['ProdId']}'";
 	  $record = array
-	  (	
+	  (
 		  'ProdId' => $_POST['ProdId'],
 		  'ProdName' => $_POST['ProdName'],
-		  
+
 		  'PriceList' => $_POST['PriceList'],
-		 
+
 		  'ProdDisc' => $_POST['ProdDisc'],
 		  'Imgfull' => $img_ebook_1,
 		  'MemoSpec' => $_POST['MemoSpec'],
@@ -565,7 +565,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'imgfull4' => $img_ebook_4,
 				'imgfull5' => $img_ebook_5
 	  );
-		  
+
 	  $is_update = dbUpdate( $table_prodmain, $record, $whereClause );
 
   //商品選項
@@ -577,16 +577,16 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	  $table_prodSpec		= SYS_DBNAME . ".prodspec";
 	  $index_ProSerial_1 = $i + 1;
 	  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_1={$index_ProSerial_1}";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}"
 	  );
 	  $row_result = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 
 	  $rows_count = sizeof($row_result);
-	  
+
 	  if($rows_count>0)
 	  {
 		  echo "rows_count>0 ";
@@ -594,24 +594,24 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $index_ProSerial_1 = $i + 1;
 		  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_1={$index_ProSerial_1}";
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'SpecName' => $post_spec1_text[$i],
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbUpdate( $table_prodSpec, $record, $whereClause );
 
 	  }
 	  else
 	  {
 		  echo "rows_count=0 ";
-		  
+
 		  $table_prodSpec = SYS_DBNAME . ".prodspec";
 		  $index_ProSerial_1 = $i + 1;
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'ProSerial_1' => $index_ProSerial_1,
 			  'ProSerial_2' => "0",
@@ -620,7 +620,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbInsert( $table_prodSpec, $record );
 
 	  }
@@ -631,9 +631,9 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	  $table_prodSpec		= SYS_DBNAME . ".prodspec";
 	  $index_ProSerial_2 = $i + 1;
 	  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_2={$index_ProSerial_2}";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause}"
 	  );
@@ -646,13 +646,13 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $index_ProSerial_2 = $i + 1;
 		  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_2={$index_ProSerial_2}";
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'SpecName' => $post_spec2_text[$i],
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbUpdate( $table_prodSpec, $record, $whereClause );
 
 	  }
@@ -661,7 +661,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $table_prodSpec = SYS_DBNAME . ".prodspec";
 		  $index_ProSerial_2 = $i + 1;
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'ProSerial_1' => "0",
 			  'ProSerial_2' => $index_ProSerial_2,
@@ -670,7 +670,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbInsert( $table_prodSpec, $record );
 
 	  }
@@ -683,20 +683,20 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	  $table_prod_img = SYS_DBNAME . ".prod_img";
 	  $index_ProSerial_2 = $i + 1;
 	  $record = array
-	  (	
+	  (
 		  'ProdId' => $_POST['ProdId'],
 		  'img_name' => $img_string[$i]
 	  );
-		  
+
 	  $is_update = dbInsert( $table_prod_img, $record );
 
   }
-  
+
   //商品選項
 
   @$post_spec1_text = $_POST['pro_spec1_text'];
   @$post_spec1_num = $_POST['num_spec1_text'];
-  @$post_spec1_price = $_POST['price_spec1_text'];  
+  @$post_spec1_price = $_POST['price_spec1_text'];
   @$post_upd = $_POST['upd'];
   /*echo "count:".sizeof($post_spec1_text);
   echo "count:".sizeof($post_upd);
@@ -713,15 +713,15 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  $index_ProSerial_1 = $post_upd[$i];
 		  $whereClause = "ProdId='{$_POST['ProdId']}' AND ProSerial_1={$index_ProSerial_1}";
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'SpecName' => $post_spec1_text[$i],
 			  'number' => $post_spec1_num[$i],
-			  'price' => $post_spec1_price[$i],			  
+			  'price' => $post_spec1_price[$i],
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_update = dbUpdate( $table_prodSpec, $record, $whereClause );
 		  $session=$post_upd[$i];
 	  }
@@ -730,24 +730,24 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  if($session==NULL) $session=1;
 		  else $session+=1;
 		  $record = array
-		  (	
+		  (
 			  'ProdId' => $_POST['ProdId'],
 			  'ProSerial_1' => $session,
 			  'ProSerial_2' => "0",
 			  'SpecName' => $post_spec1_text[$i],
 			  'number' => $post_spec1_num[$i],
-			  'price' => $post_spec1_price[$i],	
+			  'price' => $post_spec1_price[$i],
 			  'created_date' => NOW(),
 			  'updated_date' => NOW(),
 			  'opertor' => "admin"
 		  );
-			  
+
 		  $is_insert = dbInsert( $table_prodSpec, $record );
-		  
+
 	  }
   }
-  
-  
+
+
   $updateGoTo = "admineditgoods.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
@@ -772,22 +772,22 @@ if(($_GET['ProdId']) != ""){
 	$column = "*";
 	$table_prodmain		= SYS_DBNAME . ".prodmain";
 	$whereClause = "ProdId='{$_GET['ProdId']}'";
-	
+
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_prodmain} WHERE {$whereClause}", 
+			'mysql'	=> "SELECT {$column} FROM {$table_prodmain} WHERE {$whereClause}",
 			'mssql'	=> "SELECT {$column} FROM {$table_prodmain} WHERE {$whereClause}",
 			'oci8'	=> "SELECT {$column} FROM {$table_prodmain} WHERE {$whereClause}"
 	);
 	$row_showpagesRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
 	$totalRows_showpagesRec = sizeof( $row_showpagesRec );
 
-	
+
 	$column = "*";
 	$table_prodSpec		= SYS_DBNAME . ".prodspec";
 	$whereClause = "ProdId='{$_GET['ProdId']}'";
-	
+
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause} ORDER BY ProSerial_1,ProSerial_2", 
+			'mysql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause} ORDER BY ProSerial_1,ProSerial_2",
 			'mssql'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause} ORDER BY ProSerial_1,ProSerial_2",
 			'oci8'	=> "SELECT {$column} FROM {$table_prodSpec} WHERE {$whereClause} ORDER BY ProSerial_1,ProSerial_2"
 	);
@@ -797,9 +797,9 @@ if(($_GET['ProdId']) != ""){
 	$column = "*";
 	$table_prodmain		= SYS_DBNAME . ".prodmain";
 	$whereClause = "ProdNum='{$_POST['ProdId']}'";
-	
+
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_prodmain} WHERE {$whereClause}", 
+			'mysql'	=> "SELECT {$column} FROM {$table_prodmain} WHERE {$whereClause}",
 			'mssql'	=> "SELECT {$column} FROM {$table_prodmain} WHERE {$whereClause}",
 			'oci8'	=> "SELECT {$column} FROM {$table_prodmain} WHERE {$whereClause}"
 	);
@@ -811,9 +811,9 @@ if(($_GET['ProdId']) != ""){
 <?php  //---------------------------取得商品類別(大類)---------------------------------//
 	$column = "DISTINCT LarCode";
 	$table_prodclass		= SYS_DBNAME . ".prodclass";
-	
+
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_prodclass} ORDER BY LarSeq ASC", 
+			'mysql'	=> "SELECT {$column} FROM {$table_prodclass} ORDER BY LarSeq ASC",
 			'mssql'	=> "SELECT {$column} FROM {$table_prodclass} ORDER BY LarSeq ASC",
 			'oci8'	=> "SELECT {$column} FROM {$table_prodclass} ORDER BY LarSeq ASC"
 	);
@@ -825,9 +825,9 @@ if(($_GET['ProdId']) != ""){
 	$column = "*";
 	$table_prodclass		= SYS_DBNAME . ".prodclass";
 	$whereClause = "LarCode='{$row_showpagesRec['LarCode']}'";
-	
+
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+			'mysql'	=> "SELECT {$column} FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 			'mssql'	=> "SELECT {$column} FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 			'oci8'	=> "SELECT {$column} FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 	);
@@ -841,9 +841,9 @@ if(isset($_POST['LarCode'])){
   $column = "*";
   $table_prodclass		= SYS_DBNAME . ".prodclass";
   $whereClause = "LarCode='{$_POST['LarCode']}'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
   );
@@ -863,9 +863,9 @@ if (isset($_GET['ProdId'])) {
   $column = "*";
   $table_prod_img		= SYS_DBNAME . ".prod_img";
   $whereClause = "ProdId='{$cloume_showImgRec}'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC"
   );
@@ -880,9 +880,9 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   $column = "*";
   $table_prod_img		= SYS_DBNAME . ".prod_img";
   $whereClause = "img_no='{$_POST['img_no']}'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause}", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause}",
 		  'mssql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause}",
 		  'oci8'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause}"
   );
@@ -892,8 +892,8 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   unlink("../images/goodsimg/medium/".$row_showimgRec["img_name"]);
   unlink("../images/goodsimg/small/".$row_showimgRec["img_name"]);
   }
-  
-	
+
+
   //刪除圖片資訊
   $table_prod_img		= SYS_DBNAME . ".prod_img";
   $whereClause = "img_no='{$_POST['img_no']}'";
@@ -906,15 +906,15 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   $column = "*";
   $table_prod_img		= SYS_DBNAME . ".prod_img";
   $whereClause = "ProdId='{$cloume_showImgRec}'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_prod_img} WHERE {$whereClause} ORDER BY img_no ASC"
   );
   $row_showimgRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
   $totalRows_showimgRec = sizeof( $row_showimgRec );
-  
+
 }
 ?>
 <h3 class=ttl01 >修改上架商品資訊</h3>
@@ -942,11 +942,11 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   		},
   		error:function()//失敗就...
   		{
-  			alert("刪除失敗"); 
+  			alert("刪除失敗");
  		}
-		
+
  	});
-	  
+
   }
 </script>
 <table id="table_goods" width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
@@ -963,7 +963,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
             <td align="center">
  <a href="../../images/goodsimg/medium/<?php echo $array['img_name']; ?>" target=_blank >
 <img src="../../images/goodsimg/small/<?php echo $array['img_name']; ?>" alt="" name="image" id="image" align="center" style="padding:5px;"/></a><br />
-                <input name="img_no" type="hidden" value="<?php echo $array['img_no']; ?>"/> 
+                <input name="img_no" type="hidden" value="<?php echo $array['img_no']; ?>"/>
                 <input name="delete_img" type="submit" value="刪除"/><br />
             </td>
         </form>
@@ -980,8 +980,8 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
 <table id="table_goods" width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
   <tr>
     <td>2.上傳圖片:
-      <input name="img_num" type="hidden" value="<?php echo $totalRows_showimgRec;?>" /> 
-      <input name="goods_img_first" type="hidden" value="<?php echo $row_showimgRec['img_name']; ?>" /> 
+      <input name="img_num" type="hidden" value="<?php echo $totalRows_showimgRec;?>" />
+      <input name="goods_img_first" type="hidden" value="<?php echo $row_showimgRec['img_name']; ?>" />
       <input type="file" name="goods_img[]" style="width:50%; height:90%; margin: 2px" multiple/>
     </td>
   </tr>
@@ -991,7 +991,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
       <select id="LarCode" name="LarCode" onChange="this.form.submit()" style="width:20%; height:90%; margin: 3px">
       <option value="0"></option>
         <?php
-        foreach ($row_itemRec as $key => $array){  
+        foreach ($row_itemRec as $key => $array){
         ?>
           <option value="<?php echo $array['LarCode']?>" <?php if($array['LarCode'] == $class) {echo "selected=\"selected\"";} ?>>
 		  <?php echo $array['LarCode']?></option>
@@ -1009,10 +1009,10 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   <!----------------------------所屬中類---------------------------->
   <tr>
     <td>4.所屬中類:
-      <select id="MidCode" name="MidCode" style="width:30%; height:90%; margin: 3px"> 
+      <select id="MidCode" name="MidCode" style="width:30%; height:90%; margin: 3px">
         <option value="0"></option>
         <?php
-        foreach ($row_endItemRec as $key => $array){  
+        foreach ($row_endItemRec as $key => $array){
         ?>
         <option value="<?php echo $array['MidCode']; ?>"<?php if (!(strcmp($array['MidCode'], $row_showpagesRec['MidCode']))) {echo "selected=\"selected\"";} ?>><?php echo $array['MidCode']; ?></option>
         <?php
@@ -1064,13 +1064,13 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
        <textarea id="ProdDisc" name="ProdDisc" cols="50" rows="5" ><?php echo $row_showpagesRec['ProdDisc']; ?></textarea>
      </td>
   </tr>
-  
+
   <!----------------------------商品說明---------------------------->
   <tr>
    <td>12.商品說明:<br>
-<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>    
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
     <textarea id="MemoSpec" name="MemoSpec" class="ckeditor" cols="50" rows="20" ><?php echo $row_showpagesRec['MemoSpec']; ?></textarea></td>
-  </tr>  
+  </tr>
   <!----------------------------支付返回---------------------------->
   <tr>
     <td>13.支付返回:
@@ -1103,7 +1103,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
     </td>
   </tr>
   <tr>
-     <td>5.PHOTO URL1:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull1']; ?>" alt="" name="image" 
+     <td>5.PHOTO URL1:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull1']; ?>" alt="" name="image"
            width="120px" height="120px" id="image" align="center" style="padding:5px;"/>
        <input name="imgfull1" type="text" value="<?php echo $row_showpagesRec['imgfull1']; ?>" />
        <input name="ebook_imgfull1" type="file" value="Select a File..." style="width:300px; height:100%; margin: 3px"/> </p>
@@ -1111,7 +1111,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   </tr>
   <!----------------------------上傳圖片---------------------------->
   <tr>
-     <td>6.PHOTO URL2:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull2']; ?>" alt="" name="image" 
+     <td>6.PHOTO URL2:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull2']; ?>" alt="" name="image"
            width="120px" height="120px" id="image" align="center" style="padding:5px;"/>
        <input name="imgfull2" type="text" value="<?php echo $row_showpagesRec['imgfull2']; ?>" />
        <input name="ebook_imgfull2" type="file" value="Select a File..." style="width:300px; height:100%; margin: 3px"/> </p>
@@ -1119,24 +1119,24 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   </tr>
   <!----------------------------上傳圖片---------------------------->
   <tr>
-     <td>7.PHOTO URL3:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull3']; ?>" alt="" name="image" 
+     <td>7.PHOTO URL3:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull3']; ?>" alt="" name="image"
            width="120px" height="120px" id="image" align="center" style="padding:5px;"/>
        <input name="imgfull3" type="text" value="<?php echo $row_showpagesRec['imgfull3']; ?>" />
-       <input name="ebook_imgfull3" type="file" value="Select a File..." style="width:300px; height:100%; margin: 3px"/> </p> 
+       <input name="ebook_imgfull3" type="file" value="Select a File..." style="width:300px; height:100%; margin: 3px"/> </p>
      </td>
   </tr>
 	<!----------------------------上傳圖片---------------------------->
   <tr>
-     <td>8.PHOTO URL4:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull4']; ?>" alt="" name="image" 
+     <td>8.PHOTO URL4:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull4']; ?>" alt="" name="image"
            width="120px" height="120px" id="image" align="center" style="padding:5px;"/>
        <input name="imgfull4" type="text" value="<?php echo $row_showpagesRec['imgfull4']; ?>" />
        <input name="ebook_imgfull4" type="file" value="Select a File..." style="width:300px; height:100%; margin: 3px"/> </p>
-       
+
      </td>
   </tr>
   <!----------------------------上傳圖片---------------------------->
   <tr>
-     <td>9.PHOTO URL5:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull5']; ?>" alt="" name="image" 
+     <td>9.PHOTO URL5:<img src="../../images/goodsimg/small/<?php echo $row_showpagesRec['imgfull5']; ?>" alt="" name="image"
            width="120px" height="120px" id="image" align="center" style="padding:5px;"/>
        <input name="imgfull5" type="text" value="<?php echo $row_showpagesRec['imgfull5']; ?>" />
        <input name="ebook_imgfull5" type="file" value="Select a File..." style="width:300px; height:100%; margin: 3px"/> </p>
@@ -1185,7 +1185,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
     <td>17.設定類型 <input type="button" name="pro_spec1_plus[]" id="btn" value="+" style="width: 20px;"/>
     <?php $arr_pro_spec_1 = array(); $arr_pro_spec_2 = array(); $arr_ProSerial_2 = array();?>
     <table id="table_pro_spec_1" width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable"  name="table_pro_spec_1">
-    <?php foreach ($query_spec as $key => $row_showgoodsRec){  
+    <?php foreach ($query_spec as $key => $row_showgoodsRec){
 		if( $row_showgoodsRec['ProSerial_1'] == 0 ) {array_push( $arr_pro_spec_2, $row_showgoodsRec['SpecName'] );array_push( $arr_ProSerial_2, $row_showgoodsRec['ProSerial_2'] ); continue;} else array_push( $arr_pro_spec_1, $row_showgoodsRec['SpecName'] )?>
     	<tr>
         	<td>
@@ -1201,7 +1201,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
             </label>
             <label id="dellabel<?php echo $row_showgoodsRec['ProSerial_1'];?>">
               <input type="button" name="del" id="del1<?php echo $row_showgoodsRec['ProSerial_1'];?>" value="x" onClick="del_spec_1(<?php echo $row_showgoodsRec['ProSerial_1'];?>,<?php echo $_GET['ProdId'];?>,this);" style="width: 20px;"/>
-            </label>               
+            </label>
             </td>
          </tr>
 	<?php } ?>
@@ -1217,7 +1217,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
             </label>
             <label>
               <input type="text" name="price_spec1_text[]" class="sizeSss" placeholder="單價" />
-            </label>         
+            </label>
             </td>
          </tr>
       <?php } ?>
@@ -1263,7 +1263,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
       <input type="reset" name="reset"  value="重設" style="font-size:16px;width:60px;height:30px"/>
     </td>
   </tr>
-  
+
   <!----------------------------------------------------------->
 </table>
 </form>

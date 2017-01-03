@@ -14,7 +14,7 @@
             <li data-target="#myCarousel" data-slide-to="<?php echo $i++; ?>" class=""></li>
             <?php } ?>
     <?php } ?>
-     	
+
       </ol>
       <div class="carousel-inner" role="listbox">
         <!--p class="fixed-text">不捲動的文字</p-->
@@ -22,8 +22,8 @@
 		$result_banner = selectAll_no_where($webshop,"*","banner","po ASC");
 		$i=0;
 		while($rs_banner = mysql_fetch_array($result_banner)){
-		if($i==0){	
-	?>    
+		if($i==0){
+	?>
         <div class="item active">
     <?php }else{ ?>
     	<div class="item">
@@ -55,4 +55,4 @@
 
 
 
-         
+

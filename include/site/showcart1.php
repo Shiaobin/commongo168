@@ -24,7 +24,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "delform")) {
   $url = $updateGoTo;
   echo "<script type='text/javascript'>";
   echo "window.location.href='$url'";
-  echo "</script>"; 
+  echo "</script>";
 }
 
 if ((isset($_GET['car_num'])) && ($_GET['car_num'] != "") && (isset($_GET['del']))) {
@@ -42,11 +42,11 @@ if ((isset($_GET['car_num'])) && ($_GET['car_num'] != "") && (isset($_GET['del']
     $deleteGoTo .= $_SERVER['QUERY_STRING'];
   }
   */
-  
+
   $url = $deleteGoTo;
   echo "<script type='text/javascript'>";
   echo "window.location.href='$url'";
-  echo "</script>"; 
+  echo "</script>";
 }
 
 $currentPage = $_SERVER["PHP_SELF"];
@@ -73,11 +73,11 @@ if (isset($_GET['ProdNum'])) {
 }
 
 
-	
+
 /*
 mysql_select_db($database_webshop, $webshop);
-$query_productRec = sprintf("SELECT * FROM ProdMain 
-LEFT JOIN Prod_img ON Prod_img.ProdId = ProdMain.ProdId 
+$query_productRec = sprintf("SELECT * FROM ProdMain
+LEFT JOIN Prod_img ON Prod_img.ProdId = ProdMain.ProdId
 WHERE LarCode=%s && MidCode=%s && ProdNum=%s && Online='1'
 order by img_no ASC", GetSQLValueString($LarCode, "text"),GetSQLValueString($MidCode, "text"),GetSQLValueString($ProdNum, "int"));
 $query_limit_productRec = sprintf("%s LIMIT %d, %d", $query_productRec, $startRow_productRec, $maxRows_productRec);
@@ -110,7 +110,7 @@ if($totalRows_carRec == 0) {
   $url = "index.php";
   echo "<script type='text/javascript'>";
   echo "window.location.href='$url'";
-  echo "</script>"; 
+  echo "</script>";
 }
 
 $queryString_productRec = "";
@@ -118,7 +118,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_productRec") == false && 
+    if (stristr($param, "pageNum_productRec") == false &&
         stristr($param, "totalRows_productRec") == false) {
       array_push($newParams, $param);
     }
@@ -146,9 +146,9 @@ $queryString_productRec = sprintf("&totalRows_productRec=%d%s", $totalRows_produ
       <td width="15%" align="center">&nbsp;</td>
   	</tr>
     <!-------------------------------------------------------------->
-    <?php 
+    <?php
 	  $total = 0;
-	  
+
 	    foreach ($car_items as $key => $car_item )
 		{ ?>
           <tr>
@@ -170,7 +170,7 @@ $queryString_productRec = sprintf("&totalRows_productRec=%d%s", $totalRows_produ
             <input type="hidden" name="MM_update" value="delform" />
             </form>
           </tr>
-      <?php 
+      <?php
       $total=$total+($car_item->_goods_quantity*$car_item->_goods_price);
 	} ?>
     <!-------------------------------------------------------------->
@@ -179,16 +179,16 @@ $queryString_productRec = sprintf("&totalRows_productRec=%d%s", $totalRows_produ
     </tr>
     <!-------------------------------------------------------------->
     <tr>
-      <td align="left" colspan="6"><p style="line-height: 200%">如需修改商品數量，請填寫好新的數量，請點擊每項商品後方按鈕"<img src="../../images/goodsimg/button.PNG" alt="" name="image" 
+      <td align="left" colspan="6"><p style="line-height: 200%">如需修改商品數量，請填寫好新的數量，請點擊每項商品後方按鈕"<img src="../../images/goodsimg/button.PNG" alt="" name="image"
           id="image" align="center" style="padding:5px;"/>"</td>
-    </tr>				
+    </tr>
   <?php } // Show if recordset not empty ?>
   <!-------------------------------------------------------------->
   <tr>
     <td colspan="6" align="center">
-      <input name="shopping" type="submit" id="shopping" 
+      <input name="shopping" type="submit" id="shopping"
              onclick="MM_goToURL('parent','goods.php');return document.MM_returnValue" value="繼續購物" style="font-size:16px;width:150px;height:30px"/>
-      <input name="buy" type="submit" id="buy" 
+      <input name="buy" type="submit" id="buy"
              onclick="MM_goToURL('parent','order.php');return document.MM_returnValue" value="立即結帳" style="font-size:16px;width:150px;height:30px"/>
     </td>
   </tr>

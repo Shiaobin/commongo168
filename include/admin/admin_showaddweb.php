@@ -6,33 +6,33 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['ProdDisc'] != "") && ($_POST['LarCode'] != "") && ($_POST['MidCode'] != "")) {
-	
-  $img_string = array();	
-  
+
+  $img_string = array();
+
   /*if($_POST["ImgPrev[]"] == ""){
     $num1 = $key + $num + $key*2 + date('his');
   }else{*/
 	//上傳圖片
   foreach ($_FILES["ImgPrev"]["error"] as $key => $error) {
-    if ($error == UPLOAD_ERR_OK) {	 
+    if ($error == UPLOAD_ERR_OK) {
       echo"$error_codes[$error]";
 	  $num =  date('his') + $key;
-	  $num1 = $key + $num + $key*2 + date('his'); 
+	  $num1 = $key + $num + $key*2 + date('his');
 	  $type = explode("/",$_FILES["ImgPrev"]["type"][$key]);
 	  $img_string[$key] = $num.".".$type[1];
 
       move_uploaded_file(
-        $_FILES["ImgPrev"]["tmp_name"][$key], 
+        $_FILES["ImgPrev"]["tmp_name"][$key],
          "../images/webimg/".$img_string[$key]
          //"/var/www/html/sample/images/webimg/".$img_string[$key]
       ) or die("Problems with upload");
 
       resize_web_image($img_string[$key]);
     }
-  } 
+  }
   if($num1 == ""){
 	  $num1 = $key + $img + $key*2 + date('his');
-	  
+
 	  $table_compmain		= SYS_DBNAME . ".compmain";
   $record = array(
   				'LarCode' => $_POST['LarCode'],
@@ -92,15 +92,15 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					   GetSQLValueString($img_string[0], "text"));
 
   mysql_select_db($database_webshop, $webshop);
-  $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());  
+  $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());
 	  */
   }
-	  
+
 
   if($_POST['LarCode']=="") $_POST['LarCode'] = 0;
   if(count($img_string) > 0) $img = $img_string[0];
   else                       $img = "";
-  
+
 
 
   //更新圖片資訊
@@ -119,8 +119,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
     mysql_select_db($database_webshop, $webshop);
     $Result2 = mysql_query($insertSQL, $webshop) or die(mysql_error());*/
   }
-  
-  
+
+
   $insertGoTo = "adminweb.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
@@ -140,7 +140,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
 $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC", 
+		'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC",
 		'mssql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC",
 		'oci8'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC"
 		);
@@ -158,11 +158,11 @@ $row_itemRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 $row_endItemRec = -1;
 if(isset($_POST['LarCode'])){
   $class = $_POST['LarCode'];
-  
+
   $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "LarCode='{$_POST['LarCode']}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'mssql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'oci8'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 		);
@@ -188,16 +188,16 @@ else{
   <!----------------------------所屬大類---------------------------->
   <tr>
     <td><font color=#0000FF>1.所屬大類</font><font color="#FF3333">  *</font>
-      <select id="LarCode" name="LarCode" onchange="this.form.submit()" 
+      <select id="LarCode" name="LarCode" onchange="this.form.submit()"
               style="width:20%; height:90%; margin: 3px">
-      <option value="0"></option> 
+      <option value="0"></option>
       <?php
-	     foreach ($row_itemRec as $key => $array){   
+	     foreach ($row_itemRec as $key => $array){
 	  ?>
         <option value="<?php echo $array['LarCode']?>" <?php if($array['LarCode'] == $class) {echo "selected=\"selected\"";} ?>>
 		<?php echo $array['LarCode']?></option>
       <?php
-      } 
+      }
       $rows = sizeof($totalRows_endItemRec);
       if($rows > 0) {
         /*mysql_data_seek($itemRec, 0);
@@ -212,7 +212,7 @@ else{
     <td><font color=#0000FF>2.所屬中類</font><font color="#FF3333">  *</font>
       <select id="MidCode" name="MidCode" style="width:50%; height:90%; margin: 3px">
       <?php
-	    foreach ($row_endItemRec as $key => $array){   
+	    foreach ($row_endItemRec as $key => $array){
 	  ?>
         <option value="<?php echo $array['MidCode']?>"><?php echo $array['MidCode']?></option>
       <?php
@@ -238,7 +238,7 @@ else{
       <textarea id="ProdDisc" name="ProdDisc" cols="" rows="5" >0</textarea><br />
       <font color="#FF0000">[若前台不想出現文章簡述 內容，則輸入 0 值即可。]</font>
     </td>
-  </tr>  
+  </tr>
   <!----------------------------詳細說明---------------------------->
   <tr>
     <td><font color=#0000FF>5.詳細說明</font><br>
@@ -255,7 +255,7 @@ else{
        CKEDITOR.replace( 'MemoSpec' );
      </script>
    </td>
-  </tr>  
+  </tr>
 
   <!------------------------新增按鈕---------------------------->
   <tr>

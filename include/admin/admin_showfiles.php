@@ -11,7 +11,7 @@ $startRow_showfilesRec = $pageNum_showfilesRec * $maxRows_showfilesRec;
 $table_download		= SYS_DBNAME . ".download";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_showfilesRec}, {$maxRows_showfilesRec}", 
+		'mysql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_showfilesRec}, {$maxRows_showfilesRec}",
 		'mssql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_showfilesRec}, {$maxRows_showfilesRec}",
 		'oci8'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_showfilesRec}, {$maxRows_showfilesRec}"
 		);
@@ -37,7 +37,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showfilesRec") == false && 
+    if (stristr($param, "pageNum_showfilesRec") == false &&
         stristr($param, "totalRows_showfilesRec") == false) {
       array_push($newParams, $param);
     }
@@ -54,7 +54,7 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
   $class = ($_POST["search_class"]);
   $name = trim($_POST["search_name"]);
   $open = $_POST["search_type"];
-  
+
   $string = "";
   if($open == 0)
       $string = $string."set_open = '0'";
@@ -62,15 +62,15 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
       $string = $string."set_open = '1'";
   else if($open == 2)
       $string = $string."(set_open = '0' || set_open = '1')";
- 
+
   if($name != "") {
 	$string = $string." && "."Dow_Name LIKE '%$name%'";
   }
-  
+
   if($class != "-1") {
 	 $string = $string." && "."download.class_id = '$class'";
   }
-  
+
   $maxRows_showfilesRec = 8;
   $pageNum_showfilesRec = 0;
   if (isset($_GET['pageNum_showfilesRec'])) {
@@ -81,7 +81,7 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
 $table_download		= SYS_DBNAME . ".download";
 	$whereClause = "CONCAT($string)";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_download} LEFT JOIN index_files_class ON download.class_id = index_files_class.class_id WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_showfilesRec}, {$maxRows_showfilesRec}", 
+			'mysql'	=> "SELECT * FROM {$table_download} LEFT JOIN index_files_class ON download.class_id = index_files_class.class_id WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_showfilesRec}, {$maxRows_showfilesRec}",
 			'mssql'	=> "SELECT * FROM {$table_download} LEFT JOIN index_files_class ON download.class_id = index_files_class.class_id WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_showfilesRec}, {$maxRows_showfilesRec}",
 			'oci8'	=> "SELECT * FROM {$table_download} LEFT JOIN index_files_class ON download.class_id = index_files_class.class_id WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_showfilesRec}, {$maxRows_showfilesRec}"
 			);
@@ -114,7 +114,7 @@ if ((isset($_POST["open_btn"])) && ($_POST["open_btn"] == "上線")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."Dow_ID='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $table_download		= SYS_DBNAME . ".download";
 	  $record = array( 'Online' => '1' );
 	  $whereClause = "CONCAT($update_string)";
@@ -140,7 +140,7 @@ if ((isset($_POST["close_btn"])) && ($_POST["close_btn"] == "下線")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."Dow_ID='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $table_download		= SYS_DBNAME . ".download";
 	  $record = array( 'Online' => '0' );
 	  $whereClause = "CONCAT($update_string)";
@@ -166,7 +166,7 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."Dow_ID='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $table_download		= SYS_DBNAME . ".download";
 	  $whereClause = "CONCAT($delete_string)";
 	  dbDelete( $table_download, $whereClause );
@@ -183,7 +183,7 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 }
 ?>
 <?php  //---------------------------加資料功能-------------------------------//
-if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "新增檔案")) { 
+if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "新增檔案")) {
 	  $addGoTo = "adminaddfiles.php";
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$addGoTo'";
@@ -192,11 +192,11 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "新增檔案")) {
 ?>
 
 <script>
-function check_all(obj,cName) 
-{ 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
-} 
+function check_all(obj,cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
+}
 </script>
 <h3 class=ttl01 >檔案管理</h3>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableLayout01">
@@ -219,7 +219,7 @@ function check_all(obj,cName)
         </td>
         <td align="left"><input type="submit" name="search_btn"  value="搜尋"/></td>
       </tr>
-    </form>  
+    </form>
     </table>
   </td>
 </tr>
@@ -260,7 +260,7 @@ function check_all(obj,cName)
   <td align="center"><input name="add_btn" type="submit" value="新增檔案" style="margin:5px"></td>
 </tr>
 <!-----------------------------page control----------------------------->
-<tr> 
+<tr>
   <td colspan="5" align="right" bgcolor="#cfcfcf">
     <table border="0">
       <tr>

@@ -5,19 +5,19 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {	
+if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
   //move_uploaded_file($_FILES["pages_img"]["tmp_name"], "..\webimg\pagesimg\\".$_FILES["pages_img"]["name"].".jpg");
-  $img_string = array();	
+  $img_string = array();
 
   //上傳圖片
   foreach ($_FILES["goods_img"]["error"] as $key => $error) {
-    if ($error == UPLOAD_ERR_OK) {	 
+    if ($error == UPLOAD_ERR_OK) {
        echo"$error_codes[$error]";
 	   $num =  date('his') + $key;
 	   $img_string[$key] = $num.".jpg";
 
        move_uploaded_file(
-         realpath($_FILES["goods_img"]["tmp_name"][$key]), 
+         realpath($_FILES["goods_img"]["tmp_name"][$key]),
          //"/var/www/html/sample/images/webimg/".$img_string[$key]
          "../images/webimg/".$img_string[$key]
        ) or die("Problems with upload");
@@ -25,18 +25,18 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
        resize_web_image($img_string[$key]);
     }
   }
-  
+
   //取得首張圖片資訊
   if($_POST["img_num"] > 0) {
 	$cloume_showImgRec = "%";
 	if (isset($_GET['ProdId'])) {
       $cloume_showImgRec = $_GET['ProdId'];
     }
-	
+
 	$table_comp_img		= SYS_DBNAME . ".comp_img";
 	$whereClause = "ProdId='{$cloume_showImgRec}'";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} order by img_no ASC", 
+			'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} order by img_no ASC",
 			'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} order by img_no ASC",
 			'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} order by img_no ASC"
 			);
@@ -50,8 +50,8 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	$img = $row_showimgRec["img_name"];
   }
   else if(count($img_string) > 0)  $img = $img_string[0];
-  else                             $img = "";    
-  
+  else                             $img = "";
+
   //預設圖片
   if($img == ""){
 	  $table_compmain		= SYS_DBNAME . ".compmain";
@@ -65,11 +65,11 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'ImgFull' => 'none.gif'
 				);
   $whereClause = "ProdId={$_POST['ProdId']}";
-		
+
   dbUpdate( $table_compmain, $record, $whereClause );
   /*
   $updateSQL = sprintf("UPDATE compmain SET LarCode=%s, MidCode=%s, ProdName=%s, paybackurl=%s,
-                        ProdDisc=%s, MemoSpec=%s, ImgFull='none.gif' where ProdId=%s", 
+                        ProdDisc=%s, MemoSpec=%s, ImgFull='none.gif' where ProdId=%s",
 					    GetSQLValueString($_POST['LarCode'], "text"),
 					    GetSQLValueString($_POST['MidCode'], "text"),
                                             GetSQLValueString($_POST['MidCode'], "text"),
@@ -81,7 +81,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
   mysql_select_db($database_webshop, $webshop);
   $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
   */
-  
+
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $record = array(
   				'ProdId' => $_POST['ProdId'],
@@ -107,11 +107,11 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'MemoSpec' => $_POST['MemoSpec']
 				);
   $whereClause = "ProdId={$_POST['ProdId']}";
-  
+
   dbUpdate( $table_compmain, $record, $whereClause );
-/*  
+/*
   $updateSQL = sprintf("UPDATE compmain SET LarCode=%s, MidCode=%s, ProdName=%s, paybackurl=%s,
-                        ProdDisc=%s, MemoSpec=%s where ProdId=%s", 
+                        ProdDisc=%s, MemoSpec=%s where ProdId=%s",
 					    GetSQLValueString($_POST['LarCode'], "text"),
 					    GetSQLValueString($_POST['MidCode'], "text"),
                                             GetSQLValueString($_POST['MidCode'], "text"),
@@ -121,9 +121,9 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 					    GetSQLValueString($_POST['ProdId'], "text"));
 
   mysql_select_db($database_webshop, $webshop);
-  $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error()); 
+  $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
   */
-  //有上傳新圖片 
+  //有上傳新圖片
   }else{
   //更新網頁資訊
   $table_compmain		= SYS_DBNAME . ".compmain";
@@ -137,11 +137,11 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'ImgFull' => $img_string[0]
 				);
   $whereClause = "ProdId={$_POST['ProdId']}";
-  
+
   dbUpdate( $table_compmain, $record, $whereClause );
   /*
   $updateSQL = sprintf("UPDATE compmain SET LarCode=%s, MidCode=%s, paybackurl=%s,
-                        ProdDisc=%s, MemoSpec=%s, ImgFull=%s where ProdId=%s", 
+                        ProdDisc=%s, MemoSpec=%s, ImgFull=%s where ProdId=%s",
 					    GetSQLValueString($_POST['LarCode'], "text"),
 					    GetSQLValueString($_POST['MidCode'], "text"),
 					    GetSQLValueString($_POST['paybackurl'], "text"),
@@ -173,10 +173,10 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
       mysql_select_db($database_webshop, $webshop);
       $Result3 = mysql_query($insertSQL, $webshop) or die(mysql_error());*/
   }
-  
-  
-  
-  
+
+
+
+
   $updateGoTo = "adminweb.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
@@ -201,7 +201,7 @@ if(($_GET['ProdId']) != ""){
 	$table_compmain		= SYS_DBNAME . ".compmain";
 	$whereClause = "compmain.ProdId='{$cloume_showpagesRec}'";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}", 
+			'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}",
 			'mssql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}",
 			'oci8'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}"
 			);
@@ -213,13 +213,13 @@ if(($_GET['ProdId']) != ""){
 	WHERE compmain.ProdId=%s", GetSQLValueString($cloume_showpagesRec, "text"));
 	$showpagesRec = mysql_query($query_showpagesRec, $webshop) or die(mysql_error());
 	$row_showpagesRec = mysql_fetch_assoc($showpagesRec);
-	$totalRows_showpagesRec = mysql_num_rows($showpagesRec);	
+	$totalRows_showpagesRec = mysql_num_rows($showpagesRec);
 	*/
 }else{
 	$table_compmain		= SYS_DBNAME . ".compmain";
 	$whereClause = "compmain.ProdNum='{$cloume_showpagesRec2}'";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}", 
+			'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}",
 			'mssql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}",
 			'oci8'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}"
 			);
@@ -239,7 +239,7 @@ if(($_GET['ProdId']) != ""){
 $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC", 
+		'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC",
 		'mssql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC",
 		'oci8'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC"
 		);
@@ -256,7 +256,7 @@ $totalRows_itemRec = mysql_num_rows($itemRec);
 $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "compclass.LarCode='{$row_showpagesRec['LarCode']}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'mssql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'oci8'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 		);
@@ -275,7 +275,7 @@ if(isset($_POST['LarCode'])){
   $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "LarCode='{$_POST['LarCode']}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'mssql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'oci8'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 		);
@@ -302,7 +302,7 @@ if (isset($_GET['ProdId'])) {
 $table_comp_img		= SYS_DBNAME . ".comp_img";
 $whereClause = "ProdId='{$cloume_showImgRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC", 
+		'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC"
 		);
@@ -323,7 +323,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "img_no={$_POST['img_no']}";
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC", 
+		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC"
 		  );
@@ -339,24 +339,24 @@ $totalRows_showimgRec = sizeof($row_showimgRec);
   unlink("../images/webimg/medium/".$row_showimgRec["img_name"]);
   unlink("../images/webimg/small/".$row_showimgRec["img_name"]);
   }
-	
+
   //刪除圖片資訊
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "img_no={$_POST['img_no']})";
   dbDelete( $table_comp_img, $whereClause );
-	/*  
-  mysql_select_db($database_webshop, $webshop);	
+	/*
+  mysql_select_db($database_webshop, $webshop);
   $deleteSQL = sprintf("DELETE FROM comp_img WHERE img_no=%s", GetSQLValueString($_POST['img_no'], "int"));
   $Result = mysql_query($deleteSQL, $webshop) or die(mysql_error());
   */
   //重新取得圖片資訊
   $cloume_showImgRec = "%";
   if (isset($_GET['ProdId'])) $cloume_showImgRec = $_GET['ProdId'];
-  
+
    $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "ProdId={$cloume_showImgRec}";
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause}", 
+		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause}",
 		  'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause}",
 		  'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause}"
 		  );
@@ -379,7 +379,7 @@ $totalRows_showimgRec = sizeof($row_showimgRec);
   <!----------------------------網頁圖片---------------------------->
   <?php if($totalRows_showimgRec > 0) { ?>
   <tr>
-  	
+
   	<td align="left" valign="bottom">
     	<table border="0" >
         <tr>
@@ -388,7 +388,7 @@ $totalRows_showimgRec = sizeof($row_showimgRec);
             <td width=50>
 <a href="../../images/webimg/medium/<?php echo $array['img_name']; ?>" target=_blank >
 <img src="../../images/webimg/medium/<?php echo $array['img_name']; ?>" alt="" name="image" width="120px" height="100px" id="image" align="center" style="padding:5px;"/></a><br />
-                <input name="img_no" type="hidden" value="<?php echo $array['img_no']; ?>"/> 
+                <input name="img_no" type="hidden" value="<?php echo $array['img_no']; ?>"/>
                 <input name="delete_img" type="submit" value="刪除"/><br />
             </td>
         </form>
@@ -404,38 +404,38 @@ $totalRows_showimgRec = sizeof($row_showimgRec);
   <tr>
 
     <td  align="left" valign="bottom">
-      <input name="img_num" type="hidden" value="<?php echo $totalRows_showimgRec;?>" /> 
-      <input name="goods_img_first" type="hidden" value="<?php echo $row_showimgRec['img_name']; ?>" /> 
+      <input name="img_num" type="hidden" value="<?php echo $totalRows_showimgRec;?>" />
+      <input name="goods_img_first" type="hidden" value="<?php echo $row_showimgRec['img_name']; ?>" />
       <input type="file" name="goods_img[]" style="width:50%; height:90%; margin: 2px" multiple/>
     </td>
   </tr>
 
   <!-------------------------------------------------------------->
   <tr>
-   
+
     <td align="left"><font color=#0000FF>1.所屬大類
       <select id="LarCode" name="LarCode" onchange="this.form.submit()" style="width:20%; height:90%; margin: 3px">
       <option value="0"></option>
         <?php
-        foreach ($row_itemRec as $key => $array){ 
+        foreach ($row_itemRec as $key => $array){
         ?>
           <option value="<?php echo $array['LarCode']?>" <?php if($array['LarCode'] == $class) {echo "selected=\"selected\"";} ?>>
 		  <?php echo $array['LarCode']?></option>
         <?php
         }
-        
+
         ?>
       </select>
     </td>
   </tr>
   <!----------------------------所屬中類---------------------------->
   <tr>
-  
+
     <td align="left"><font color=#0000FF>2.所屬中類
-      <select id="MidCode" name="MidCode" > 
+      <select id="MidCode" name="MidCode" >
         <option value="0"></option>
         <?php
-        foreach ($row_endItemRec as $key => $array){ 
+        foreach ($row_endItemRec as $key => $array){
         ?>
         <option value="<?php echo $array['MidCode']?>"<?php if (!(strcmp($array['MidCode'], $array['MidCode']))) {echo "selected=\"selected\"";} ?>><?php echo $array['MidCode']?></option>
         <?php
@@ -448,12 +448,12 @@ $totalRows_showimgRec = sizeof($row_showimgRec);
   <!--<tr>
     <td  align="center">連結網址</td>
     <td   align="left">
-    <input name="paybackurl" type="text" style="width:58%; height:90%; margin: 3px" value="<?php echo $row_showpagesRec['paybackurl']; ?>"/> 
+    <input name="paybackurl" type="text" style="width:58%; height:90%; margin: 3px" value="<?php echo $row_showpagesRec['paybackurl']; ?>"/>
     </td>
   </tr>-->
   <!----------------------------文章簡述---------------------------->
   <tr>
-   
+
    <td valign="top"><font color=#0000FF>3.文章簡述<br>
     <textarea id="ProdDisc" name="ProdDisc" cols="80" rows="5"><?php echo $row_showpagesRec['ProdDisc']; ?></textarea><br />
     <font color="#FF0000">[若前台不想出現文章簡述 內容，則輸入 0 值即可。]
@@ -461,15 +461,15 @@ $totalRows_showimgRec = sizeof($row_showimgRec);
   </tr>
   <!----------------------------詳細說明---------------------------->
   <tr>
-   
+
    <td align="left"><font color=#0000FF>4.詳細說明
 <script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
     <textarea id="MemoSpec" name="MemoSpec" class="ckeditor" cols="80" rows="20" ><?php echo $row_showpagesRec['MemoSpec']; ?></textarea></td>
-  </tr> 
+  </tr>
 
   <!------------------------新增按鈕---------------------------->
   <tr>
-  
+
       <input name="ProdId" type="hidden" value="<?php echo $row_showpagesRec['ProdId']; ?>" />
     <td   align="left">
       <input type="submit" name="update_pages"  value="更新" style="font-size:16px;width:50px;height:25px"/>

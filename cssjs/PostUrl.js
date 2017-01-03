@@ -1,9 +1,9 @@
 var PostUrl = (function () {
- 
+
   var instance;
- 
+
   function init() {
- 
+
     return {
     	register       : function(){return "RegisterSv.sv";}
         ,login         : function(){return "LoginSv.sv";}
@@ -33,9 +33,9 @@ var PostUrl = (function () {
         ,newproposal   : function(){return "NewPorposalSv.sv";}
         ,QandA   : function(){return "SelectQandASv.sv";}
     };
- 
+
   };
- 
+
   return {
     getInstance: function () {
       if ( !instance ) {
@@ -44,5 +44,5 @@ var PostUrl = (function () {
       return instance;
     }
   };
- 
+
 })();

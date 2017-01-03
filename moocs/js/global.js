@@ -26,10 +26,10 @@ var initRollover = function(){
 		var imgsrc = this.src;
 		var dot = this.src.lastIndexOf('.');
 		var imgsrc_on = this.src.substr(0, dot) + '_on' + this.src.substr(dot, 4);
-		
+
 		imgObj[this.src] = new Image();
 		imgObj[this.src].src = imgsrc_on;
-		
+
 		$(this).hover( function() { this.src = imgsrc_on; }, function() { this.src = imgsrc; } );
 	});
 }

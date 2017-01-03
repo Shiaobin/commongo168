@@ -18,7 +18,7 @@ $column = "*";
 $whereClause = "1=1";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_filesRec}, {$maxRows_filesRec} ", 
+		'mysql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_filesRec}, {$maxRows_filesRec} ",
 		'mssql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_filesRec}, {$maxRows_filesRec} ",
 		'oci8'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC LIMIT {$startRow_filesRec}, {$maxRows_filesRec} "
 );
@@ -31,13 +31,13 @@ $query_limit_filesRec = sprintf("%s LIMIT %d, %d", $query_filesRec, $startRow_fi
 $filesRec = mysql_query($query_limit_filesRec, $webshop) or die(mysql_error());
 $row_filesRec = mysql_fetch_assoc($filesRec);
 */
-$total_filesRec = sizeof($row_filesRec); 
+$total_filesRec = sizeof($row_filesRec);
 
 if(isset($_GET['totalRows_filesRec'])){
     $totalRows_filesRec = $_GET['totalRows_filesRec'];
 }else{
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC ", 
+		'mysql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC ",
 		'mssql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC ",
 		'oci8'	=> "SELECT * FROM {$table_download} WHERE {$whereClause} ORDER BY Dow_date DESC "
 );
@@ -52,7 +52,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_filesRec") == false && 
+    if (stristr($param, "pageNum_filesRec") == false &&
         stristr($param, "totalRows_filesRec") == false) {
       array_push($newParams, $param);
     }
@@ -77,9 +77,9 @@ $queryString_filesRec = sprintf("&totalRows_filesRec=%d%s", $totalRows_filesRec,
   </tr>
   <!-------------------------------------------------------------->
   <?php if ($total_filesRec > 0) { // Show if recordset not empty ?>
-    <?php 
+    <?php
 	     foreach ($row_filesRec as $key => $array){ ?>
-         <form name="updatePop" id="updatePop" action="" method="post">  
+         <form name="updatePop" id="updatePop" action="" method="post">
           <tr>
             <td width="20%" align="center">
 			  <?php echo date('Y-m-d',strtotime($array["Dow_date"]));?>
@@ -95,9 +95,9 @@ $queryString_filesRec = sprintf("&totalRows_filesRec=%d%s", $totalRows_filesRec,
               <a href="files/<?php echo $array['Dow_Path'];?>" target="_blank"><img src="images/button/download.gif" class="img"/></a>
             </td>
           </tr>
-          </form> 	
-    <?php 
-	} ?>	
+          </form>
+    <?php
+	} ?>
   <?php } // Show if recordset not empty ?>
   <!-------------------------------------------------------------->
   <tr>
@@ -115,7 +115,7 @@ $queryString_filesRec = sprintf("&totalRows_filesRec=%d%s", $totalRows_filesRec,
         <a href="<?php printf("%s?pageNum_filesRec=%d%s", $currentPage, min($totalPages_filesRec, $pageNum_filesRec + 1), $queryString_filesRec); ?>">
           <img src="images/symbol/Next.gif" class="img"/></a>
       <?php } // Show if not last page ?>
- 
+
       <?php if ($pageNum_filesRec < $totalPages_filesRec) { // Show if not last page ?>
         <a href="<?php printf("%s?pageNum_filesRec=%d%s", $currentPage, $totalPages_filesRec, $queryString_filesRec); ?>">
           <img src="images/symbol/Last.gif" class="img"/></a>

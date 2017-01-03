@@ -26,7 +26,7 @@ $(document).ready(function() {
 			$('.back-to-top').fadeOut(100);
 		}
 	});
-	
+
 	// jQuery实现动画滚动
 	$('.back-to-top').click(function(event) {
 		event.preventDefault();

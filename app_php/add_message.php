@@ -5,9 +5,9 @@ mysql_connect($_DB['host'], $_DB['username'], $_DB['password']) or die("Error");
 
 @mysql_select_db($_DB['dbname']) or die("Error");
 
-mysql_query("SET NAMES 'utf8'"); 
-mysql_query("SET CHARACTER_SET=utf8"); 
-mysql_query("SET CHARACTER_SET_CLIENT=utf8"); 
+mysql_query("SET NAMES 'utf8'");
+mysql_query("SET CHARACTER_SET=utf8");
+mysql_query("SET CHARACTER_SET_CLIENT=utf8");
 mysql_query("SET CHARACTER_SET_RESULTS=utf8");
 
 $mem_id = $_POST["mem_id"];
@@ -19,7 +19,7 @@ $uploaddir = '../images/discussimg/medium/';
 $file = $mem_id.date("His").".jpg";
 $uploadfile = $uploaddir.$file;
 
-if(move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)){ 
+if(move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)){
   //echo "http://ponikids.com.tw/mobile/upload/{$file}";
   $img = $file;
 }else{
@@ -37,4 +37,4 @@ if(mysql_query($query))
 else
 	echo "error";
 mysql_close();
-?> 
+?>

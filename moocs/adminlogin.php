@@ -3,24 +3,24 @@
 <?php require('../utility/init.php'); ?>
 <?php require('../include/system.php'); ?>
 <?php require('../include/site/showwebinfo.php'); ?>
-<?php 
+<?php
 session_start();
 //$sysConnDebug = true;
 if(!isset($_SESSION['MM_Username'])){
   if(!isset($_SESSION['tempord_id']) || $_SESSION['tempord_id'] == ""){
-	
-	
+
+
 	$column = "MAX(user_id)";
 	$table_shop_user		= SYS_DBNAME . ".shop_user";
 	dbInsert( $table_shop_user, array('created_date' => now()) );
-	
+
   	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_shop_user} ", 
+			'mysql'	=> "SELECT {$column} FROM {$table_shop_user} ",
 			'mssql'	=> "SELECT {$column} FROM {$table_shop_user} ",
 			'oci8'	=> "SELECT {$column} FROM {$table_shop_user} "
 	);
 	$Id = dbGetOne($sql['list']['select'][SYS_DBTYPE]);
-	
+
     $_SESSION['tempord_id']=date('Ymdhis').$Id;
   }
 }
@@ -60,18 +60,18 @@ if(!isset($_SESSION['Username'])){
 	  dbInsert( $table_shop_user, array( 'created_date' => now() ));
     //$insertSQL = "INSERT INTO shop_user VALUES ('')";
    // mysql_query($insertSQL, $webshop) or die(mysql_error());
-  
+
     $column = "MAX(user_id)";
 	$table_shop_user		= SYS_DBNAME . ".shop_user";
 	dbInsert( $table_shop_user, array('created_date' => now()) );
-	
+
   	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_shop_user} ", 
+			'mysql'	=> "SELECT {$column} FROM {$table_shop_user} ",
 			'mssql'	=> "SELECT {$column} FROM {$table_shop_user} ",
 			'oci8'	=> "SELECT {$column} FROM {$table_shop_user} "
 	);
 	$Id = dbGetOne($sql['list']['select'][SYS_DBTYPE]);
-	
+
     $_SESSION['tempord_id']=date('Ymdhis').$Id;
   }
 }
@@ -79,47 +79,47 @@ if((!empty($_POST['checknum'])) && ($_SESSION["ans_ckword"] == $_POST['checknum'
 	if (isset($_GET['accesscheck'])) {
 	  $_SESSION['PrevUrl'] = $_GET['accesscheck'];
 	}
-	
+
 	if (isset($_POST['name'])) {
-	  
+
 	  $loginUsername=mysql_real_escape_string($_POST['name']);
 	  $password=mysql_real_escape_string($_POST['password']);
 	  $MM_fldUserAuthorization = "";
-	  
-	  
+
+
 	  $MM_redirectLoginSuccess = "admineditconfig.php";
 	  $MM_redirectLoginFailed = "adminlogin.php";
 	  $MM_redirecttoReferrer = false;
-	  
+
 	  $column = "name,password";
 	  $table_admin		= SYS_DBNAME . ".admin";
 	  $whereClause = "name='{$loginUsername}' AND password='{$password}'";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_admin} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_admin} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_admin} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_admin} WHERE {$whereClause}"
 	  );
 	  $loginFoundUser = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 	/*
 	  mysql_select_db($database_webshop, $webshop);
-	  
+
 	  $LoginRS__query=sprintf("SELECT name, password FROM admin WHERE name=%s AND password=%s",
-		GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text")); 
-	   
+		GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text"));
+
 	  $LoginRS = mysql_query($LoginRS__query, $webshop) or die(mysql_error());
 	  $loginFoundUser = mysql_num_rows($LoginRS);
 	  */
 	  if (sizeof( $loginFoundUser ) > 0) {
 		$loginStrGroup = "";
-		
+
 		if (PHP_VERSION >= 5.1) {session_regenerate_id(true);} else {session_regenerate_id();}
 		//declare two session variables and assign them
 		$_SESSION['MM_AdminName'] = $loginUsername;
-		$_SESSION['MM_AdminGroup'] = $loginStrGroup;	      
-	
+		$_SESSION['MM_AdminGroup'] = $loginStrGroup;
+
 		if (isset($_SESSION['PrevUrl']) && false) {
-		  $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
+		  $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
 		}
 		header("Location: " . $MM_redirectLoginSuccess );
 	  }
@@ -150,13 +150,13 @@ if((!empty($_POST['checknum'])) && ($_SESSION["ans_ckword"] == $_POST['checknum'
             <!-------------------------------------------------------------->
             <tr>
               <td align="center"  height=40 ><font size=3 >密碼：<input type="password" name="password" id="password" class="sizeSs" /></font>
-              </td> 
+              </td>
             </tr>
            <!-------------------------------------------------------------->
             <tr>
               <td align="center" height=30 ><font size=3 >驗證：
                <input name="checknum" type="text" id="checknum" class="sizeSss" ><img src="./showpic.php" border="0"></h3>
-              </td> 
+              </td>
             </tr>
             <!-------------------------------------------------------------->
             <tr>
@@ -167,7 +167,7 @@ if((!empty($_POST['checknum'])) && ($_SESSION["ans_ckword"] == $_POST['checknum'
           </form>
         </table>
         </td>
-        </tr>  
+        </tr>
 </table>
 </div>
 </body>

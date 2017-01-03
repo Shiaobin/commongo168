@@ -18,18 +18,18 @@ if (isset($_POST['RecPhone'])) {
 $table_orderlist		= SYS_DBNAME . ".orderlist";
 		$column = "*";
 		$whereClause = "RecName='{$ordName_mainRec}' AND RecMail='{$ordemail_mainRec}' AND RecPhone='{$ordPhone_mainRec}'";
-		
+
 		$sql['list']['select'] = array(
-				'mysql'	=> "SELECT * FROM {$table_orderlist} WHERE {$whereClause}", 
+				'mysql'	=> "SELECT * FROM {$table_orderlist} WHERE {$whereClause}",
 				'mssql'	=> "SELECT * FROM {$table_orderlist} WHERE {$whereClause}",
 				'oci8'	=> "SELECT * FROM {$table_orderlist} WHERE {$whereClause}"
 		);
 		$row_mainRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
 		$totalRows_mainRec = sizeof($row_mainRec);
-		
+
 		/*
 mysql_select_db($database_webshop, $webshop);
-$query_mainRec = sprintf("SELECT * FROM orderlist WHERE RecName=%s AND RecMail=%s AND RecPhone=%s ORDER BY OrderTime DESC", 
+$query_mainRec = sprintf("SELECT * FROM orderlist WHERE RecName=%s AND RecMail=%s AND RecPhone=%s ORDER BY OrderTime DESC",
 						GetSQLValueString($ordName_mainRec, "text"),
 						GetSQLValueString($ordemail_mainRec, "text"),
 						GetSQLValueString($ordPhone_mainRec, "text"));
@@ -40,15 +40,15 @@ $totalRows_mainRec = mysql_num_rows($mainRec);
 $table_orderdetail		= SYS_DBNAME . ".orderdetail";
 		$column = "*";
 		$whereClause = "OrderNum='{$row_mainRec['OrderNum']}'";
-		
+
 		$sql['list']['select'] = array(
-				'mysql'	=> "SELECT * FROM {$table_orderdetail} WHERE {$whereClause}", 
+				'mysql'	=> "SELECT * FROM {$table_orderdetail} WHERE {$whereClause}",
 				'mssql'	=> "SELECT * FROM {$table_orderdetail} WHERE {$whereClause}",
 				'oci8'	=> "SELECT * FROM {$table_orderdetail} WHERE {$whereClause}"
 		);
 		$row_subRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 		$totalRows_subRec = sizeof($row_subRec);
-	/*	
+	/*
 mysql_select_db($database_webshop, $webshop);
 $query_subRec = sprintf("SELECT * FROM orderdetail WHERE OrderNum = %s", GetSQLValueString($row_mainRec['OrderNum'], "text"));
 $subRec = mysql_query($query_subRec, $webshop) or die(mysql_error());
@@ -60,7 +60,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_productRec") == false && 
+    if (stristr($param, "pageNum_productRec") == false &&
         stristr($param, "totalRows_productRec") == false) {
       array_push($newParams, $param);
     }
@@ -77,10 +77,10 @@ if (!empty($_SERVER['QUERY_STRING'])) {
     <?php if(isset($_POST['RecName'])){?>
       <tr>
         <td height="8%" align="center">
-          <font color="#FF0000"><b>查無符合的訂單，請重新輸入訂單資料！</b></font> 
+          <font color="#FF0000"><b>查無符合的訂單，請重新輸入訂單資料！</b></font>
         </td>
       </tr>
-    <?php }?>  
+    <?php }?>
   <?php } // Show if recordset empty ?>
 </table>
 <!-------------------------訂單查詢------------------------------->
@@ -148,7 +148,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
             <th colspan="5" ><p><b>商品明細</b></p></th>
           </tr>
           <!-------------------------------------------------------------->
-          <tr>   
+          <tr>
             <td>商品名稱</td>
             <td>商品貨號</td>
             <td>數量</td>
@@ -156,9 +156,9 @@ if (!empty($_SERVER['QUERY_STRING'])) {
             <td>小計</td>
           </tr>
           <!-------------------------------------------------------------->
-          <?php 
+          <?php
 		  		$total = 0;
-		  		foreach ($row_subRec as $key => $array){ 
+		  		foreach ($row_subRec as $key => $array){
 		  ?>
             <tr>
               <td><?php echo $array['ProdName']; ?></td>
@@ -167,7 +167,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
               <td>NT$<?php echo $array['BuyPrice']; ?></td>
               <td>NT$<?php echo $array['BuyPrice']*$array['ProdUnit']; ?></td>
             </tr>
-          <?php 		
+          <?php
 		  			$sum = $array['BuyPrice']*$array['ProdUnit'];
 		  			$total=$total+$sum;
 		  		}
@@ -180,12 +180,12 @@ if (!empty($_SERVER['QUERY_STRING'])) {
           <td colspan="5">
           	<p><b>運費：<?php echo $row_mainRec['fei']; ?> 元</b><br />
             <font color="#FF3333"><b>您選購的商品總價為：<?php echo $total + $row_mainRec['fei']; ?> 元</b></font></p>
- 
+
       </td>
     </tr>
   </table>
 <?php //} while ($row_mainRec = mysql_fetch_assoc($mainRec)); ?>
-<?php } // Show if recordset not empty 
+<?php } // Show if recordset not empty
 //mysql_free_result($mainRec);
 //mysql_free_result($subRec);
 ?>

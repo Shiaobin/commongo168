@@ -1,6 +1,6 @@
 <?php require('../utility/init.php'); ?>
 
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -19,7 +19,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "../index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -37,40 +37,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -114,7 +114,7 @@ $startRow_showgoodsRec = $pageNum_showgoodsRec * $maxRows_showgoodsRec;
 $table_index_image_slide		= SYS_DBNAME . ".index_image_slide";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause} LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}", 
+		'mysql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause} LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 		'mssql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause} LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 		'oci8'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause} LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}"
 		);
@@ -139,7 +139,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showgoodsRec") == false && 
+    if (stristr($param, "pageNum_showgoodsRec") == false &&
         stristr($param, "totalRows_showgoodsRec") == false) {
       array_push($newParams, $param);
     }
@@ -159,29 +159,29 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."slide_no='".$_POST['select_banner'][$i]."'";
       }
-	  
+
 	  //刪除圖片
 	  $table_index_image_slide		= SYS_DBNAME . ".index_image_slide";
 	  $whereClause = "CONCAT($delete_string)";
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause}"
 			  );
 	  $row_searchImg = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-	  
+
       /*mysql_select_db($database_webshop, $webshop);
       $searchSQL = "SELECT * FROM index_image_slide WHERE CONCAT($delete_string) ";
       $searchImg = mysql_query($searchSQL, $webshop) or die(mysql_error());
 	  $row_searchImg = mysql_fetch_assoc($searchImg); */
 
-      foreach ($row_searchImg as $key => $array){    
-	  if(($array['slide_img'] != "none.gif")){ 
+      foreach ($row_searchImg as $key => $array){
+	  if(($array['slide_img'] != "none.gif")){
           unlink("../images/slideimg/".$array["slide_img"]);}
   		  //unlink("../images/newsimg/small/".$row_searchImg["imgfull"]);}
       }
-	  
-	  
+
+
 	  //刪除廣告資料
 	  $table_index_image_slide		= SYS_DBNAME . ".index_image_slide";
 	  $whereClause = "CONCAT($delete_string)";
@@ -201,9 +201,9 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 ?>
 
 <script>
-function check_all(obj,cName) { 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
+function check_all(obj,cName) {
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
 }
 
 function editSlide(btn) {
@@ -242,7 +242,7 @@ function addSlide(btn) {
         <td><input name="select_banner[]" type="checkbox" value="<?php echo $array['slide_no']; ?>" /></td>
         <td><?php echo $array['slide_index']; ?></td>
         <td>
-          <img src="../../images/slideimg/<?php echo $array['slide_img']; ?>" alt="" name="image" 
+          <img src="../../images/slideimg/<?php echo $array['slide_img']; ?>" alt="" name="image"
            width="100px" height="50px" id="image" align="center" style="padding:5px;"/>
         </td>
         <td align="left"><?php echo $array['slide_url']; ?></td>
@@ -260,7 +260,7 @@ function addSlide(btn) {
         <td align="center"><input id="<?php //echo $no;?>" name="<?php //echo $row_showImgClassRec["img_class_id"]; ?>" type="button" value="新增連結圖片" onclick="addSlide(this);" style="margin:5px"></td>
       </tr>
     <!-----------------------------page control----------------------------->
-    <tr> 
+    <tr>
       <td colspan="7" align="right" bgcolor="#cfcfcf" >
         <table border="0">
           <tr>

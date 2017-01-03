@@ -35,7 +35,7 @@ $body.=$row_ordsubRec['ProdName'];
 $body.='</td>';
 /*$body.='<td align="center" height="20%">';
 
-$query_img = "SELECT img_name FROM prod_img WHERE ProdId='".$row_ordsubRec['ProdId']."'";					
+$query_img = "SELECT img_name FROM prod_img WHERE ProdId='".$row_ordsubRec['ProdId']."'";
 $result_img = mysql_query($query_img, $webshop) or die(mysql_error());
 $rs_img = mysql_fetch_assoc($result_img);
 
@@ -103,7 +103,7 @@ $body.='</html>';
   $fromname=$rs_head['sitename'];
   $replymail=$rs_head['adm_mail'];
   $subject="已收到您的訂單，您的訂單編號為".$_POST['OrderNum'];
-  
+
   $mailto=$Name." <".$Email.">";
   $mailFrom="=?UTF-8?B?"  .  base64_encode($fromname)  .
   "?= <".$replymail.">";
@@ -113,13 +113,13 @@ $body.='</html>';
   $mailHeader.="Content-type:text/html;charset=UTF-8";
   mail($mailto,$mailSubject,$body,$mailHeader);
 
-//寄給管理人員  
+//寄給管理人員
   $Name="系統管理員";
   $Email=$rs_head['adm_mail'];
   $fromname=$rs_head['sitename'];
   $replymail=$rs_head['adm_mail'];
   $subject="新訂單，訂單編號為".$_POST['OrderNum'];
-  
+
   $mailto=$Name." <".$Email.">";
   $mailFrom="=?UTF-8?B?"  .  base64_encode($fromname)  .
   "?= <".$replymail.">";
@@ -127,5 +127,5 @@ $body.='</html>';
   "?=";
   $mailHeader="From:".$mailFrom."\r\n";
   $mailHeader.="Content-type:text/html;charset=UTF-8";
-  mail($mailto,$mailSubject,$body,$mailHeader);  
+  mail($mailto,$mailSubject,$body,$mailHeader);
 ?>

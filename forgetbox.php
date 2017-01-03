@@ -1,10 +1,10 @@
 <?php
 
 if(isset($_POST['userid']) && isset($_POST['name']) && isset($_POST['UserMail']) && isset($_POST['submit']))
-{	
+{
 	$userid=mysql_real_escape_string($_POST['userid']);
 	$UserName=mysql_real_escape_string($_POST['name']);
-	$UserMail=mysql_real_escape_string($_POST['UserMail']);  
+	$UserMail=mysql_real_escape_string($_POST['UserMail']);
 	$query="select * from usermain where UserId='".$userid."' AND UserName='".$UserName."' AND UserMail='".$UserMail."'";
 	$result=mysql_query($query, $webshop) or die("cannot connect to table" . mysql_error( ));
 	$num=mysql_num_rows($result);
@@ -20,7 +20,7 @@ if(isset($_POST['userid']) && isset($_POST['name']) && isset($_POST['UserMail'])
 	{
 		echo "<script>";
 		echo "alert('對不起，查無資料。');";
-		echo "</script>";		 
+		echo "</script>";
 	}
 }
 if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){
@@ -46,13 +46,13 @@ if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){
 		</tr>
 		<tr >
 		  <td>
-          <font size=3>用戶姓名:<input type="text" class="sizeSs" name="name" size="20"> 
-			  
+          <font size=3>用戶姓名:<input type="text" class="sizeSs" name="name" size="20">
+
 			</td>
 		</tr>
 		<tr >
 		  <td>
-          <font size=3>信箱:<input type="text" class="sizeSs" name="UserMail" size="20">   
+          <font size=3>信箱:<input type="text" class="sizeSs" name="UserMail" size="20">
 			</td>
 		</tr>
 

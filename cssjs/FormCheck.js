@@ -1,7 +1,7 @@
 (function($){
 	jQuery.fn.FormCheck = function(){
 		var bool = true;
-		
+
 		var checkNull = function(obj){
 			$(obj).find("input.p_checkNull").each(function(){
 				var boo = (!$(this).val());
@@ -18,7 +18,7 @@
 				}
 			});
 		};
-		
+
 		var checkMobile = function(obj){
 			$(obj).find("input.p_checkMobile").each(function(){
 				var regExp = Config.getInstance().mobilereg();
@@ -29,7 +29,7 @@
 				}
 			});
 		};
-		
+
 		var checknumber = function(obj){
 			$(obj).find("input.p_checkNumber").each(function(){
 				var regExp = Config.getInstance().numberreg();
@@ -40,7 +40,7 @@
 				}
 			});
 		};
-		
+
 		var checkPwd = function(obj){
 			$(obj).find("input.p_checkPwd").each(function(){
 				var regExp = Config.getInstance().pwdreg();
@@ -51,7 +51,7 @@
 				}
 			});
 		};
-		
+
 		var checkMail = function(obj){
 			$(obj).find("input.p_checkMail").each(function(){
 				var regExp = Config.getInstance().mailreg();
@@ -62,7 +62,7 @@
 				}
 			});
 		};
-		
+
 		var checkRadio = function(obj){
 			$(obj).find("input:radio").each(function(){
 				var rdname = $(this).attr("name");
@@ -74,7 +74,7 @@
 				}
 			});
 		};
-		
+
 		this.each(function() {
 			checkNull(this);
 			checkMobile(this);
@@ -83,7 +83,7 @@
 			checkRadio(this);
 			checknumber(this);
 	    });
-		
+
 		return bool;
 	};
 })(jQuery);

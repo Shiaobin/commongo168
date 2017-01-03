@@ -16,7 +16,7 @@ header("location:index.php");
 else
 {
 while($rs_orderlist = mysql_fetch_array($result_orderlist))
-{ 
+{
 
 $query_orderdetail=  "select A.UserId,A.OrderNum,A.ProdUnit,A.ProdPrice,A.BuyPrice,A.goods_spec_1,A.goods_spec_2,C.ProdName,C.ProdNum,C.LarCode,C.MidCode,C.ProdId
 		  from orderdetail A,prodmain C

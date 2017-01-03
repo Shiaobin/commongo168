@@ -13,7 +13,7 @@ $result_add=mysql_query($query_add, $webshop) or die("cannot connect to table" .
 
 $query="select * from mailbox_setup where set_open='1'";
 $result=mysql_query($query, $webshop) or die("cannot connect to table" . mysql_error( ));
-while($rs = mysql_fetch_array($result)){ 
+while($rs = mysql_fetch_array($result)){
 $access=$rs['Access'];
 $password=$rs['Password'];
 $fromname=$rs['FromName'];

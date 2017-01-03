@@ -63,7 +63,7 @@
 	position:relative;
 	margin-top:200px;
 	margin-rigth:20px;
-	margin-left:20px;;	
+	margin-left:20px;;
 	padding-bottom:10px;
 	padding-top:10px;
 	background-image: linear-gradient(bottom, rgba(44, 201, 38, 1) 100%, rgba(44, 201, 38, 1) 0%);

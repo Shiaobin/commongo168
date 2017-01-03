@@ -2,7 +2,7 @@ var _request = (function() {
 //	var uri_enc     = encodeURIComponent(location.href);
 //	var uri_dec     = decodeURIComponent(uri_enc);
 	var queryString = location.search.substring(1);//uri_dec.substring(uri_dec.search(/\?/)+1);
-	
+
 	function getParameter(name) {
 		var parameterName = name + "=";
 		if (queryString.length > 0) {

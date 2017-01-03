@@ -1,9 +1,9 @@
 var ErrorMsg = (function () {
- 
+
   var instance;
- 
+
   function init() {
- 
+
     return {
     	pwdcheck  : function(){return "密碼錯誤請確認";},
     	mailcheck : function(){return "信箱格式錯誤";},
@@ -13,9 +13,9 @@ var ErrorMsg = (function () {
     	agreeErr  : function(){return "未同意會員註冊權益條款";},
     	numberErr : function(){return "此欄位僅供輸入數字";}
     };
- 
+
   };
- 
+
   return {
     getInstance: function () {
       if ( !instance ) {
@@ -24,5 +24,5 @@ var ErrorMsg = (function () {
       return instance;
     }
   };
- 
+
 })();

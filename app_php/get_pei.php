@@ -14,7 +14,7 @@ if($result=$db->fetch_array()){
 	$response["success"]=1;
 }else{
 	$response["success"]=0;
-	$response["message"] = "No products found"; 
+	$response["message"] = "No products found";
 }
 echo json_encode($response);
 $db->close();

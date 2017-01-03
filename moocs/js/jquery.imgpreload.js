@@ -66,7 +66,7 @@ if ('undefined' != typeof jQuery)
 					loaded.push(img_obj);
 
 					$.data(img_obj, 'loaded', ('error'==e.type)?false:true);
-					
+
 					if (settings.each instanceof Function) { settings.each.call(img_obj); }
 
 					// http://jsperf.com/length-in-a-variable

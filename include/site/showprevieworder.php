@@ -8,17 +8,17 @@ if (isset($_SESSION['MM_Username'])) {
 	$column = "*";
 	$table_usermain		= SYS_DBNAME . ".usermain";
 	$whereClause = "usernum={$colname_carRec}";
-	
+
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_usermain} LEFT JOIN orderlist ON usermain.UserId = orderlist.UserId WHERE {$whereClause} ORDER BY OrderTime DESC", 
+			'mysql'	=> "SELECT {$column} FROM {$table_usermain} LEFT JOIN orderlist ON usermain.UserId = orderlist.UserId WHERE {$whereClause} ORDER BY OrderTime DESC",
 			'mssql'	=> "SELECT {$column} FROM {$table_usermain} LEFT JOIN orderlist ON usermain.UserId = orderlist.UserId WHERE {$whereClause} ORDER BY OrderTime DESC",
 			'oci8'	=> "SELECT {$column} FROM {$table_usermain} LEFT JOIN orderlist ON usermain.UserId = orderlist.UserId WHERE {$whereClause} ORDER BY OrderTime DESC"
 	);
-	
+
 	$row_subRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
 	  /*
 	mysql_select_db($database_webshop, $webshop);
-	$query_subRec = sprintf("SELECT * FROM usermain 
+	$query_subRec = sprintf("SELECT * FROM usermain
 	LEFT JOIN orderlist ON usermain.UserId = orderlist.UserId
 	WHERE usernum=%s order by OrderTime DESC", GetSQLValueString($colname_carRec, "int"));
 	$subRec = mysql_query($query_subRec, $webshop) or die(mysql_error());
@@ -30,13 +30,13 @@ if (isset($_SESSION['MM_Username'])) {
 	$column = "*";
 	$table_orderlist		= SYS_DBNAME . ".orderlist";
 	$whereClause = "OrderNum='{$colname_carRec}'";
-	
+
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_orderlist} WHERE {$whereClause}", 
+			'mysql'	=> "SELECT {$column} FROM {$table_orderlist} WHERE {$whereClause}",
 			'mssql'	=> "SELECT {$column} FROM {$table_orderlist} WHERE {$whereClause}",
 			'oci8'	=> "SELECT {$column} FROM {$table_orderlist} WHERE {$whereClause}"
 	);
-	
+
 	$row_subRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
 	/*
 	mysql_select_db($database_webshop, $webshop);
@@ -49,7 +49,7 @@ if (isset($_SESSION['MM_Username'])) {
 ?>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" >
-<tr> 
+<tr>
 	<td align="center" valign="middle" height=60><h2>
 	<p><br><br><font color="#FF3333"><p>恭喜，訂單提交成功！</p>
     <br><br><p>您的訂單號碼是：<b><?php echo $row_subRec['OrderNum']; ?></b></p>

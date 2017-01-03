@@ -10,7 +10,7 @@ $column = "DISTINCT LarCode, LarSeq";
 $table_compclass		= SYS_DBNAME . ".compclass";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_compclass} ORDER BY LarSeq ASC", 
+		'mysql'	=> "SELECT {$column} FROM {$table_compclass} ORDER BY LarSeq ASC",
 		'mssql'	=> "SELECT {$column} FROM {$table_compclass} ORDER BY LarSeq ASC",
 		'oci8'	=> "SELECT {$column} FROM {$table_compclass} ORDER BY LarSeq ASC"
 );
@@ -24,15 +24,15 @@ $row_showitemRec = mysql_fetch_assoc($showitemRec);
 $totalRows_showitemRec = mysql_num_rows($showitemRec);
 */
 //------------------------------------刪除分頁類別(大類)---------------------------------//
-//------------------------------------刪除分頁類別(中類)---------------------------------//	
-$action= isset( $_GET["action"] )? $_GET["action"] : ""; 
-switch ($action){ 
- case "delLar": 
+//------------------------------------刪除分頁類別(中類)---------------------------------//
+$action= isset( $_GET["action"] )? $_GET["action"] : "";
+switch ($action){
+ case "delLar":
  	delLar();
- break; 
- case "delMid": 
+ break;
+ case "delMid":
  	delMid();
- break; 
+ break;
 }
 
 function delLar(){
@@ -40,23 +40,23 @@ function delLar(){
   //if (isset($_GET['LarSeq'])) {
   	$cloume_showitemLarRec = $_GET['LarSeq'];
  // }
-  
+
    $table_compclass		= SYS_DBNAME . ".compclass";
 	  $whereClause = "LarSeq='".$cloume_showitemLarRec."'";
 	  dbDelete( $table_compclass, $whereClause );
-  
+
   $deleteGoTo = "adminwebitem.php";
   echo "<script type='text/javascript'>";
   echo "window.location.href='$deleteGoTo'";
   echo "</script>";
 }
 
-function delMid(){ 
+function delMid(){
   $cloume_showitemClassId = "-1";
   //if ((isset($_GET['LarSeq']) && ($_GET['MidSeq']))) {
   	$cloume_showitemClassId = $_GET['ClassId'];
   //}
-  
+
   $table_compclass		= SYS_DBNAME . ".compclass";
 	  $whereClause = "ClassId='".$cloume_showitemClassId."'";
 	  dbDelete( $table_compclass, $whereClause );
@@ -71,7 +71,7 @@ function delMid(){
   $deleteGoTo = "adminwebitem.php";
   echo "<script type='text/javascript'>";
   echo "window.location.href='$deleteGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <h3 class=ttl01 >編輯網頁大類</h3>
@@ -104,7 +104,7 @@ function delMid(){
             <?php
 			/*
                 mysql_select_db($database_webshop, $webshop);
-                $query_showgoodsRec = sprintf("SELECT * FROM compclass WHERE LarSeq = %s ORDER BY MidSeq ASC", 
+                $query_showgoodsRec = sprintf("SELECT * FROM compclass WHERE LarSeq = %s ORDER BY MidSeq ASC",
                                                     GetSQLValueString($row_showitemRec['LarSeq'], "int"));
                 $showgoodsRec = mysql_query($query_showgoodsRec, $webshop) or die(mysql_error());
                 $row_showgoodsRec = mysql_fetch_assoc($showgoodsRec);
@@ -113,9 +113,9 @@ function delMid(){
 				$column = "*";
 				$table_compclass		= SYS_DBNAME . ".compclass";
 				$whereClause = "LarSeq='{$array['LarSeq']}'";
-				
+
 				$sql['list']['select'] = array(
-						'mysql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+						'mysql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 						'mssql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 						'oci8'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 				);
@@ -123,7 +123,7 @@ function delMid(){
 				$totalRows_showgoodsRec = sizeof($row_showgoodsRec);
 
                 if ($totalRows_showgoodsRec > 0) {
-                foreach ($row_showgoodsRec as $key => $array1){ ?> 
+                foreach ($row_showgoodsRec as $key => $array1){ ?>
             <tr align="left" >
                 <td align="left" width="77%">&nbsp;&nbsp;&nbsp;
                      <?php echo $array1['MidSeq']." - ".$array1['MidCode']; ?>
@@ -134,7 +134,7 @@ function delMid(){
                     <a href="adminwebitem.php?action=delMid&ClassId=<?php echo $array1['ClassId']; ?>">刪除</a>
                 </td>
             </tr>
-            <?php 
+            <?php
                 }}?>
           <?php }}?>
             <!-------------------------------------------------------------->

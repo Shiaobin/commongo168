@@ -4,7 +4,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "新增")&& ($_POST['frame_name'] != "")) {	
+if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "新增")&& ($_POST['frame_name'] != "")) {
 	$table_index_frame		= SYS_DBNAME . ".index_frame";
   $record = array(
   				'frame_text' => $_POST['frame_text'],
@@ -36,7 +36,7 @@ $insertSQL = sprintf("INSERT INTO index_frame (frame_text, frame_name, set_open)
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
 <!---------------------編輯上架商品--------------------------------->
-<form name="editpages" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editpages" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editpages">
 
   <tr>
@@ -47,14 +47,14 @@ $insertSQL = sprintf("INSERT INTO index_frame (frame_text, frame_name, set_open)
   	 <td>是否顯示<font color="#FF3333"> *</font>
       <input type="radio" value="1" checked name="set_open">是
       <input type="radio" name="set_open" value="0">否
-     </td>		                 
+     </td>
   </tr>
   <!----------------------------詳細說明---------------------------->
   <tr>
    <td>
 <script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
     <textarea id="frame_text" name="frame_text" class="ckeditor" cols="" rows="" style="width:70%; height:100%; margin:3px"></textarea></td>
-  </tr> 
+  </tr>
   <!------------------------新增按鈕---------------------------->
   <tr>
     <td width="40%" colspan="2" align="center">

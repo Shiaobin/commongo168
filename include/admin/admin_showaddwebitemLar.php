@@ -4,7 +4,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "additem") && ($_POST['LarCode'] != "")&& ($_POST['LarSeq'] != "")) { 
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "additem") && ($_POST['LarCode'] != "")&& ($_POST['LarSeq'] != "")) {
 
  $table_compclass		= SYS_DBNAME . ".compclass";
   $record = array(
@@ -41,15 +41,15 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "additem") && ($_POS
    	  <input type="text" name="LarCode" id="LarCode" class=sizeS />
     </td>
   </tr>
-  
+
   <tr>
     <td width="100%">排序:
    	  <input type="int" name="LarSeq" id="Larseq" class=sizeSss />
    	  <font color="#FF3333">  *</font>[不能與其它大類的排序號重複，否則會出錯]    </td>
   </tr>
-  
+
   <tr>
-    <td >	  
+    <td >
    	  <input type="submit" name="add" id="add" value="新增" style="font-size:16px;width:60px;height:30px" />
     </td>
   </tr>

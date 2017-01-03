@@ -5,23 +5,23 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_news"])) && ($_POST["update_news"] == "更新")) {	
+if ((isset($_POST["update_news"])) && ($_POST["update_news"] == "更新")) {
   //move_uploaded_file($_FILES["news_img"]["tmp_name"], "newsimg\\".$_FILES["news_img"]["name"].".jpg");
-  
-  
+
+
   //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
 
-    if($_POST['imgfull']=="none.gif" ) $img = date('his').".jpg"; 
+    if($_POST['imgfull']=="none.gif" ) $img = date('his').".jpg";
 	else                      $img = $_POST['imgfull'];
-	
+
 	move_uploaded_file(realpath($_FILES["upload_img"]["tmp_name"]), "../images/newsimg/".$img);
         resize_new_image($img);
   }
   else {
     $img = $_POST['imgfull'];
   }
-  
+
   $table_index_msg		= SYS_DBNAME . ".news";
   $record = array(
   				'NewsClass' => $_POST['NewsClass'],
@@ -35,11 +35,11 @@ if ((isset($_POST["update_news"])) && ($_POST["update_news"] == "更新")) {
 				'imgfull' => $img
 				);
   $whereClause = "NewsID={$_POST['NewsID']}";
-		
+
   dbUpdate( $table_index_msg, $record, $whereClause );
-  
+
   /*
-  $updateSQL = sprintf("UPDATE news SET NewsClass=%s, NewsContain=%s, Source=%s, PubDate=%s, OffDate=%s, NewsTitle=%s, Online=%s, uup=%s, imgfull=%s where NewsID=%s", 
+  $updateSQL = sprintf("UPDATE news SET NewsClass=%s, NewsContain=%s, Source=%s, PubDate=%s, OffDate=%s, NewsTitle=%s, Online=%s, uup=%s, imgfull=%s where NewsID=%s",
 					   GetSQLValueString($_POST['NewsClass'], "text"),
 					   GetSQLValueString($_POST['NewsContain'], "text"),
 					   GetSQLValueString($_POST['Source'], "text"),
@@ -48,7 +48,7 @@ if ((isset($_POST["update_news"])) && ($_POST["update_news"] == "更新")) {
 					   GetSQLValueString($_POST['NewsTitle'], "text"),
                        GetSQLValueString($_POST['Online'], "tinyint"),
 					   GetSQLValueString($_POST['uup'], "int"),
-					   GetSQLValueString($img, "text"), 
+					   GetSQLValueString($img, "text"),
 					   GetSQLValueString($_POST['NewsID'], "int"));
 
   mysql_select_db($database_webshop, $webshop);
@@ -92,7 +92,7 @@ if (isset($_GET['NewsID'])) {
 $table_news		= SYS_DBNAME . ".news";
 $whereClause = "NewsID='{$cloume_shownewsRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_news} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_news} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_news} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_news} WHERE {$whereClause}"
 		);
@@ -107,18 +107,18 @@ $totalRows_shownewsRec = mysql_num_rows($shownewsRec);
 */
 ?>
 
-<Script>    
-  function changeNewsNewsClass(){ 
+<Script>
+  function changeNewsNewsClass(){
     var NewsClass;
     NewsClass=document.adminRec.NewsClass.value;
 	location.href="adminaddnews.php?NewsClass="+NewsClass;
   }
-</Script> 
+</Script>
 <h3 class=ttl01 >後台最新消息編輯</h3>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
 <!---------------------編輯上架商品--------------------------------->
-<form name="editnews" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editnews" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editnews">
 
 <input type="hidden" name="NewsID" id="NewsID" value="<?php echo $row_shownewsRec['NewsID']; ?>"/>
@@ -128,10 +128,10 @@ $totalRows_shownewsRec = mysql_num_rows($shownewsRec);
     <td>1.最新消息 標題:<input name="NewsTitle" type="text" value="<?php echo $row_shownewsRec['NewsTitle']; ?>" class=sizeL />.
     </td>
   </tr>
-  
+
   <!----------------------------上傳圖片---------------------------->
   <tr>
-     <td>2.圖片:<img src="../../images/newsimg/small/<?php echo $row_shownewsRec['imgfull']; ?>" alt="" name="image" 
+     <td>2.圖片:<img src="../../images/newsimg/small/<?php echo $row_shownewsRec['imgfull']; ?>" alt="" name="image"
            width="120px" height="120px" id="image" align="center" style="padding:5px;"/>
        <input name="imgfull" type="hidden" value="<?php echo $row_shownewsRec['imgfull']; ?>" />
        <input name="upload_img" type="file" value="Select a File..." style="width:50%; height:100%; margin: 3px"/> </p>
@@ -145,7 +145,7 @@ $totalRows_shownewsRec = mysql_num_rows($shownewsRec);
 	    <?php echo $row_shownewsRec['NewsContain']; ?>
       </textarea>
    </td>
-  </tr>  
+  </tr>
   <!-----------------------------來源------------------------------>
   <tr>
     <td>4.來源:
@@ -178,10 +178,10 @@ $totalRows_shownewsRec = mysql_num_rows($shownewsRec);
   <tr>
     <td>8.是否在線:
       <label>
-        <input type="radio" name="Online" value="1" id="Online_1" 
+        <input type="radio" name="Online" value="1" id="Online_1"
 		<?php if ($row_shownewsRec['Online'] == '1'): ?>checked='checked'<?php endif; ?>/>是</label>
       <label>
-        <input type="radio" name="Online" value="0" id="Online_0" 
+        <input type="radio" name="Online" value="0" id="Online_0"
         <?php if ($row_shownewsRec['Online'] == '0'): ?>checked='checked'<?php endif; ?>/>否</label>
     </td>
   </tr>
@@ -189,10 +189,10 @@ $totalRows_shownewsRec = mysql_num_rows($shownewsRec);
   <tr>
     <td>9.是否固頂:
       <label>
-        <input type="radio" name="uup" value="1" id="uup_1" 
+        <input type="radio" name="uup" value="1" id="uup_1"
         <?php if ($row_shownewsRec['uup'] == '1'): ?>checked='checked'<?php endif; ?>/>是</label>
       <label>
-        <input type="radio" name="uup" value="0" id="uup_0" 
+        <input type="radio" name="uup" value="0" id="uup_0"
 		<?php if ($row_shownewsRec['uup'] == '0'): ?>checked='checked'<?php endif; ?>/>否</label>
     </td>
   </tr>

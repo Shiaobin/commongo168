@@ -28,16 +28,16 @@
 		          $row_showsublistRec = mysql_fetch_assoc($showsublistRec);
 		          $totalRows_showsublistRec = mysql_num_rows($showsublistRec);
 		          if ($totalRows_showsublistRec > 0) {
-				  do {?>  
+				  do {?>
 				    <tr style="background-image:url(../../images/button/menubg.png)">
     				  <td width="40%" align="left"><img src="../../images/list/icon.png" width="8" height="8"  hspace="8" align="middle"/></td>
                       <td width="60%" align="left">
                         <a style="text-decoration: none" href="goods.php?item_id=<?php echo $row_showsublistRec['item_id']; ?>&end_item_id=<?php echo $row_showsublistRec['end_item_id']; ?>&tabindex=<?php echo $no;?>">
                           <?php echo $row_showsublistRec['end_item_name']; ?>
                         </a>
-                      </td>	
-  					</tr>  
-				  <?php }while($row_showsublistRec = mysql_fetch_assoc($showsublistRec));}?>   
+                      </td>
+  					</tr>
+				  <?php }while($row_showsublistRec = mysql_fetch_assoc($showsublistRec));}?>
 			</table>
           </div>
         </div>

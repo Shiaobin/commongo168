@@ -4,17 +4,17 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "更新")) {	
+if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "更新")) {
 
     //上傳圖片
   if($_FILES['upload_img']['name'] != "") {
 
 	$img = date('his').".jpg";
 	move_uploaded_file(realpath($_FILES["upload_img"]["tmp_name"]), "../images/discussimg/".$img) or die("Problems with upload");
-	
+
     resize_discuss_image($img);
-	
-	if($_POST['msg_img'] != "none.gif"){ 
+
+	if($_POST['msg_img'] != "none.gif"){
 		 unlink("../images/discussimg/medium/".$_POST['msg_img']);
 		 unlink("../images/discussimg/small/".$_POST['msg_img']);
 		}
@@ -22,7 +22,7 @@ if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "更新")) {
   else {
     $img = $_POST['msg_img'];
   }
-  
+
   $table_shop_member_sub_msg		= SYS_DBNAME . ".shop_member_sub_msg";
   $record = array(
   				'mem_nickname' => $_POST['mem_nickname'],
@@ -30,13 +30,13 @@ if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "更新")) {
 				'msg_img' => $img
 				);
   $whereClause = "sub_msg_no={$_POST['sub_msg_no']}";
-		
+
   dbUpdate( $table_shop_member_sub_msg, $record, $whereClause );
   /*
-  $updateSQL = sprintf("UPDATE shop_member_sub_msg SET mem_nickname=%s, msg_send=%s, msg_img=%s where sub_msg_no=%s", 
+  $updateSQL = sprintf("UPDATE shop_member_sub_msg SET mem_nickname=%s, msg_send=%s, msg_img=%s where sub_msg_no=%s",
 					   GetSQLValueString($_POST['mem_nickname'], "text"),
 					   GetSQLValueString($_POST['msg_send'], "text"),
-					   GetSQLValueString($img, "text"), 
+					   GetSQLValueString($img, "text"),
 					   GetSQLValueString($_POST['sub_msg_no'], "int"));
 
   mysql_select_db($database_webshop, $webshop);
@@ -62,7 +62,7 @@ if (isset($_GET['sub_msg_no'])) {
 $table_shop_member_sub_msg		= SYS_DBNAME . ".shop_member_sub_msg";
 $whereClause = "sub_msg_no='{$cloume_showmsgRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause}"
 		);
@@ -81,7 +81,7 @@ $totalRows_showsubmsgRec = mysql_num_rows($showsubmsgRec);
 $table_shop_member_msg		= SYS_DBNAME . ".shop_member_msg";
 $whereClause = "msg_no='{$row_showsubmsgRec['msg_no']}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause}"
 		);
@@ -95,7 +95,7 @@ $row_showmsgRec = mysql_fetch_assoc($showmsgRec);
 
 */?>
 
-<?php 
+<?php
 //---------------discuss img-------------------//
 function resize_discuss_image($file) {
 $imM = new Imagick("../images/discussimg/".$file);
@@ -119,7 +119,7 @@ unlink("../images/discussimg/".$file);
 <h3 class=ttl01 >修改回覆內容</h3>
 
 <table width="650" border="0" cellspacing="0" cellpadding="0" class="formTable">
-<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editmsg">
 
   <input type="hidden" name="sub_msg_no" id="sub_msg_no" value="<?php echo $row_showsubmsgRec['sub_msg_no']; ?>"/>
@@ -127,11 +127,11 @@ unlink("../images/discussimg/".$file);
   <!----------------------------留言日期---------------------------->
   <tr>
     <td>1.回覆日期:<?php echo $row_showsubmsgRec['sub_msg_date']; ?></td>
-  </tr> 
+  </tr>
   <!-----------------------------討論主題----------------------------->
   <tr>
     <td>2.討論主題:<?php echo $row_showmsgRec['msg_title']; ?></td>
-  </tr> 
+  </tr>
   <!-----------------------------留言人----------------------------->
   <tr>
     <td>3.回覆留言人:<input name="mem_nickname" type="text" class=sizeS value="<?php echo $row_showsubmsgRec['mem_nickname']; ?>"/></td>
@@ -139,7 +139,7 @@ unlink("../images/discussimg/".$file);
   <!----------------------------上傳圖片---------------------------->
   <tr>
      <td>4.圖片:
-     <p><img src="../../images/discussimg/small/<?php echo $row_showsubmsgRec['msg_img']; ?>" alt="" name="image" 
+     <p><img src="../../images/discussimg/small/<?php echo $row_showsubmsgRec['msg_img']; ?>" alt="" name="image"
            width="78px" height="65px" id="image" align="center" style="padding:5px;"/>
        <input name="msg_img" type="hidden" value="<?php echo $row_showsubmsgRec['msg_img']; ?>" />
        <input name="upload_img" type="file" value="Select a File..." style="width:50%; height:100%; margin: 3px"/> </p>

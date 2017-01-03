@@ -1,6 +1,6 @@
 <?php include("small.php"); ?>
 <?php  //-----------------------------新增banner資訊------------------------------------//
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['po'] != "")) {	
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['po'] != "")) {
 
   //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
@@ -13,7 +13,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
   else {
 	$img = "";
   }
-  
+
   $record = array( 'banner' => $img
   					, 'po' => $_POST['po']);
   $table_banner		= SYS_DBNAME . ".banner";

@@ -2,7 +2,7 @@
 <?php
 include("connections/webshop.php");
 //<!--#include file="Comm/conn.asp"-->
-$Message="可以使用"; 
+$Message="可以使用";
 if(isset($_GET['UserId']) && $_GET['UserId']!=""){
  $UserId=$_GET['UserId'];
  $check_head = str_split($UserId, 1);
@@ -11,7 +11,7 @@ if(isset($_GET['UserId']) && $_GET['UserId']!=""){
  	$Message="信箱長度超過限制";
 
  }
- else if(!preg_match("/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/", $UserId)) 
+ else if(!preg_match("/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{2,5}$/", $UserId))
  {
  	$Message="信箱格式錯誤";
 
@@ -21,15 +21,15 @@ if(isset($_GET['UserId']) && $_GET['UserId']!=""){
 	$query="select UserId from usermain";
 	$result=mysql_query($query, $webshop) or die("cannot connect to table" . mysql_error( ));
 	while($rs = mysql_fetch_array($result))
-	{ 
+	{
 
 		if($UserId==$rs['UserId'])
 		{
 			$Message="已被使用";
  			break;
-		}	 
+		}
  	}
- 
+
   }
 }
 else{

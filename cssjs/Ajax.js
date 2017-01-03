@@ -6,8 +6,8 @@ $(function(){
 	importJS(error, "ErrorMsg", function(){});
 	importJS(post, "PostUrl", function(){});
 	importJS(config, "Config", function(){});
-	importJS(blockUIJs, "jQuery.blockUI", function(){}); 
-	
+	importJS(blockUIJs, "jQuery.blockUI", function(){});
+
 	ajaxSetup();
 });
 var ajaxSetup = function(){

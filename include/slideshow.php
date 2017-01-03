@@ -3,7 +3,7 @@
           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 padding-none slideshow-margin-fix">
             <div id="slider" class="swipe" style="visibility: visible;">
               <div class="swipe-wrap" style="width: 5700px;">
-               
+
               <?php
 			  $result_banner = selectAll_no_where($webshop,"*","banner","po ASC");
 			  while($rs_banner = mysql_fetch_array($result_banner))
@@ -15,7 +15,7 @@
               <?php
 			  }
 			  ?>
-                
+
                 <!--figure  style="transition-duration: 0ms; -webkit-transition-duration: 0ms;">
                   <img class="img-responsive" typeof="foaf:Image" src="./pic/小切圖-03.jpg" width="910" height="525" alt="">
                 </figure>
@@ -34,7 +34,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 padding-none">
             <nav>
               <ul id="position">
@@ -43,7 +43,7 @@
 			  $i=0;
 			  while($rs_banner = mysql_fetch_array($result_banner))
 			  {
-				  
+
 			  ?>
                 <li id="slideshow_selector_<?php echo $i; ?>" class="row">
                   <span class="arrow_left visible-md visible-lg"></span><span class="arrow_top visible-sm"></span>
@@ -59,7 +59,7 @@
 			  $i++;
 			  }
 			  ?>
-                
+
                 <!--li id="slideshow_selector_1" class="row ">
                   <span class="arrow_left visible-md visible-lg"></span><span class="arrow_top visible-sm"></span>
                   <div class="slideshow_selector_image hidden-xs col-sm-12 col-md-12 col-lg-6 padding-none">
@@ -112,8 +112,8 @@
                 </li-->
 
 
-				
-				
+
+
 
 
 <script src="./cssjs/swipe.js"></script>
@@ -124,7 +124,7 @@
             } else {
               jQuery("button#slideshow_toggle").text('開啟看板');
             };
-            
+
             jQuery("div#slideshow").slideToggle();
           });
 

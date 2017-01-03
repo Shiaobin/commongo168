@@ -12,7 +12,7 @@ $startRow_showbannerRec = $pageNum_showbannerRec * $maxRows_showbannerRec;
 $table_banner		= SYS_DBNAME . ".banner";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_banner} WHERE {$whereClause} ORDER BY po ASC LIMIT {$startRow_showbannerRec}, {$maxRows_showbannerRec}", 
+		'mysql'	=> "SELECT * FROM {$table_banner} WHERE {$whereClause} ORDER BY po ASC LIMIT {$startRow_showbannerRec}, {$maxRows_showbannerRec}",
 		'mssql'	=> "SELECT * FROM {$table_banner} WHERE {$whereClause} ORDER BY po ASC LIMIT {$startRow_showbannerRec}, {$maxRows_showbannerRec}",
 		'oci8'	=> "SELECT * FROM {$table_banner} WHERE {$whereClause} ORDER BY po ASC LIMIT {$startRow_showbannerRec}, {$maxRows_showbannerRec}"
 		);
@@ -37,7 +37,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showbannerRec") == false && 
+    if (stristr($param, "pageNum_showbannerRec") == false &&
         stristr($param, "totalRows_showbannerRec") == false) {
       array_push($newParams, $param);
     }
@@ -57,12 +57,12 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."Notice_ID='".$_POST['select_banner'][$i]."'";
       }
-	  
+
 	  //刪除圖片
 	  $table_banner		= SYS_DBNAME . ".banner";
 	  $whereClause = "CONCAT($delete_string)";
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT * FROM {$table_banner} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT * FROM {$table_banner} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT * FROM {$table_banner} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT * FROM {$table_banner} WHERE {$whereClause}"
 			  );
@@ -72,12 +72,12 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 	  $imgSQL = "SELECT * FROM banner  WHERE CONCAT($delete_string)";
       $imgRec = mysql_query($imgSQL, $webshop) or die(mysql_error());
 	  */
-	  foreach ($imgRec as $key => $array){ 
+	  foreach ($imgRec as $key => $array){
 	    unlink("../images/bannerimg/".$array["banner"]);
       }
-	  
+
 	  //刪除廣告資料
-	  
+
 	  $table_banner		= SYS_DBNAME . ".banner";
 	  $whereClause = "CONCAT($delete_string)";
 	  dbDelete( $table_banner, $whereClause );
@@ -103,9 +103,9 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "新增看板圖片")) {
 ?>
 
 <script>
-function check_all(obj,cName) { 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
+function check_all(obj,cName) {
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
 }
 
 function editBanner(btn) {
@@ -135,7 +135,7 @@ function editBanner(btn) {
       <td><input name="select_banner[]" type="checkbox" value="<?php echo $array['Notice_ID']; ?>" /></td>
       <td><?php echo $array['po']; ?></td>
       <td>
-        <img src="../../images/bannerimg/<?php echo $array['banner']; ?>" alt="" name="image" 
+        <img src="../../images/bannerimg/<?php echo $array['banner']; ?>" alt="" name="image"
          width="520px" height="160px" id="image" align="center" style="padding:5px;"/>
       </td>
       <td><input name="<?php echo $array['Notice_ID']; ?>" type="button" value="編輯" onclick="editBanner(this);" /></td>
@@ -151,7 +151,7 @@ function editBanner(btn) {
   <td align="center"><input name="add_btn" type="submit" value="新增看板圖片" style="margin:5px"></td>
 </tr>
 <!-----------------------------page control----------------------------->
-<tr> 
+<tr>
   <td colspan="7" align="right" bgcolor="#cfcfcf" >
     <table border="0">
       <tr>

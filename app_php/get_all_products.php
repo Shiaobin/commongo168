@@ -20,7 +20,7 @@ while($result=$db->fetch_array()){
 			$SecondClass[$k-1]["product"]=$list;
 		//	$FirstClass[$j-1]["Level2Length"]=count($SecondClass);
 			$FirstClass[$j-1]["Level2"]=$SecondClass;
-			
+
 			$i=0;
 			//$j=0;
 			$k=0;
@@ -71,7 +71,7 @@ while($result=$db->fetch_array()){
 //	echo "product =".$i." = ".$result["ProdDisc"]."<br>";
 	$flag=true;
 }
-	
+
 	$SecondClass[$k-1]["ProductLength"]=count($list);
 	$SecondClass[$k-1]["product"]=$list;
 	//$SecondClass[$k]["MidCode"]=$list;

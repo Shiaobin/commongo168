@@ -1,19 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="expires" content="0">
 <?php include("indexconfig.php"); ?>
 </head>
   <body>
-    <div id="wrapper-box"> 
-    <?php include("include/topmenu2.php"); ?>   
+    <div id="wrapper-box">
+    <?php include("include/topmenu2.php"); ?>
 
 
 <div id="header-box" class="row">
         <div class="jumbotron col-sm-10 col-sm-offset-1">
-     <?php include("include/banner.php"); ?>     
-          
+     <?php include("include/banner.php"); ?>
+
           <!--頁頭flash end.captioned-gallery-->
           <div class="jumbotron-box"><!-- 導覽列：會員登入前 -->
             <nav class="navbar navbar-default" role="navigation">
@@ -29,24 +29,24 @@
                   <!-- <a class="navbar-brand" href="#">57</a>-->
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
-            
+
               </div><!-- /.container-fluid -->
             </nav>
           </div> <!-- end.jumbotron-box 導覽列：會員登入前-->
 
         </div>
-        
+
         <!--頁頭flash end.jumbotron-->
           <ol class="breadcrumb col-sm-10 col-sm-offset-1" id="p_breadcrumb">
             <li class="font-small"><a href="index.php">首頁</a></li>
-          <?php 
-			 @$LarCode = $_GET['LarCode'];			 
+          <?php
+			 @$LarCode = $_GET['LarCode'];
 			?>
             <li class="font-small"><a href="prodlist.php?LarCode=<?php echo $LarCode; ?>"><?php echo $LarCode; ?></a></li>
-            <?php 
+            <?php
 			 @$MidCode = $_GET['MidCode'];
 			 if(isset($MidCode) && (isset($LarCode)))
-			 {			 
+			 {
 			?>
                 <li class="font-small"><a href="prodlist.php?LarCode=<?php echo $LarCode; ?>&MidCode=<?php echo $MidCode; ?>"><?php echo $MidCode; ?></a></li>
             <?php
@@ -54,7 +54,7 @@
 			?>
           </ol>
         </div>
-        
+
         <!-- end#header-box-->
 
 
@@ -66,7 +66,7 @@
               </div>
             </div><!--提示 end.row-->
             <div class="row" id="p_productlist">
-  
+
 <?php
 $UserId=$_POST['UserId'];
 $UserPassword=$_POST['pw1'];
@@ -103,11 +103,11 @@ $pass=1;
 while($rs_UserId= mysql_fetch_array($result_UserId)){
 
  if($rs_UserId['UserId']==$UserId)
-  { 
+  {
 
 	  $pass=0;
 	  break;
-  } 
+  }
 }
 if($pass==0){
 ?>
@@ -133,27 +133,27 @@ if($pass==1){
 </table>
 <?php
 }
-?>            
-            
+?>
+
 
             </div><!--產品列表 end.row-->
 
           </div><!--內容 end#content-->
-          
+
 
 <div class="col-sm-2 col-sm-offset-1 col-sm-pull-8 col-xs-12" id="nav-box">
-<?php include("include/leftmenu_prod.php"); ?>     
+<?php include("include/leftmenu_prod.php"); ?>
           </div><!--導覽 end#nav-box-->
         </div><!--內容 end#content-box-->
      </div><!--頁尾以外 end#wrapper-box-->
 
 
-     
+
 
 <div id="footer-box">
       <div id="footer" class="row">
-  <?php include("include/bottom.php"); ?>        
+  <?php include("include/bottom.php"); ?>
       </div><!--頁尾 end#footer-->
     </div><!--頁尾 end#footer-box-->
-  
+
  </body></html>

@@ -26,7 +26,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showpaywayRec") == false && 
+    if (stristr($param, "pageNum_showpaywayRec") == false &&
         stristr($param, "totalRows_showpaywayRec") == false) {
       array_push($newParams, $param);
     }
@@ -46,11 +46,11 @@ if ((isset($_POST["open_btn"])) && ($_POST["open_btn"] == "上線")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."payway_no='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $updateSQL = "UPDATE shop_payway SET set_open='1' WHERE CONCAT($update_string)";
       mysql_select_db($database_webshop, $webshop);
       $Result = mysql_query($updateSQL, $webshop) or die(mysql_error());
-	  
+
 	  $updateGoTo = "adminpayway.php";
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$updateGoTo'";
@@ -67,11 +67,11 @@ if ((isset($_POST["close_btn"])) && ($_POST["close_btn"] == "下線")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."payway_no='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $updateSQL = "UPDATE shop_payway SET set_open='0' WHERE CONCAT($update_string)";
       mysql_select_db($database_webshop, $webshop);
       $Result = mysql_query($updateSQL, $webshop) or die(mysql_error());
-	  
+
 	  $updateGoTo = "adminpayway.php";
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$updateGoTo'";
@@ -88,11 +88,11 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."payway_no='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $deleteSQL = "DELETE FROM shop_payway WHERE CONCAT($delete_string)";
       mysql_select_db($database_webshop, $webshop);
       $Result = mysql_query($deleteSQL, $webshop) or die(mysql_error());
-	  
+
 	  $deleteGoTo = "adminpayway.php";
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$deleteGoTo'";
@@ -101,7 +101,7 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 }
 ?>
 <?php  //---------------------------加資料功能-------------------------------//
-if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "加資料")) { 
+if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "加資料")) {
 	  $addGoTo = "adminaddpayway.php";
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$addGoTo'";
@@ -111,14 +111,14 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "加資料")) {
 <!--------------------------------------------------------------------------------->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../../style.css" rel="stylesheet" type="text/css" />
-<title>商品支付管理</title> 
+<title>商品支付管理</title>
 
 <script>
-function check_all(obj,cName) 
-{ 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
-} 
+function check_all(obj,cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
+}
 </script>
 
 <table width="97%" height="60%" border="1" cellpadding="0" cellspacing="0">
@@ -165,7 +165,7 @@ function check_all(obj,cName)
   <td align="center"><input name="add_btn" type="submit" value="加資料" style="margin:5px"></td>
 </tr>
 <!-----------------------------page control----------------------------->
-<tr> 
+<tr>
   <td colspan="6" align="right">
     <table border="0">
       <tr>

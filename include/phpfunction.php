@@ -1,29 +1,29 @@
 <?php
 function selectAll_no_where($connect,$column,$table,$order_by)
-{  
+{
   $query= "SELECT ".$column." FROM ".$table." ORDER BY ".$order_by;
   $result = mysql_query($query, $connect) or die("cannot connect to table" . mysql_error( ));
-  
+
   return $result;
 }
 function selectAll($connect,$column,$table,$where,$order_by)
-{ 
+{
   $query= "SELECT ".$column." FROM ".$table." WHERE ".$where." ORDER BY ".$order_by;
   $result = mysql_query($query, $connect) or die("cannot connect to table" . mysql_error( ));
-  
+
   return $result;
 }
 function selectOne($connect,$column,$table,$where,$order_by)
-{ 
+{
   $query= "SELECT ".$column." FROM ".$table." WHERE ".$where." ORDER BY ".$order_by;
   $result = mysql_query($query, $connect) or die("cannot connect to table" . mysql_error( ));
   $rs = mysql_fetch_array($result);
-  
+
   return $rs;
 }
 function countAll($result)
 {
-  $count = mysql_num_rows($result);  
+  $count = mysql_num_rows($result);
   return $count;
 }
 function updateAll_no_where($connect,$table,$set)

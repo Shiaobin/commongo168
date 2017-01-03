@@ -29,7 +29,7 @@
               </figure>
               <figure>
                 <img src="./images/bannerimg/<?php echo $img1; ?>" alt="">
-              </figure>                  
+              </figure>
              <?php
 			 }
 			 if($i==2)
@@ -40,7 +40,7 @@
               </figure>
               <figure>
                 <img src="./images/bannerimg/<?php echo $img2; ?>" alt="">
-              </figure>                                     
+              </figure>
              <?php
 			 }
 			 if($i==3)
@@ -48,12 +48,12 @@
 		     ?>
               <figure>
                 <img src="./images/bannerimg/<?php echo $img1; ?>" alt="">
-              </figure>                                 
+              </figure>
              <?php
 			 }
 			 ?>
-			 
+
             </figure>
           </div>
 
-         
+

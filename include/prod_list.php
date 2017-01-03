@@ -1,12 +1,12 @@
 <style>
 [disabled="disabled"] {
     color: #FFF;
-    
+
 }
-</style>            
+</style>
           <form>
           <select style="width:240px;margin-top:5px;" onChange='location = this.options[this.selectedIndex].value;'>
-<?php 
+<?php
 $result_Prod_Lar = selectAll_no_where($webshop,"*","prodclass","LarSeq ASC");
 $LarSeq_num = "";
 echo "<option>選擇項目</option>";
@@ -30,7 +30,7 @@ while($rs = mysql_fetch_array($result_Prod_Lar))
       <option style="background-color:#FFF;color:#767676" value="prodlist.php?LarCode=<?php echo $LarCode_list; ?>&MidCode=<?php echo $MidCode_list; ?>"><?php echo $MidCode_list; ?></option>
 <?php
 	}
-    
+
   }
 }
 ?>

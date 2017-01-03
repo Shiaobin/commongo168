@@ -13,7 +13,7 @@ $column = "*";
 $whereClause = "1=1";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_msgRec}, {$maxRows_msgRec} ", 
+		'mysql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_msgRec}, {$maxRows_msgRec} ",
 		'mssql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_msgRec}, {$maxRows_msgRec} ",
 		'oci8'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_msgRec}, {$maxRows_msgRec} "
 );
@@ -32,7 +32,7 @@ if(isset($_GET['totalRows_msgRec'])){
     $totalRows_msgRec = $_GET['totalRows_msgRec'];
 }else{
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC ", 
+		'mysql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC ",
 		'mssql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC ",
 		'oci8'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC "
 );
@@ -47,7 +47,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_msgRec") == false && 
+    if (stristr($param, "pageNum_msgRec") == false &&
         stristr($param, "totalRows_msgRec") == false) {
       array_push($newParams, $param);
     }
@@ -84,7 +84,7 @@ if ((isset($_POST["check"]))&&($_POST["check"]=="會員登入檢查")) {
 		$addGoTo = "adddiscuss.php";
 		echo "<script type='text/javascript'>";
 		echo "window.location.href='$addGoTo'";
-		echo "</script>"; 
+		echo "</script>";
 	}else{
 		echo "<script language=\"javascript\">";
 		echo "window.alert(\"請先登入會員\");";
@@ -105,8 +105,8 @@ if ((isset($_POST["check"]))&&($_POST["check"]=="會員登入檢查")) {
     <th >點閱</th>
   </tr>
   <!-------------------------------------------------------------->
-  <?php if ($total_msgRec > 0) { // Show if recordset not empty ?> 
-    <?php 
+  <?php if ($total_msgRec > 0) { // Show if recordset not empty ?>
+    <?php
 	    foreach ($row_msgRec as $key => $array){  ?>
           <tr>
             <td bgcolor="#CCCCCC">
@@ -124,18 +124,18 @@ if ((isset($_POST["check"]))&&($_POST["check"]=="會員登入檢查")) {
             </td>
             <!-------------------------------------------------------------->
             <td >
-            <?php 
+            <?php
 				$table_shop_member_sub_msg		= SYS_DBNAME . ".shop_member_sub_msg";
 				$column = "*";
 				$whereClause = "msg_no={$array['msg_no']}";
-				
+
 				$sql['list']['select'] = array(
-						'mysql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause}", 
+						'mysql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause}",
 						'mssql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause}",
 						'oci8'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause}"
 				);
 				$row_subRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-				
+
 				/*
 				mysql_select_db($database_webshop, $webshop);
 				$query_subRec = sprintf("SELECT * FROM shop_member_sub_msg WHERE msg_no = %s", GetSQLValueString($row_msgRec['msg_no'], "int"));
@@ -143,7 +143,7 @@ if ((isset($_POST["check"]))&&($_POST["check"]=="會員登入檢查")) {
 				$row_subRec = mysql_fetch_assoc($subRec);
 				*/
 				$totalRows_subRec = sizeof($row_subRec);
- 			
+
 				 echo $totalRows_subRec;?>
             </td>
             <!-------------------------------------------------------------->
@@ -151,8 +151,8 @@ if ((isset($_POST["check"]))&&($_POST["check"]=="會員登入檢查")) {
               <?php echo $array["cktimes"];?>
             </td>
           </tr>
-    <?php 
-	} ?>		
+    <?php
+	} ?>
   <?php } // Show if recordset not empty ?>
   <!-------------------------------------------------------------->
   <tr>

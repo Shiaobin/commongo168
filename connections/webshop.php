@@ -14,7 +14,7 @@ $password_webshop = DB_PASSWORD;
 
 //mysql_close($this->databaseLink);
 
-$webshop = mysql_pconnect($hostname_webshop, $username_webshop, $password_webshop, TRUE) or trigger_error(mysql_error(),E_USER_ERROR); 
+$webshop = mysql_pconnect($hostname_webshop, $username_webshop, $password_webshop, TRUE) or trigger_error(mysql_error(),E_USER_ERROR);
 mysql_select_db($database_webshop, $webshop);
 
 mysql_query('SET NAMES utf8',$webshop);   //設定MYSQL編碼

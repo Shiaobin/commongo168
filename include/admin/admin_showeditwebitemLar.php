@@ -8,14 +8,14 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
 
   $updateSQL = sprintf("UPDATE compclass SET LarSeq=%s, LarCode=%s, pnum=%s WHERE LarSeq=%s",
                        GetSQLValueString($_POST['upd_LarSeq'], "int"),
-					   GetSQLValueString($_POST['LarCode'], "text"),					                 
+					   GetSQLValueString($_POST['LarCode'], "text"),
 					   GetSQLValueString($_POST['pnum'], "int"),
 					   GetSQLValueString($_POST['LarSeq'], "int"));
 
 
   $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
-  
- 
+
+
   $updateGoTo = "adminwebitem.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
@@ -23,7 +23,7 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 
@@ -54,21 +54,21 @@ mysql_select_db($database_webshop, $webshop);
       <input id="LarCode" name="LarCode" type="text" class=sizeM value="<?php echo $row_showitemLarRec['LarCode']; ?>"/>
     </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">排序:
    	  <input type="int" name="upd_LarSeq" id="upd_LarSeq" class=sizeSss value="<?php echo $row_showitemLarRec['LarSeq']; ?>"/>
-   	  [不能與其它大類的排序號重複，否則會出錯]    
+   	  [不能與其它大類的排序號重複，否則會出錯]
     </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">寫'0'值,則表示'前台選單'只顯示大類選項將不出現中類選項；寫'1'值,則反:
    	  <input type="int" name="pnum"  class=sizeSss value="<?php echo $row_showitemLarRec['pnum']; ?>"/>
-      
+
     </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">
     <input name="LarSeq" type="hidden" value="<?php echo $row_showitemLarRec['LarSeq']; ?>" />

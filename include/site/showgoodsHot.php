@@ -15,27 +15,27 @@ $column = "*";
 $whereClause = "CONCAT($string)";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ClickTimes DESC LIMIT {$startRow_productHotRec}, {$maxRows_productHotRec} ", 
+		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ClickTimes DESC LIMIT {$startRow_productHotRec}, {$maxRows_productHotRec} ",
 		'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ClickTimes DESC LIMIT {$startRow_productHotRec}, {$maxRows_productHotRec} ",
 		'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ClickTimes DESC LIMIT {$startRow_productHotRec}, {$maxRows_productHotRec} "
 );
 $row_productHotRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 /*
 mysql_select_db($database_webshop, $webshop);
-$query_productHotRec = "SELECT * FROM prodmain  
+$query_productHotRec = "SELECT * FROM prodmain
 where CONCAT($string) ORDER BY ClickTimes DESC";
 $query_limit_productHotRec = sprintf("%s LIMIT %d, %d", $query_productHotRec, $startRow_productHotRec, $maxRows_productHotRec);
 $productHotRec = mysql_query($query_limit_productHotRec, $webshop) or die(mysql_error());
 $row_productHotRec = mysql_fetch_assoc($productHotRec);
 */
-$total_productHotRec = sizeof($row_productHotRec); 
+$total_productHotRec = sizeof($row_productHotRec);
 
 
 if(isset($_GET['totalRows_productHotRec'])){
     $totalRows_productHotRec = $_GET['totalRows_productHotRec'];
 }else{
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ClickTimes DESC ", 
+		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ClickTimes DESC ",
 		'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ClickTimes DESC ",
 		'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ClickTimes DESC "
 );
@@ -49,7 +49,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_productHotRec") == false && 
+    if (stristr($param, "pageNum_productHotRec") == false &&
         stristr($param, "totalRows_productHotRec") == false) {
       array_push($newParams, $param);
     }
@@ -80,16 +80,16 @@ $queryString_productHotRec = sprintf("&totalRows_productHotRec=%d%s", $totalRows
 			$table_prodmain		= SYS_DBNAME . ".prodmain";
 			  $column = "*";
 			  $whereClause = "ProdNum={$array['ProdNum']}";
-			  
+
 			  $sql['list']['select'] = array(
-					  'mysql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause}", 
+					  'mysql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause}",
 					  'mssql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause}",
 					  'oci8'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause}"
 			  );
 			  $row_showHotlistRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
-			 /* 
-			  $query_showHotlistRec = sprintf("SELECT * FROM prodmain 
-			  INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId 
+			 /*
+			  $query_showHotlistRec = sprintf("SELECT * FROM prodmain
+			  INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId
 			  WHERE ProdNum=%s", GetSQLValueString($row_productHotRec['ProdNum'], "text"));
 		      $showHotlistRec = mysql_query($query_showHotlistRec, $webshop) or die(mysql_error());
 		      $row_showHotlistRec = mysql_fetch_assoc($showHotlistRec);

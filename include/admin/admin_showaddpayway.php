@@ -4,7 +4,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {  
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {
   $insertSQL = sprintf("INSERT INTO shop_payway (warranty, payway_cost, payway_limit, send_time, delievery_way, delievery_explain, set_open) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['warranty'], "text"),
                        GetSQLValueString($_POST['payway_cost'], "text"),
@@ -49,7 +49,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
     <td width="10%" align="center">送貨方式</td>
     <td width="40%" colspan="3" align="left">
       <input name="delievery_way" type="text" id="delievery_way" style="width:40%; height:70%; margin:3px"/>
-      
+
     </td>
   </tr>
   <!---------------------------------------------------------------------------------->
@@ -71,7 +71,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
     <td width="10%" align="center">寄送時間</td>
     <td width="40%" colspan="3" align="left">
       <input name="send_time" type="text" id="send_time" style="width:40%; height:70%; margin:3px"/>
-      
+
     </td>
   </tr>
   <!---------------------------------------------------------------------------------->

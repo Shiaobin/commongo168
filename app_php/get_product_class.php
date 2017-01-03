@@ -78,7 +78,7 @@ while($result=$db->fetch_array()){
 //	echo "product =".$i." = ".$result["ProdName"]."<br>";
 	$flag=true;
 }
-	
+
 	$SecondClass[$k-1]["ProductLength"]=count($list);
 //	$SecondClass[$k-1]["product"]=$list;
 	//$SecondClass[$k]["MidCode"]=$list;

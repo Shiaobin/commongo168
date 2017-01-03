@@ -2,15 +2,15 @@
 $column = "*";
   $table_index_image_slide		= SYS_DBNAME . ".index_image_slide";
   $whereClause = "1=1";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_index_image_slide} WHERE {$whereClause} ORDER BY slide_index ASC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_index_image_slide} WHERE {$whereClause} ORDER BY slide_index ASC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_index_image_slide} WHERE {$whereClause} ORDER BY slide_index ASC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_index_image_slide} WHERE {$whereClause} ORDER BY slide_index ASC"
   );
-  
+
   $row_showpagesRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
- /* 
+ /*
 mysql_select_db($database_webshop, $webshop);
 $query_showpagesRec = "SELECT * FROM index_image_slide ORDER BY slide_index ASC";
 $showpagesRec = mysql_query($query_showpagesRec, $webshop) or die(mysql_error());

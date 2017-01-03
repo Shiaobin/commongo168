@@ -9,9 +9,9 @@ if (isset($_GET['OrderNum'])) {
 		$table_orderlist		= SYS_DBNAME . ".orderlist";
 		$column = "*";
 		$whereClause = "OrderNum='{$OrderNum}'";
-		
+
 		$sql['list']['select'] = array(
-				'mysql'	=> "SELECT * FROM {$table_orderlist} WHERE {$whereClause}", 
+				'mysql'	=> "SELECT * FROM {$table_orderlist} WHERE {$whereClause}",
 				'mssql'	=> "SELECT * FROM {$table_orderlist} WHERE {$whereClause}",
 				'oci8'	=> "SELECT * FROM {$table_orderlist} WHERE {$whereClause}"
 		);
@@ -27,9 +27,9 @@ $totalRows_mainRec = mysql_num_rows($mainRec);
 $table_orderdetail		= SYS_DBNAME . ".orderdetail";
 		$column = "*";
 		$whereClause = "OrderNum='{$OrderNum}'";
-		
+
 		$sql['list']['select'] = array(
-				'mysql'	=> "SELECT * FROM {$table_orderdetail} WHERE {$whereClause}", 
+				'mysql'	=> "SELECT * FROM {$table_orderdetail} WHERE {$whereClause}",
 				'mssql'	=> "SELECT * FROM {$table_orderdetail} WHERE {$whereClause}",
 				'oci8'	=> "SELECT * FROM {$table_orderdetail} WHERE {$whereClause}"
 		);
@@ -47,7 +47,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_productRec") == false && 
+    if (stristr($param, "pageNum_productRec") == false &&
         stristr($param, "totalRows_productRec") == false) {
       array_push($newParams, $param);
     }
@@ -114,9 +114,9 @@ if (!empty($_SERVER['QUERY_STRING'])) {
             <th>小計</th>
           </tr>
           <!-------------------------------------------------------------->
-          <?php 
+          <?php
 		  		$total = 0;
-		  		foreach ($row_subRec as $key => $array){ 
+		  		foreach ($row_subRec as $key => $array){
 		  ?>
             <tr>
               <td><?php echo $array['OrderNum']; ?></td>
@@ -125,7 +125,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
               <td>NT$<?php echo $array['BuyPrice']; ?></td>
               <td>NT$<?php echo $array['BuyPrice']*$array['ProdUnit']; ?></td>
             </tr>
-          <?php 	
+          <?php
 		  			$sum = $array['BuyPrice']*$array['ProdUnit'];
 		  			$total=$total+$sum;
 		  		}
@@ -143,7 +143,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
           <!-------------------------------------------------------------->
 
   </table>
-<?php } // Show if recordset not empty 
+<?php } // Show if recordset not empty
 //mysql_free_result($mainRec);
 //mysql_free_result($subRec);
 ?>

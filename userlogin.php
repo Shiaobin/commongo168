@@ -4,7 +4,7 @@ header('Location:index.php');
 exit;
 }
 include("connections/webshop.php");
-header("Content-type: text/html; charset=utf-8"); 
+header("Content-type: text/html; charset=utf-8");
 $query='select * from usermain';
 $result=mysql_query($query, $webshop) or die("cannot connect to table" . mysql_error( ));
 $A=$_POST["userid"];
@@ -32,7 +32,7 @@ if($A==$rs['UserId'] & $P==$rs['UserPassword']){
   $_SESSION['yuserid']=$A;
   $_SESSION['ypassword']=$P;
   $_SESSION['username']=$rs['UserName'];
-  $_SESSION['MM_Username']=$A;  
+  $_SESSION['MM_Username']=$A;
   if(isset($_SESSION['go']))
   {
 	   $go=$_SESSION['go'];

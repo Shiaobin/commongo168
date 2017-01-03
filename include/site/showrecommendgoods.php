@@ -26,7 +26,7 @@ $query_productRec = "SELECT * FROM shop_goods where CONCAT($string) ORDER BY goo
 $query_limit_productRec = sprintf("%s LIMIT %d, %d", $query_productRec, $startRow_productRec, $maxRows_productRec);
 $productRec = mysql_query($query_limit_productRec, $webshop) or die(mysql_error());
 $row_productRec = mysql_fetch_assoc($productRec);
-$total_productRec = mysql_num_rows($productRec); 
+$total_productRec = mysql_num_rows($productRec);
 
 if (isset($_GET['totalRows_productRec'])) {
   $totalRows_productRec = $_GET['totalRows_productRec'];
@@ -41,7 +41,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_productRec") == false && 
+    if (stristr($param, "pageNum_productRec") == false &&
         stristr($param, "totalRows_productRec") == false) {
       array_push($newParams, $param);
     }
@@ -72,17 +72,17 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "addgoods")) {
 
       mysql_select_db($database_webshop, $webshop);
       $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());
-  
+
       $insertGoTo = "car.php";
       if (isset($_SERVER['QUERY_STRING'])) {
         $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
         $insertGoTo .= $_SERVER['QUERY_STRING'];
       }
-  
+
       $url = $insertGoTo;
       echo "<script type='text/javascript'>";
       echo "window.location.href='$url'";
-      echo "</script>"; 
+      echo "</script>";
   }
   else {
 	echo "<script language=\"javascript\">";
@@ -94,19 +94,19 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "addgoods")) {
 <?php  //-------------------------------搜尋商品---------------------------------//
 if ((isset($_POST["search"])) && ($_POST["search"] == "搜索")) {
   $name = trim($_POST["search_name"]);
-  
+
   $string = "set_open = '1'";
-  
+
   if($name != "") {
 	$string = $string." && "."goods_name LIKE '%$name%'";
   }
-  
+
   $query_productRec = "SELECT * FROM shop_goods where CONCAT($string) ORDER BY goods_date ASC";
   $query_limit_productRec = sprintf("%s LIMIT %d, %d", $query_productRec, $startRow_productRec, $maxRows_productRec);
   $productRec = mysql_query($query_limit_productRec, $webshop) or die(mysql_error());
   $row_productRec = mysql_fetch_assoc($productRec);
-  $total_productRec = mysql_num_rows($productRec); 
-  
+  $total_productRec = mysql_num_rows($productRec);
+
   if (isset($_GET['totalRows_productRec'])) {
     $totalRows_productRec = $_GET['totalRows_productRec'];
   } else {
@@ -120,7 +120,7 @@ if ((isset($_POST["search"])) && ($_POST["search"] == "搜索")) {
     $params = explode("&", $_SERVER['QUERY_STRING']);
     $newParams = array();
     foreach ($params as $param) {
-      if (stristr($param, "pageNum_productRec") == false && 
+      if (stristr($param, "pageNum_productRec") == false &&
           stristr($param, "totalRows_productRec") == false) {
         array_push($newParams, $param);
       }
@@ -154,7 +154,7 @@ if ((isset($_POST["search"])) && ($_POST["search"] == "搜索")) {
           <tr>
             <td height="100%">
               <a href="gooddetail.php?goods_id=<?php echo $row_productRec['goods_id']; ?>">
-                <img src="images/goodsimg/medium/<?php echo $row_productRec['goods_img']; ?>" alt="" 
+                <img src="images/goodsimg/medium/<?php echo $row_productRec['goods_img']; ?>" alt=""
                      name="image" width="300px" height="200px" id="image" align="center" class="img"/>
               </a>
             </td>
@@ -168,7 +168,7 @@ if ((isset($_POST["search"])) && ($_POST["search"] == "搜索")) {
             <td height="8%" align="center">
               <?php if($row_productRec['bargain']) { echo $row_showconfigRec['sale_label']; ?>:<font color="#CC0000"><?php echo $row_productRec['sale_price']; ?></font>元
 			  <?php	}else  {                         echo $row_showconfigRec['price_label'];?>:<?php echo $row_productRec['goods_price']; ?>元
-              <?php }?>  	
+              <?php }?>
 		    </td>
           </tr>
           <!-------------------------------------------------------------->
@@ -179,7 +179,7 @@ if ((isset($_POST["search"])) && ($_POST["search"] == "搜索")) {
               <input name="goods_stand" type="hidden" id="goods_stand" value="<?php echo $row_productRec['goods_stand']; ?>"/>
               <input name="goods_price" type="hidden" id="goods_price" value="<?php echo $row_productRec['goods_price']; ?>"/>
               <input name="goods_img" type="hidden" id="goods_img" value="<?php echo $row_productRec['goods_img']; ?>" />
-              <input name="ord_id" type="hidden" id="ord_id" value="<?php if(isset($_SESSION['MM_Username'])) echo date('Ymdhis').$_SESSION['MM_Username']; 
+              <input name="ord_id" type="hidden" id="ord_id" value="<?php if(isset($_SESSION['MM_Username'])) echo date('Ymdhis').$_SESSION['MM_Username'];
 							                                              else echo $_SESSION['tempord_id'];?>" />
               <input name="buy" type="submit" value="立即購買" />
             </td>

@@ -1,13 +1,13 @@
 html{height:100%;}
 body{ height:100%; color: #767676; font:  14px sans-serif;background: #EFEFEF;font-family: "Helvetica Neue", Helvetica, Arial, "微軟正黑體", sans-serif;}
-a.backToTop{width:60px; height:60px; background:url(top.gif) no-repeat -51px 0; 
- text-indent:-999em} 
-a.backToTop:hover{background-position:-113px 0} 
+a.backToTop{width:60px; height:60px; background:url(top.gif) no-repeat -51px 0;
+ text-indent:-999em}
+a.backToTop:hover{background-position:-113px 0}
 div#wrapper-box{min-height:100%; height:auto !important; *height:100%;/*for IE6*/ position:relative; margin:0 auto;}
 .pei_remark{
   width:250px;
   background:#FF9;
-  display:none;	
+  display:none;
 }
 .qty {
   width: 40px;
@@ -48,8 +48,8 @@ input.sqtyminus {
 /*------------------------------------banner---------------------------------*/
 /* Carousel base class */
 .carousel {
-  margin-top: 40px;	
-  
+  margin-top: 40px;
+
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -129,13 +129,13 @@ div.jumbotron-box{position: absolute; top:0; left: 0; z-index: 100; width: 100%;
 }
 
 
-/*兩張輪播圖用 
+/*兩張輪播圖用
 @import url(http://fonts.googleapis.com/css?family=Istok+Web);
 @keyframes captionedslidy {
-	20% { left: 0%; } 25% { left: -100%; } 45% { left: -100%; } 50% { left: -200%; } 70% { left: -200%; } 75% { left: -300%; } 95% { left: -300%; } 100% { left: -400%; } 
-} 
+	20% { left: 0%; } 25% { left: -100%; } 45% { left: -100%; } 50% { left: -200%; } 70% { left: -200%; } 75% { left: -300%; } 95% { left: -300%; } 100% { left: -400%; }
+}
 @keyframes captionedslidy {
-	20% { left: 0%; } 25% { left: 0%; } 45% { left: 0%; } 50% { left: 0%; } 70% { left: 0%; } 75% { left: 0%; } 95% { left: 0%; } 100% { left: 0%; } 
+	20% { left: 0%; } 25% { left: 0%; } 45% { left: 0%; } 50% { left: 0%; } 70% { left: 0%; } 75% { left: 0%; } 95% { left: 0%; } 100% { left: 0%; }
 }
 @-webkit-keyframes captionedslidy {
 	20% { left: 0%; } 25% { left: -100%; } 45% { left: -100%; } 50% { left: -200%; } 70% { left: -200%; } 75% { left: -300%; } 95% { left: -300%; } 100% { left: -400%; }
@@ -150,20 +150,20 @@ div.jumbotron-box{position: absolute; top:0; left: 0; z-index: 100; width: 100%;
 /*三張輪播圖用*/
 @import url(http://fonts.googleapis.com/css?family=Istok+Web);
 @keyframes captionedslidy {
-	28.5% { left: 0%; } 33.5% { left: -100%; } 61.5% { left: -100%; } 66.5% { left: -200%; } 94.5% { left: -200%; } 100% { left: -300%; } 
-} 
+	28.5% { left: 0%; } 33.5% { left: -100%; } 61.5% { left: -100%; } 66.5% { left: -200%; } 94.5% { left: -200%; } 100% { left: -300%; }
+}
 @keyframes captionedslidy {
 	28.5% { left: 0%; } 33.5% { left: 0%; } 61.5% { left: 0%; } 66.5% { left: 0%; } 94.5% { left: 0%; } 100% { left: 0%; }
 }
 @-webkit-keyframes captionedslidy {
-	28.2% { left: 0%; } 33.5% { left: -100%; } 61.5% { left: -100%; } 66.5% { left: -200%; } 94.5% { left: -200%; } 100% { left: -300%; } 
+	28.2% { left: 0%; } 33.5% { left: -100%; } 61.5% { left: -100%; } 66.5% { left: -200%; } 94.5% { left: -200%; } 100% { left: -300%; }
 	 }
 @-o-keyframes captionedslidy {
 	28.5% { left: 0%; } 33.5% { left: -100%; } 61.5% { left: -100%; } 66.5% { left: -200%; } 94.5% { left: -200%; } 100% { left: -300%; }
 	 }
 @keyframes captionedslidy{
 	0%{left:0%;}28.5%{left:0%;}33.5%{left:-100%;}61.5%{left:-100%;}66.5%{left:-200%;}94.5%{left:-200%;}100%{left:-300%;}
-	 } 
+	 }
 
 figure {
 	margin: 0;
@@ -173,7 +173,7 @@ figure {
 	border-right-style: none;
 	border-bottom-style: none;
 	border-left-style: none;
-} 
+}
 div#captioned-gallery {width: 100%; overflow: hidden; z-index: -9999; background: transparent;}
 .video-js{position:static; }
 
@@ -185,7 +185,7 @@ figure.slider figure figcaption {position: absolute; bottom: 0; background: rgba
 */
 /*三張輪播圖用*/
 figure.slider {position: relative; width: 400%; font-size: 0; animation: 30s captionedslidy infinite; -moz-animation: 30s captionedslidy infinite; -webkit-animation: 30s captionedslidy infinite; -o-animation: 30s captionedslidy infinite; }
-figure.slider figure {width: 25%; height: auto; display: inline-block;  position: inherit; } 
+figure.slider figure {width: 25%; height: auto; display: inline-block;  position: inherit; }
 figure.slider img { width: 100%; height: auto; }
 figure.slider figure figcaption {position: absolute; bottom: 0; background: rgba(0,0,0,0.4); color: #fff; width: 100%; font-size: 2rem; padding: .6rem; }
 
@@ -221,17 +221,17 @@ div#nav-box, div#content, div#content02{
 @media (min-width: 450px) and (max-width: 767px)  {
 	div#nav-box, div#content, div#content02{background: #fff;padding-bottom: 9950px; margin-bottom: -9900px;}
 	div#nav{display:none;}
-	
+
 }
 @media (min-width: 350px) and (max-width: 449px)  {
 	div#nav-box, div#content, div#content02{background: #fff;padding-bottom: 9940px; margin-bottom: -9900px;}
 	div#nav{display:none;}
-		
+
 }
 @media (min-width: 200px) and (max-width: 349px)  {
 	div#nav-box, div#content, div#content02{background: #fff;padding-bottom: 9920px; margin-bottom: -9900px;}
 	div#nav{display:none;}
-	
+
 }
 
 div#content02{ padding-top: 20px;}
@@ -243,7 +243,7 @@ div#content-box div#nav-box div#nav{ padding:0 0 20px 0;}
 @media (min-width:768px) {
 	div#nav-box, div#content{ padding-top: 40px;}
 	div#content-box div#nav-box div#nav{border-right: 1px solid #61C1BD; padding:0 15px 20px 0;}
-	
+
 }
 
 
@@ -291,7 +291,7 @@ div.index-item>a:hover, div.index-item>a:visited{text-decoration: none;}
 div.index-item>a>img{margin: 0 auto;}
 div.index-item>a>img:hover{background: #fff;}
 div.index-item>a>div.content-index-title:hover{background: #E0E0E0; color: #000;}
-.img-hover{position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; width: 100%; height: 100%; z-index: 1; background-color: rgba(255, 255, 255, 0.4); background-position: center center; background-repeat: no-repeat;} 
+.img-hover{position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; width: 100%; height: 100%; z-index: 1; background-color: rgba(255, 255, 255, 0.4); background-position: center center; background-repeat: no-repeat;}
 p.index-item-p{ margin-top:5px; font-size:12px;padding: 0px 1em; height: 100px;}
 @media (min-width: 1px) and (max-width: 767px)  {
 	p.index-item-p{margin-left: 10px; margin-right: 10px; height: 50px;}
@@ -358,7 +358,7 @@ button.btn-specialcolor:hover{background: #7B59A3; border: 1px solid #7B59A3; co
 button.btn-link, a.btn-link{color: #284C80;}
 button.btn-link:hover, button.btn-link:focus{color: #284C80;}
 @media (min-width: 200px) and (max-width: 767px)  {
-button.btn-link, a.btn-link{margin-left: 4px;}	
+button.btn-link, a.btn-link{margin-left: 4px;}
 }
 textarea.textareaS{height:200px; min-height:200px; max-height:200px; width: 100%; min-width: 100%; max-width: 100%;}
 label.td-radio{padding-left: 0;}
@@ -378,15 +378,15 @@ div#page{ text-align: center;margin-bottom:20px;}
 }
 @media (min-width: 768px) and (max-width: 900px)  {
 	img.img-resize, a.circle{width: 80%; min-width: 80px;}
-	
+
 }
 @media (min-width: 901px) and (max-width: 1079px)  {
 	img.img-resize, a.circle{width: 80%; min-width: 80px;}
-		
+
 }
 @media (min-width: 1080px) and (max-width: 1199px)  {
 	img.img-resize, a.circle{width: 80%; min-width: 80px;}
-		
+
 }
 
 p.content-productList-occasion-hint{font-size: 16px; font-weight: bolder;}
@@ -423,7 +423,7 @@ p#content-productList-occasion-item-text-07a{background: url('../images/circle07
 }
 @media (min-width: 1200px) and (max-width: 1299px)   {
 	div.content-productList-occasion-item{margin:10px 20px 50px 20px;}
-		
+
 }
 @media (min-width: 1301px) and (max-width: 1400px)   {
 	div.content-productList-occasion-item{margin:10px 15px 50px 15px;}
@@ -433,7 +433,7 @@ p#content-productList-occasion-item-text-07a{background: url('../images/circle07
 	div.content-productList-occasion-item{margin:10px 10px 50px 10px;}
 
 }
-.item-hover {/*display: none;*/ position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; width: 100%; height: 100%; background-color: rgba(40, 76, 128, 0.8); background-position: center center; background-repeat: no-repeat; -moz-border-radius: 80px; -webkit-border-radius: 80px; border-radius: 80px;border: 5px solid #ECECEC;} 
+.item-hover {/*display: none;*/ position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; width: 100%; height: 100%; background-color: rgba(40, 76, 128, 0.8); background-position: center center; background-repeat: no-repeat; -moz-border-radius: 80px; -webkit-border-radius: 80px; border-radius: 80px;border: 5px solid #ECECEC;}
 .item-hover-01a {background-image: url('../images/circle01a-hover.png'); }
 .item-hover-02a {background-image: url('../images/circle02a-hover.png'); }
 .item-hover-03a {background-image: url('../images/circle03a-hover.png'); }
@@ -447,7 +447,7 @@ p.content-productList-tag-hint{background: #EFEFEF; padding: 5px 10px;}
 p.content-productList-tag-hint span{color: #cc0000;}
 a.text-productlist-title{
 	color: #284C80;
-	_height:20px; 
+	_height:20px;
 	min-height:20px;
 	display: inline-block;
 	font-size: 14px;
@@ -571,140 +571,140 @@ p.text-error-linkIndex{margin-top: 50px;}
   		height: 70px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 225px) and (max-width: 266px)  {
 	.carousel .item {
   		height: 100px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 215px) and (max-width: 266px)  {
 	.carousel .item {
   		height: 100px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 267px) and (max-width: 308px)  {
 	.carousel .item {
   		height: 115px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 309px) and (max-width: 352px)  {
 	.carousel .item {
   		height: 130px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 353px) and (max-width: 407px)  {
 	.carousel .item {
   		height: 150px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 408px) and (max-width: 463px)  {
 	.carousel .item {
   		height: 170px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 464px) and (max-width: 509px)  {
 	.carousel .item {
   		height: 190px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}		
+	}
 }
 @media (min-width: 510px) and (max-width: 595px)  {
 	.carousel .item {
   		height: 210px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}		
+	}
 }
 @media (min-width: 596px) and (max-width: 624px)  {
 	.carousel .item {
   		height: 230px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 625px) and (max-width: 664px)  {
 	.carousel .item {
   		height: 250px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 665px) and (max-width: 739px)  {
 	.carousel .item {
   		height: 270px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 740px) and (max-width: 767px)  {
 		.carousel .item {
   		height: 280px;
   		min-height: 50%;
   		background-color: #61C1BD;
-		}		
+		}
 }
 @media (min-width: 768px) and (max-width: 844px)  {
 		.carousel .item {
   		height: 260px;
   		min-height: 50%;
   		background-color: #61C1BD;
-		}		
+		}
 }
 @media (min-width: 845px) and (max-width: 900px)  {
 		.carousel .item {
   		height: 280px;
   		min-height: 50%;
   		background-color: #61C1BD;
-		}		
+		}
 }
 @media (min-width: 901px) and (max-width: 955px)  {
 		.carousel .item {
   		height: 300px;
   		min-height: 50%;
   		background-color: #61C1BD;
-		}		
+		}
 }
 @media (min-width: 956px) and (max-width: 1079px)  {
 		.carousel .item {
   		height: 320px;
   		min-height: 50%;
   		background-color: #61C1BD;
-		}		
+		}
 }
 @media (min-width: 1080px) and (max-width: 1100px)  {
 		.carousel .item {
   		height: 340px;
   		min-height: 50%;
   		background-color: #61C1BD;
-		}		
+		}
 }
 @media (min-width: 1101px) and (max-width: 1199px)  {
 		.carousel .item {
   		height: 370px;
   		min-height: 50%;
   		background-color: #61C1BD;
-		}		
+		}
 }
 @media (min-width: 1200px) and (max-width: 1299px)   {
 	.carousel .item {
   		height: 400px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}		
+	}
 }
 @media (min-width: 1300px) and (max-width: 1400px)   {
 	.carousel .item {
@@ -718,47 +718,47 @@ p.text-error-linkIndex{margin-top: 50px;}
   		height: 460px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 1501px) and (max-width: 1584px){
 	.carousel .item {
   		height: 490px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 1585px) and (max-width: 1664px){
 	.carousel .item {
   		height: 520px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 1665px) and (max-width: 1764px){
 	.carousel .item {
   		height: 550px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 1765px) and (max-width: 1864px){
 	.carousel .item {
   		height: 580px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 1865px) and (max-width: 1964px){
 	.carousel .item {
   		height: 610px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }
 @media (min-width: 1965px){
 	.carousel .item {
   		height: 640px;
   		min-height: 50%;
   		background-color: #61C1BD;
-	}	
+	}
 }

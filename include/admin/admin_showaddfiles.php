@@ -4,9 +4,9 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['Dow_Name'] != "") && ($_FILES["files"]["tmp_name"] != "")) {  
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['Dow_Name'] != "") && ($_FILES["files"]["tmp_name"] != "")) {
   move_uploaded_file(realpath($_FILES["files"]["tmp_name"]), "../files/".$_FILES["files"]["name"]) or die("Problems with upload");
-  
+
   $table_download		= SYS_DBNAME . ".download";
   $record = array(
   				'Dow_Path' => $_FILES["files"]["name"],

@@ -33,12 +33,12 @@
 		          $row_showsublistRec = mysql_fetch_assoc($showsublistRec);
 		          $totalRows_showsublistRec = mysql_num_rows($showsublistRec);
 		          if ($totalRows_showsublistRec > 0) {
-		          do {?>  
-                    <?php 
+		          do {?>
+                    <?php
 			          $query_showsetRec = sprintf("SELECT set_new FROM index_pages WHERE index_item_id=%s && index_end_item_id=%s" , GetSQLValueString($row_showsublistRec['index_item_id'], "text"), GetSQLValueString($row_showsublistRec['index_end_item_id'], "text"));
 		              $showsetRec = mysql_query($query_showsetRec, $webshop) or die(mysql_error());
 		              $row_showsetRec = mysql_fetch_assoc($showsetRec);
-			        ?> 
+			        ?>
 				    <tr>
     				  <td width="10%"><img src="../../images/list/icon.png" width="8" height="8"  hspace="8" align="middle"/></td>
                       <td width="90%">
@@ -49,9 +49,9 @@
                           <a href="indexpage.php?index_item_id=<?php echo $row_showsublistRec["index_item_id"]; ?>&index_end_item_id=<?php echo $row_showsublistRec["index_end_item_id"]; ?>"><?php echo $row_showsublistRec["index_end_item_name"]; ?>
                           </a>
 			            <?php }?>
-                      </td>	
-  					</tr>  
-			      <?php }while($row_showsublistRec = mysql_fetch_assoc($showsublistRec));}?>   
+                      </td>
+  					</tr>
+			      <?php }while($row_showsublistRec = mysql_fetch_assoc($showsublistRec));}?>
 			  </table>
             </td>
           </tr>
@@ -60,7 +60,7 @@
             <td height="10%"></td>
           </tr>
        <!-------------------------------------------------------------->
-       </table>  
+       </table>
     <?php } while ($row_showlistRec = mysql_fetch_assoc($showlistRec)); ?>
     </td>
   </tr>

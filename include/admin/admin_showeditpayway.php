@@ -5,7 +5,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "editpayway")) {
-  $updateSQL = sprintf("UPDATE shop_payway SET payway_cost=%s, payway_limit=%s, warranty=%s, delievery_explain=%s, send_time=%s, 
+  $updateSQL = sprintf("UPDATE shop_payway SET payway_cost=%s, payway_limit=%s, warranty=%s, delievery_explain=%s, send_time=%s,
                         delievery_way=%s, set_open=%s WHERE payway_no=%s",
                        GetSQLValueString($_POST['payway_cost'], "text"),
 					   GetSQLValueString($_POST['payway_limit'], "text"),
@@ -45,17 +45,17 @@ $totalRows_paywaymainRec = mysql_num_rows($paywaymainRec);
 <link href="../../style.css" rel="stylesheet" type="text/css" />
 <title>商品支付編輯</title>
   <!--------------------javascript更改order_status id變數------------------------------>
-<Script>    
-  function changeDelieveryWayStatus(){ 
+<Script>
+  function changeDelieveryWayStatus(){
     var delievery_way;
     delievery_way=document.adminRec.delievery_way.value;
 	location.href="admin_showeditpayway.php?delievery_way="+delievery_way;
   }
-</Script> 
+</Script>
 
 <table width="97%" height="30%" border="1" BORDERCOLOR="#000000" cellpadding="0" cellspacing="0">
 <!------------------------修改商品支付配送資訊------------------------------->
-<form name="editpayway" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editpayway" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editpayway">
   <!---------------------------------------------------------------------------------->
   <tr>
@@ -87,7 +87,7 @@ $totalRows_paywaymainRec = mysql_num_rows($paywaymainRec);
     <td width="10%" align="center">寄送時間</td>
     <td width="40%" colspan="3" align="left">
       <input name="send_time" type="text" id="send_time" value="<?php echo $row_paywaymainRec["send_time"]?>" style="width:40%; height:70%; margin:3px"/>
-      
+
     </td>
   </tr>
   <!---------------------------------------------------------------------------------->

@@ -4,21 +4,21 @@ $currentPage = $_SERVER["PHP_SELF"];
 if(isset($_SESSION['MM_Username'])) {
 	if (isset($_GET['mem_no'])) {
   		$mem_no = $_GET['mem_no'];
-		
+
 		$table_orderlist		= SYS_DBNAME . ".orderlist";
 		$column = "*";
 		$whereClause = "usernum='{$mem_no}'";
-		
+
 		$sql['list']['select'] = array(
-				'mysql'	=> "SELECT * FROM {$table_orderlist} LEFT JOIN usermain ON usermain.UserId = orderlist.UserId WHERE {$whereClause}", 
+				'mysql'	=> "SELECT * FROM {$table_orderlist} LEFT JOIN usermain ON usermain.UserId = orderlist.UserId WHERE {$whereClause}",
 				'mssql'	=> "SELECT * FROM {$table_orderlist} LEFT JOIN usermain ON usermain.UserId = orderlist.UserId WHERE {$whereClause}",
 				'oci8'	=> "SELECT * FROM {$table_orderlist} LEFT JOIN usermain ON usermain.UserId = orderlist.UserId WHERE {$whereClause}"
 		);
 		$row_mainRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 		$totalRows_mainRec = sizeof($row_mainRec);
 		/*
-		$query_mainRec = sprintf("SELECT * FROM orderlist 
-		LEFT JOIN usermain ON usermain.UserId = orderlist.UserId 
+		$query_mainRec = sprintf("SELECT * FROM orderlist
+		LEFT JOIN usermain ON usermain.UserId = orderlist.UserId
 		WHERE usernum=%s", GetSQLValueString($mem_no, "text"));
 		$mainRec = mysql_query($query_mainRec, $webshop) or die(mysql_error());
 		$row_mainRec = mysql_fetch_assoc($mainRec);
@@ -56,8 +56,8 @@ if(isset($_SESSION['MM_Username'])) {
           </tr>
           <?php } ?>
           <!-------------------------------------------------------------->
- 
+
   </table>
-<?php }// Show if recordset not empty 
+<?php }// Show if recordset not empty
 //mysql_free_result($mainRec);
 ?>

@@ -19,9 +19,9 @@ while($result=$db->fetch_array()){
 }
 if($flag){
 	$response["news"]=$news;
-	$response["success"] = 1; 
+	$response["success"] = 1;
 }else{
-	$response["success"] = 0; 
+	$response["success"] = 0;
 	$response["message"] = "No news found";
 }
 echo json_encode($response);

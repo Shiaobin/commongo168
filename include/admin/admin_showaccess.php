@@ -1,16 +1,16 @@
 <?php  //---------------------------更新帳密資訊---------------------------------//
-if ((isset($_POST["update_access"])) && ($_POST["update_access"] == "確認")) {	
+if ((isset($_POST["update_access"])) && ($_POST["update_access"] == "確認")) {
   //move_uploaded_file($_FILES["news_img"]["tmp_name"], "newsimg\\".$_FILES["news_img"]["name"].".jpg");
-	
+
 	$table_admin		= SYS_DBNAME . ".admin";
   $record = array(
   				'name' => $_POST['name'],
 				'password' => $_POST['password']
 				);
   $whereClause = "ID='1'";
-	
+
   dbUpdate( $table_admin, $record, $whereClause );
-  /*	
+  /*
   $updateSQL = sprintf("UPDATE admin SET name=%s, password=%s WHERE ID='1'",
 					   GetSQLValueString($_POST['name'], "text"),
 					   GetSQLValueString($_POST['password'], "text"));
@@ -35,7 +35,7 @@ if ((isset($_POST["update_access"])) && ($_POST["update_access"] == "確認")) {
 $table_admin		= SYS_DBNAME . ".admin";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_admin} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_admin} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_admin} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_admin} WHERE {$whereClause}"
 		);

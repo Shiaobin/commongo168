@@ -10,7 +10,7 @@ $column = "*";
 $whereClause = "msg_no='{$cloume_showmsgRec}'";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_shop_member_msg} WHERE {$whereClause}"
 );
@@ -45,7 +45,7 @@ $column = "*";
 $whereClause = "msg_no='{$cloume_showmsgRec}'";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause} ORDER BY sub_msg_date ASC LIMIT {$startRow_msgRec}, {$maxRows_msgRec}", 
+		'mysql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause} ORDER BY sub_msg_date ASC LIMIT {$startRow_msgRec}, {$maxRows_msgRec}",
 		'mssql'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause} ORDER BY sub_msg_date ASC LIMIT {$startRow_msgRec}, {$maxRows_msgRec}",
 		'oci8'	=> "SELECT * FROM {$table_shop_member_sub_msg} WHERE {$whereClause} ORDER BY sub_msg_date ASC LIMIT {$startRow_msgRec}, {$maxRows_msgRec}"
 );
@@ -74,7 +74,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_msgRec") == false && 
+    if (stristr($param, "pageNum_msgRec") == false &&
         stristr($param, "totalRows_msgRec") == false) {
       array_push($newParams, $param);
     }
@@ -86,15 +86,15 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 $queryString_msgRec = sprintf("&totalRows_msgRec=%d%s", $totalRows_msgRec, $queryString_msgRec);
 ?>
 <?php //-------------------------------更新人氣值------------------------------------//
-if (isset($_GET["msg_no"])) {	
+if (isset($_GET["msg_no"])) {
   $table_shop_member_msg		= SYS_DBNAME . ".shop_member_msg";
   $record = array(
   			'cktimes' => $row_showmsgRec['cktimes']+1
-			); 
+			);
 	$whereClause = "msg_no='{$_GET['msg_no']}'";
 	dbUpdate( $table_shop_member_msg, $record, $whereClause );
 	/*
-  $updateSQL = sprintf("UPDATE shop_member_msg SET cktimes=cktimes+1 where msg_no=%s", 
+  $updateSQL = sprintf("UPDATE shop_member_msg SET cktimes=cktimes+1 where msg_no=%s",
 					    GetSQLValueString($_GET['msg_no'], "int"));
 
   mysql_select_db($database_webshop, $webshop);
@@ -108,7 +108,7 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "我要回覆")) {
 		$addGoTo = "adddiscuss.php?msg_no=".$row_showmsgRec['msg_no'];
 		echo "<script type='text/javascript'>";
 		echo "window.location.href='$addGoTo'";
-		echo "</script>"; 
+		echo "</script>";
 	}else{
 		echo "<script language=\"javascript\">";
 		echo "window.alert(\"請先登入會員\");";
@@ -119,9 +119,9 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "我要回覆")) {
 <!----------------------------------------------------------------------------------->
 <h2>編輯討論主題</h2>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableLayout01">
-<!--<form name="editmsg" action="" method="POST" 
+<!--<form name="editmsg" action="" method="POST"
  enctype="multipart/form-data" id="editmsg">-->
-<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editmsg">
   <!-------------------------------------------------------------->
 
@@ -133,15 +133,15 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "我要回覆")) {
     <td height="30" align="right" colspan="2">
     	<?php echo $row_showmsgRec['msg_send_date']; ?>
     </td>
-  </tr> 
+  </tr>
   <!-----------------------------討論主題----------------------------->
   <tr>
     <td height="30" align="left" colspan="2">
     	<font color="#0000FF">討論主題：<?php echo $row_showmsgRec['msg_title']; ?></font><br>
 		發表人：<?php echo $row_showmsgRec['mem_nickname']; ?>
     </td>
-  </tr> 
-  <!----------------------------圖片---------------------------->  
+  </tr>
+  <!----------------------------圖片---------------------------->
   <tr>
      <td align="left" width="90px" height="30">
      <p><img src="../../images/discussimg/medium/<?php  echo $row_showmsgRec['msg_img']; ?>" alt="" name="image" width="90px" height="75px" id="image" align="center" style="padding:5px;"/>
@@ -159,7 +159,7 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "我要回覆")) {
   <tr>
     <td colspan="2" align="left" height="30"><input name="add_btn" type="submit" value="我要回覆" style="margin:5px"></td>
   </tr>
- 
+
 </form>
 </table>
 <p>&nbsp;</p>
@@ -181,7 +181,7 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "我要回覆")) {
         <tr bgcolor="#CCCCCC">
         <td height="30" align="left">留言人：<?php echo $array['mem_nickname']; ?></td>
           <td height="30" align="right">留言日期：<?php echo $array['sub_msg_date']; ?></td>
-        </tr>  
+        </tr>
         <!----------------------------留言圖片---------------------------->
         <tr>
           <td height="60%" align="left" width="60px">

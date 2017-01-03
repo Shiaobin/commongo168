@@ -1,20 +1,20 @@
 <?php include("small.php"); ?>
 <?php  //-----------------------------更新商品資訊------------------------------------//
-if ((isset($_POST["update_banner"])) && ($_POST["update_banner"] == "更新")) {	
+if ((isset($_POST["update_banner"])) && ($_POST["update_banner"] == "更新")) {
 
   //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
 
-    if($_POST['banner']=="" ) $img = date('his').".jpg"; 
+    if($_POST['banner']=="" ) $img = date('his').".jpg";
 	else                      $img = $_POST['banner'];
-	
+
 	move_uploaded_file(realpath($_FILES["upload_img"]["tmp_name"]), "../images/bannerimg/".$img);
         resize_banner_image($img);
   }
   else {
     $img = $_POST['banner'];
   }
-  
+
   //更新商品資訊
   $updateSQL = sprintf("UPDATE banner SET po=%s, banner=%s WHERE Notice_ID=%s",
                         GetSQLValueString($_POST['po'], "int"),
@@ -23,7 +23,7 @@ if ((isset($_POST["update_banner"])) && ($_POST["update_banner"] == "更新")) {
 
   mysql_select_db($database_webshop, $webshop);
   $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
-	
+
   $updateGoTo = "adminbanner.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
@@ -31,7 +31,7 @@ if ((isset($_POST["update_banner"])) && ($_POST["update_banner"] == "更新")) {
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <?php  //-----------------------------取得商品資訊------------------------------------//
@@ -51,21 +51,21 @@ $totalRows_showbannerRec = mysql_num_rows($showbannerRec);
 <form name="editbanner" action="" method="POST" enctype="multipart/form-data" id="editbanner">
   <tr>
     <td>顯示順序:
-      <input id="po" name="po" type="text" class=sizeSss 
+      <input id="po" name="po" type="text" class=sizeSss
        value="<?php echo $row_showbannerRec['po']; ?>" />
     </td>
   </tr>
   <!----------------------------廣告圖片---------------------------->
   <tr>
     <td>廣告圖片:
-      <img src="../../images/bannerimg/<?php echo $row_showbannerRec['banner']; ?>" alt="" name="image" 
+      <img src="../../images/bannerimg/<?php echo $row_showbannerRec['banner']; ?>" alt="" name="image"
        width="520px" id="image" align="center" style="padding:5px;"/>
        <input name="banner" type="hidden" value="<?php echo $row_showbannerRec['banner']; ?>" />
     </td>
   </tr>
   <!----------------------------更新圖片---------------------------->
   <tr>
-    <td>更新圖片: 
+    <td>更新圖片:
       <input type="file" name="upload_img" style="width:50%; height:90%; margin: 3px"/>
     </td>
   </tr>

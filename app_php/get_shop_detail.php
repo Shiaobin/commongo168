@@ -29,6 +29,6 @@ if($flag){
 	$response["success"] = 0;
 	$response["order"] = "no product found";
 }
-echo json_encode($response); 
+echo json_encode($response);
 $db->close();
 ?>

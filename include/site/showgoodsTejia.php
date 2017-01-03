@@ -16,7 +16,7 @@ $column = "*";
 $whereClause = "CONCAT($string)";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productTejiaRec}, {$maxRows_productTejiaRec} ", 
+		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productTejiaRec}, {$maxRows_productTejiaRec} ",
 		'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productTejiaRec}, {$maxRows_productTejiaRec} ",
 		'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productTejiaRec}, {$maxRows_productTejiaRec} "
 );
@@ -24,19 +24,19 @@ $row_productTejiaRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 
 /*
 mysql_select_db($database_webshop, $webshop);
-$query_productTejiaRec = "SELECT * FROM prodmain  
+$query_productTejiaRec = "SELECT * FROM prodmain
 where CONCAT($string) ORDER BY ProdNum ASC";
 $query_limit_productTejiaRec = sprintf("%s LIMIT %d, %d", $query_productTejiaRec, $startRow_productTejiaRec, $maxRows_productTejiaRec);
 $productTejiaRec = mysql_query($query_limit_productTejiaRec, $webshop) or die(mysql_error());
 $row_productTejiaRec = mysql_fetch_assoc($productTejiaRec);
 */
-$total_productTejiaRec = sizeof($row_productTejiaRec); 
+$total_productTejiaRec = sizeof($row_productTejiaRec);
 
 if(isset($_GET['totalRows_productTejiaRec'])){
     $totalRows_productTejiaRec = $_GET['totalRows_productTejiaRec'];
 }else{
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC ", 
+		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC ",
 		'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC ",
 		'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC "
 );
@@ -50,7 +50,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_productTejiaRec") == false && 
+    if (stristr($param, "pageNum_productTejiaRec") == false &&
         stristr($param, "totalRows_productTejiaRec") == false) {
       array_push($newParams, $param);
     }
@@ -78,16 +78,16 @@ $queryString_productTejiaRec = sprintf("&totalRows_productTejiaRec=%d%s", $total
 			$table_prodmain		= SYS_DBNAME . ".prodmain";
 			  $column = "*";
 			  $whereClause = "ProdNum={$array['ProdNum']}";
-			  
+
 			  $sql['list']['select'] = array(
-					  'mysql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ", 
+					  'mysql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ",
 					  'mssql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ",
 					  'oci8'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC "
 			  );
 			  $row_showTejialistRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
 			  /*
-			  $query_showTejialistRec = sprintf("SELECT * FROM prodmain 
-			  INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId 
+			  $query_showTejialistRec = sprintf("SELECT * FROM prodmain
+			  INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId
 			  WHERE ProdNum=%s order by img_no ASC", GetSQLValueString($row_productTejiaRec['ProdNum'], "text"));
 		      $showTejialistRec = mysql_query($query_showTejialistRec, $webshop) or die(mysql_error());
 		      $row_showTejialistRec = mysql_fetch_assoc($showTejialistRec);

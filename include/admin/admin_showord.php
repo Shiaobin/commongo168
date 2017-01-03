@@ -12,9 +12,9 @@ if ((isset($_GET['OrderNum'])) && ($_GET['OrderNum'] != "") && (isset($_GET['del
   */
   $table_orderlist		= SYS_DBNAME . ".orderlist";
   $whereClause = "OrderNum='{$_GET['OrderNum']}'";
-				
+
   dbDelete( $table_orderlist, $whereClause );
-  
+
 /*同步資料庫刪除orderlist+orderdetail*/
 /*
   $deleteSQL = sprintf("DELETE FROM orderdetail WHERE OrderNum=%s",
@@ -25,9 +25,9 @@ if ((isset($_GET['OrderNum'])) && ($_GET['OrderNum'] != "") && (isset($_GET['del
 */
   $table_orderdetail		= SYS_DBNAME . ".orderdetail";
   $whereClause = "OrderNum='{$_GET['OrderNum']}'";
-				
+
   dbDelete( $table_orderdetail, $whereClause );
-  
+
   $deleteGoTo = "adminord.php";
   /*if (isset($_SERVER['QUERY_STRING'])) {
     $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
@@ -42,7 +42,7 @@ if ((isset($_GET['OrderNum'])) && ($_GET['OrderNum'] != "") && (isset($_GET['del
 $maxRows_showordRec = 30;
 $pageNum_showordRec = 0;
 
-if (isset($_GET['pageNum_showordRec'])) 
+if (isset($_GET['pageNum_showordRec']))
 {
 	//確定變數是否有被設置，簡單講就是判斷是不是null
   $pageNum_showordRec = $_GET['pageNum_showordRec'];
@@ -53,7 +53,7 @@ $column = "*";
 $table_orderlist		= SYS_DBNAME . ".orderlist";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_orderlist} ORDER BY OrderTime DESC LIMIT {$startRow_showordRec}, {$maxRows_showordRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_orderlist} ORDER BY OrderTime DESC LIMIT {$startRow_showordRec}, {$maxRows_showordRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_orderlist} ORDER BY OrderTime DESC LIMIT {$startRow_showordRec}, {$maxRows_showordRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_orderlist} ORDER BY OrderTime DESC LIMIT {$startRow_showordRec}, {$maxRows_showordRec}"
 );
@@ -84,7 +84,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);//切割字串並放入Array陣列中
   $newParams = array();
   foreach ($params as $param) {//將所有資料列出
-    if (stristr($param, "pageNum_showordRec") == false && 
+    if (stristr($param, "pageNum_showordRec") == false &&
         stristr($param, "totalRows_showordRec") == false) {
       array_push($newParams, $param);//不分大小寫找出字串第一次出現的地方
     }//一個或多個單元加入陣列末尾
@@ -103,14 +103,14 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
 	/*mysql_select_db($database_webshop, $webshop);
 	$sql="CREATE TABLE shop_temp AS SELECT * FROM orderlist;";
 	mysql_query($sql); */
-	
+
 	$sysConnDebug = true;
   $nameID = trim($_POST["search_nameID"]);//去除字符串首尾空白等特殊符號或指定字符序列
   $name = trim($_POST["search_name"]);
   $orderID = trim($_POST["search_orderID"]);
   $search_order = ($_POST["search_order"]);//
   $date = $_POST["search_type"];
-  
+
   $date_yesterday = date("Y-m-d", strtotime('-1 day'));
   $date_today = date("Y-m-d", strtotime('0 day'));
   $date_tomorrow = date("Y-m-d", strtotime('1 day'));
@@ -123,12 +123,12 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
       		$string = $string."OrderTime >= '$date_today' ";
   		else if($date == "2")
       		$string = $string."OrderTime <= '$date_tomorrow'";
-	
-	
+
+
   if($search_order != "-1") {
 	$string = $string." && "."Status = '$search_order'";
   }
-  
+
 
   if($nameID != "") {
     $string = $string." && "."UserId LIKE '%$nameID%'";//
@@ -139,8 +139,8 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
   if($orderID != "") {
     $string = $string." && "."OrderNum LIKE '%$orderID%'";
   }
-  
-  
+
+
   $maxRows_showordRec = 30;
   $pageNum_showordRec = 0;//確定變數是否有被設置，簡單講就是判斷是不是null
   if (isset($_GET['pageNum_showordRec'])) {
@@ -153,7 +153,7 @@ $table_orderlist		= SYS_DBNAME . ".orderlist";
 $whereClause = "CONCAT($string)";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_orderlist} WHERE {$whereClause} ORDER BY OrderTime DESC LIMIT {$startRow_showordRec}, {$maxRows_showordRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_orderlist} WHERE {$whereClause} ORDER BY OrderTime DESC LIMIT {$startRow_showordRec}, {$maxRows_showordRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_orderlist} WHERE {$whereClause} ORDER BY OrderTime DESC LIMIT {$startRow_showordRec}, {$maxRows_showordRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_orderlist} WHERE {$whereClause} ORDER BY OrderTime DESC LIMIT {$startRow_showordRec}, {$maxRows_showordRec}"
 );
@@ -171,11 +171,11 @@ $row_showordRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
      $all_showordRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
      $totalRows_showordRec = sizeof($all_showordRec);//取得結果中列的數目
   }
-  $totalPages_showordRec = ceil($totalRows_showordRec/$maxRows_showordRec)-1;//取得大於指定數的最小整數值(可變成兩頁)	
+  $totalPages_showordRec = ceil($totalRows_showordRec/$maxRows_showordRec)-1;//取得大於指定數的最小整數值(可變成兩頁)
 }
 ?>
 <!------------------------取出商品--------------------------------------------------------------------------------------------------->
-<?php  
+<?php
 $currentPage = $_SERVER["PHP_SELF"];
 /*
 mysql_select_db($database_webshop, $webshop);
@@ -189,7 +189,7 @@ $table_orderlist		= SYS_DBNAME . ".orderlist";
 //$whereClause = "CONCAT($string)";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_orderlist}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_orderlist}",
 		'mssql'	=> "SELECT {$column} FROM {$table_orderlist}",
 		'oci8'	=> "SELECT {$column} FROM {$table_orderlist}"
 );
@@ -197,7 +197,7 @@ $row_showOrderStatus = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 $totalRows_showOrderStatus = sizeof($row_showOrderStatus);
 ?>
 <!------------------------刪除訂單--------------------------------------------------------------------------------------------------->
-<?php 
+<?php
 if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
     if(isset($_POST['select_good'])){
       $select_num = count($_POST['select_good']);
@@ -208,19 +208,19 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
       }
 	  $table_orderlist		= SYS_DBNAME . ".orderlist";
 	  $whereClause = "CONCAT($delete_string)";
-				
+
 	  dbDelete( $table_orderlist, $whereClause );
-	  
+
 	  $table_orderdetail		= SYS_DBNAME . ".orderdetail";
 	  $whereClause = "CONCAT($delete_string)";
-				
+
 	  dbDelete( $table_orderdetail, $whereClause );
-	  
+
   /*
 	  $deleteOrderSQL = "DELETE FROM orderlist WHERE CONCAT($delete_string)";
       mysql_select_db($database_webshop, $webshop);
       $Result = mysql_query($deleteOrderSQL, $webshop) or die(mysql_error());
-	  
+
 	  $deleteSubOrderSQL = "DELETE FROM orderdetail WHERE CONCAT($delete_string)";
       mysql_select_db($database_webshop, $webshop);
       $Result = mysql_query($deleteSubOrderSQL, $webshop) or die(mysql_error());
@@ -233,19 +233,19 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 }
 ?>
 
-  <Script>    
-  function serchOrder(){ 
+  <Script>
+  function serchOrder(){
     var search_order;
     search_order=document.search_order.value;
 	location.href="adminord.php?search_order="+search_order;
   }
-</Script> 
+</Script>
 <script>
-function check_all(obj,cName) 
-{ 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
-} 
+function check_all(obj,cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
+}
 </script>
 
 <h3 class=ttl01 >客戶訂單管理</h3>
@@ -285,7 +285,7 @@ function check_all(obj,cName)
         </td>
         <td align="center"><input type="submit" name="search_btn"  value="搜尋" style="font-size:16px;width:60px;height:30px" /></td>
       </tr>
-    </form>  
+    </form>
     </table>
   </td>
   </tr>
@@ -326,7 +326,7 @@ function check_all(obj,cName)
   </tr>
 </form>
 
-<!--------------------------------------------------------------------------------------------------------------->   
+<!--------------------------------------------------------------------------------------------------------------->
 
       	<tr>
             <td align="right" colspan="5" bgcolor="#cfcfcf">
@@ -361,7 +361,7 @@ function check_all(obj,cName)
                         <?php } // Show if not last page ?>
                       </td>
                     </tr>
-                 </table> 
+                 </table>
 			</td>
             <td colspan="4" bgcolor="#cfcfcf" >總:<?php echo $pageNum_showordRec+1 ?>/<?php echo $totalPages_showordRec_pages ?>頁　　總共:<?php echo $totalRows_showordRec ?>張訂單 [<?php echo $maxRows_showordRec ?>訂單/頁]</td>
       	</tr>

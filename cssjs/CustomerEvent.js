@@ -19,9 +19,9 @@ function questionSend(){
 	var district = $("#p_district").children("option:selected").text();
 	var addr     = city + district + $("#p_addr").val();
 	var email    = $("#p_mail").val();
-	
+
 	var url = PostUrl.getInstance().customerqu();
-	var data = {qid:qid, subject:subject, question:qu, username:name, sex:sex, 
+	var data = {qid:qid, subject:subject, question:qu, username:name, sex:sex,
 			phoneAM:phoneAM, phonePM:phonePM, postCode:postCode, addr:addr, email:email};
 	doAjaxFunc(url, data, questionSendBack);
 }

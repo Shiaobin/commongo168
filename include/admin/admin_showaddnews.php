@@ -5,8 +5,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['NewsClass'] != "") && ($_POST['Source'] != "") && ($_POST['NewsTitle'] != "")) {  
-  
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['NewsClass'] != "") && ($_POST['Source'] != "") && ($_POST['NewsTitle'] != "")) {
+
     //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
 
@@ -18,7 +18,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
   else {
 	$img = "none.gif";
   }
-  
+
   $table_news		= SYS_DBNAME . ".news";
   $record = array(
   				'NewsClass' => $_POST['NewsClass'],
@@ -31,7 +31,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 				'imgfull' => $img
 				);
   dbInsert( $table_news, $record );
-  
+
   /*
   $insertSQL = sprintf("INSERT INTO news (NewsClass, NewsContain, Source, PubDate, OffDate, NewsTitle, Online, imgfull) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['NewsClass'], "text"),
@@ -82,13 +82,13 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
 }
 ?>
 
-<Script>    
-  function searchclass(){ 
+<Script>
+  function searchclass(){
     var NewsClass;
     NewsClass=document.NewsClass.value;
 	location.href="adminaddnews.php?NewsClass="+NewsClass;
   }
-</Script> 
+</Script>
 <!-------------------------------------------------------------->
 <h3 class=ttl01 >新增消息</h3>
 
@@ -118,7 +118,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
        CKEDITOR.replace( 'NewsContain' );
      </script>
    </td>
-  </tr>  
+  </tr>
   <!-----------------------------來源------------------------------>
   <tr>
     <td>3.來源<font color="#FF3333">  *</font>:
@@ -134,7 +134,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
   <!----------------------------失效日期---------------------------->
   <tr>
     <td>5.失效日期:
-      <input id="OffDate" name="OffDate" value="<?php $date=date("YmdHis",mktime(date("H"),date("i"),date("s"),date("m"),date("d"),date("Y")+2)); echo date('Y-m-d H:i:s',strtotime($date));?>" 
+      <input id="OffDate" name="OffDate" value="<?php $date=date("YmdHis",mktime(date("H"),date("i"),date("s"),date("m"),date("d"),date("Y")+2)); echo date('Y-m-d H:i:s',strtotime($date));?>"
        type="text" class=sizeS />
     </td>
   </tr>
@@ -161,7 +161,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
   <!----------------------------上傳圖片---------------------------->
   <tr>
      <td>6.圖片:
-       <input name="upload_img" type="file" value="Select a File..." style="width:50%; height:100%; margin: 3px"/> 
+       <input name="upload_img" type="file" value="Select a File..." style="width:50%; height:100%; margin: 3px"/>
      </td>
   </tr>
   <!------------------------新增按鈕---------------------------->

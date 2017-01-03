@@ -1,6 +1,6 @@
 <?php require('../utility/init.php'); ?>
 
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -19,7 +19,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -37,40 +37,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -111,42 +111,42 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['ProdId'] != "") && ($_POST['ProdName'] != "") && ($_POST['PriceList'] != "") && ($_POST['LarCode'] != "") && ($_POST['MidCode'] != "")) {
-	
-  $img_string = array();	
-  
+
+  $img_string = array();
+
   //上傳圖片
   foreach ($_FILES["ImgPrev"]["error"] as $key => $error) {
-    if ($error == UPLOAD_ERR_OK) {	 
+    if ($error == UPLOAD_ERR_OK) {
      // echo"$error_codes[$error]";
 	  $num =  date('ymdhis') + $key;
-	  
-	  //$num1 = $key + $num + $key*2 + date('ymdhis'); 
+
+	  //$num1 = $key + $num + $key*2 + date('ymdhis');
 	  $type = explode("/",$_FILES["ImgPrev"]["type"][$key]);
-	  
+
 	  $img_string[$key] = $num.".".$type[1];
 
       move_uploaded_file(
-        $_FILES["ImgPrev"]["tmp_name"][$key], 
+        $_FILES["ImgPrev"]["tmp_name"][$key],
          "../images/goodsimg/".$img_string[$key]
          //"/var/www/html/sample/images/webimg/".$img_string[$key]
       ) or die("Problems with upload");
 
       resize_goods_image($img_string[$key]);
     }
-  } 
+  }
   //print_r($_POST);
   //未上傳圖片使用預設(none.gif)imgfull
-  if($num == ""){	   
+  if($num == ""){
   //更新商品資訊
   $table_prodmain		= SYS_DBNAME . ".prodmain";
   $record = array(
   				'ProdId' => $_POST['ProdId'],
 				'mem_id' => "admin",
 				'ProdName' => $_POST['ProdName'],
-				
+
 				'PriceList' => $_POST['PriceList'],
-											
-				'ProdDisc' =>  $_POST['ProdDisc'],				
+
+				'ProdDisc' =>  $_POST['ProdDisc'],
 				'MemoSpec' =>  $_POST['MemoSpec'],
 				'LarCode' =>  $_POST['LarCode'],
 				'MidCode' =>  $_POST['MidCode'],
@@ -198,7 +198,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					'opertor' =>  "admin"
 					);
 	  dbInsert( $table_prodspec, $record );
-	  
+
 	  $updateSQL = sprintf("INSERT INTO prodspec (ProdId, ProSerial_1, ProSerial_2, SpecName, created_date, updated_date, opertor) VALUES (%s, %s, %s, %s, %s, %s, %s)",
   						GetSQLValueString($_POST['ProdId'], "text"),
                         GetSQLValueString($i + 1, "text"),
@@ -210,7 +210,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 						);
 	  mysql_select_db($database_webshop, $webshop);
 	  $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
-	  
+
   }*/
   /*
   for( $i = 0; $i < sizeof($post_spec2_text); $i++ )
@@ -226,7 +226,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					'opertor' =>  "admin"
 					);
 	  dbInsert( $table_prodspec, $record );
-	  
+
 	  $updateSQL = sprintf("INSERT INTO prodspec (ProdId, ProSerial_1, ProSerial_2, SpecName, created_date, updated_date, opertor) VALUES (%s, %s, %s, %s, %s, %s, %s)",
   						GetSQLValueString($_POST['ProdId'], "text"),
                         GetSQLValueString("0", "text"),
@@ -238,16 +238,16 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 						);
 	  mysql_select_db($database_webshop, $webshop);
 	  $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
-	  
+
   }*/
-  
+
   $table_prod_img		= SYS_DBNAME . ".prod_img";
 	  $record = array(
 					'ProdId' => $_POST['ProdId'],
 					'img_name' => 'none.gif'
 					);
 	  dbInsert( $table_prod_img, $record );
-	/*  
+	/*
   $insertSQL = sprintf("INSERT INTO prod_img (ProdId, img_name) VALUES (%s, 'none.gif')",
                           GetSQLValueString($_POST['ProdId'], "text"));
 
@@ -261,11 +261,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
   				'ProdId' => $_POST['ProdId'],
 				'mem_id' => "admin",
 				'ProdName' => $_POST['ProdName'],
-				'PriceList' => $_POST['PriceList'], 
-				
-	
+				'PriceList' => $_POST['PriceList'],
+
+
 				'ProdDisc' =>  $_POST['ProdDisc'],
-				
+
 				'MemoSpec' =>  $_POST['MemoSpec'],
 				'LarCode' =>  $_POST['LarCode'],
 				'MidCode' =>  $_POST['MidCode'],
@@ -299,7 +299,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 						GetSQLValueString($img_string[0], "text"));
 
   mysql_select_db($database_webshop, $webshop);
-  $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());  
+  $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());
   */
   /*$post_spec1_text = $_POST['post_spec1_text'];
   $post_spec2_text = $_POST['post_spec2_text'];
@@ -330,17 +330,17 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					'opertor' =>  "admin"
 					);
 	  dbInsert( $table_prodspec, $record );
-	  
+
   }*/
   }
-	  
+
   if($_POST['LarCode']=="") $_POST['LarCode'] = 0;
   if(count($img_string) > 0) $img = $img_string[0];
   else                       $img = "";
-  
 
-  
-  
+
+
+
 
   //更新圖片資訊
   for($i=0; $i<count($img_string); $i++){
@@ -350,7 +350,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					'img_name' => $img_string[$i]
 					);
 	  dbInsert( $table_prod_img, $record );
-	 /* 
+	 /*
     $insertSQL = sprintf("INSERT INTO prod_img (ProdId, img_name) VALUES (%s, %s)",
                           GetSQLValueString($_POST['ProdId'], "text"),
 		     			  GetSQLValueString($img_string[$i], "text"));
@@ -359,7 +359,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
     $Result2 = mysql_query($insertSQL, $webshop) or die(mysql_error());
 	*/
   }
-  
+
   $post_spec1_text = $_POST['pro_spec1_text'];
   $post_spec1_num = $_POST['num_spec1_text'];
   $post_spec1_price = $_POST['price_spec1_text'];
@@ -370,7 +370,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					'ProdId' => $_POST['ProdId'],
 					'ProSerial_1' => $i + 1,
 					'ProSerial_2' => "0",
-					'SpecName' => $post_spec1_text[$i],	
+					'SpecName' => $post_spec1_text[$i],
 					'number' => $post_spec1_num[$i],
 					'price' => $post_spec1_price[$i],
 					'created_date' =>  now(),
@@ -379,11 +379,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					);
 	  dbInsert( $table_prodSpec, $record );
   }
-  
-  
+
+
   $insertGoTo = "admingoods.php";
 
-  header('Location:'.$insertGoTo); 
+  header('Location:'.$insertGoTo);
 }
 
 ?>
@@ -402,7 +402,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
   */
   $table_prodclass		= SYS_DBNAME . ".prodclass";
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_prodclass} ORDER BY LarSeq ASC", 
+		  'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_prodclass} ORDER BY LarSeq ASC",
 		  'mssql'	=> "SELECT DISTINCT LarCode FROM {$table_prodclass} ORDER BY LarSeq ASC",
 		  'oci8'	=> "SELECT DISTINCT LarCode FROM {$table_prodclass} ORDER BY LarSeq ASC"
 		  );
@@ -415,7 +415,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
 $row_endItemRec = -1;
 if(isset($_POST['LarCode'])){
   $class = $_POST['LarCode'];
-/*  
+/*
   mysql_select_db($database_webshop, $webshop);
   $query_endItemRec = sprintf("SELECT * FROM prodclass where LarCode = %s ORDER BY MidSeq ASC",
                                GetSQLValueString($_POST['LarCode'], "text"));
@@ -426,7 +426,7 @@ if(isset($_POST['LarCode'])){
   $table_prodclass		= SYS_DBNAME . ".prodclass";
 $whereClause = "LarCode='{$_POST['LarCode']}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 		);
@@ -440,7 +440,7 @@ else{
 <!--------------------------------------------------------------------------------->
 <h3 class=ttl01 >新增上架商品</h3>
 <script>
-$( document ).ready(function() 
+$( document ).ready(function()
 {
   	$('#addgoods').submit(function()
   	{
@@ -469,17 +469,17 @@ $( document ).ready(function()
 <input name="mem_id" type="hidden" value="admin" />
   <tr>
     <td>1.所屬大類<font color="#FF3333">  *</font>
-      <select id="LarCode" name="LarCode" onChange="this.form.submit()" 
+      <select id="LarCode" name="LarCode" onChange="this.form.submit()"
               style="width:20%; height:90%; margin: 3px">
-      <option value="0"></option> 
+      <option value="0"></option>
       <?php
-	    foreach ($row_itemRec as $key => $array){ 
+	    foreach ($row_itemRec as $key => $array){
 	  ?>
         <option value="<?php echo $array['LarCode']?>" <?php if($array['LarCode'] == $class) {echo "selected=\"selected\"";} ?>>
 		<?php echo $array['LarCode']?></option>
       <?php
-      } 
-      
+      }
+
       ?>
       </select>
     </td>
@@ -489,11 +489,11 @@ $( document ).ready(function()
     <td>2.所屬中類<font color="#FF3333">  *</font>
       <select id="MidCode" name="MidCode" style="width:50%; height:90%; margin: 3px">
       <?php
-	     foreach ($row_endItemRec as $key => $array){  
+	     foreach ($row_endItemRec as $key => $array){
 	  ?>
         <option value="<?php echo $array['MidCode']?>"><?php echo $array['MidCode']?></option>
       <?php
-      } 
+      }
       ?>
       </select>
     </td>
@@ -557,7 +557,7 @@ $( document ).ready(function()
        CKEDITOR.replace( 'MemoSpec' );
      </script>
    </td>
-  </tr> 
+  </tr>
   <!----------------------------支付返回---------------------------->
   <tr>
     <td>12.支付返回:

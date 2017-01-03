@@ -11,19 +11,19 @@ if($result=$db->fetch_array()){
 	$kou=$result["UserKou"];
 	$list[0]["mem_id"]=$result["usernum"];
 	$list[0]["mem_name"]=$result["UserName"];
-	$list[0]["mem_nickname"]=$result["UserName"];	
+	$list[0]["mem_nickname"]=$result["UserName"];
 	$list[0]["mem_phone"]=$result["HomePhone"];
-	$list[0]["mem_mail"]=$result["UserMail"];	
+	$list[0]["mem_mail"]=$result["UserMail"];
 	$list[0]["mem_add"]=$result["Address"];
 	$response["success"]=1;
 	$sql="select kou".$kou." from shopsetup";
 	$db->query($sql);
 	if($result2=$db->fetch_array())
-		$list[0]["mem_kou"]=$result2[0];	
+		$list[0]["mem_kou"]=$result2[0];
 	$response["member"]=$list;
 }else{
 	$response["success"]=0;
-	$response["message"] = "No products found"; 
+	$response["message"] = "No products found";
 }
 
 

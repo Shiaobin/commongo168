@@ -4,7 +4,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_files"])) && ($_POST["update_files"] == "更新")) {	
+if ((isset($_POST["update_files"])) && ($_POST["update_files"] == "更新")) {
   //move_uploaded_file($_FILES["files_img"]["tmp_name"], "filesimg\\".$_FILES["files_img"]["name"].".jpg");
 	$table_download		= SYS_DBNAME . ".download";
   $record = array(
@@ -12,10 +12,10 @@ if ((isset($_POST["update_files"])) && ($_POST["update_files"] == "更新")) {
 				'set_open' => $_POST['set_open']
 				);
   $whereClause = "Dow_ID={$_POST['Dow_ID']}";
-		
+
   dbUpdate( $table_download, $record, $whereClause );
   /*
-  $updateSQL = sprintf("UPDATE download SET Dow_Name=%s, set_open=%s where Dow_ID=%s", 
+  $updateSQL = sprintf("UPDATE download SET Dow_Name=%s, set_open=%s where Dow_ID=%s",
 					   GetSQLValueString($_POST['Dow_Name'], "text"),
                        GetSQLValueString($_POST['set_open'], "tinyint"),
 					   GetSQLValueString($_POST['Dow_ID'], "int"));
@@ -42,7 +42,7 @@ if (isset($_GET['Dow_ID'])) {
 $table_download		= SYS_DBNAME . ".download";
 $whereClause = "download.Dow_ID='{$cloume_showfilesRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_download} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_download} WHERE {$whereClause}"
 		);
@@ -77,10 +77,10 @@ $totalRows_showfilesRec = mysql_num_rows($showfilesRec);
   <tr>
     <td>3.是否在線:
       <label>
-        <input type="radio" name="set_open" value="1" id="set_open_1" 
+        <input type="radio" name="set_open" value="1" id="set_open_1"
 		<?php if ($row_showfilesRec['set_open'] == '1'): ?>checked='checked'<?php endif; ?>/>是</label>
       <label>
-        <input type="radio" name="set_open" value="0" id="set_open_0" 
+        <input type="radio" name="set_open" value="0" id="set_open_0"
         <?php if ($row_showfilesRec['set_open'] == '0'): ?>checked='checked'<?php endif; ?>/>否</label>
     </td>
   </tr>

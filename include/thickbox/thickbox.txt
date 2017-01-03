@@ -1,5 +1,5 @@
-<script type="text/javascript" src="thickbox/jquery.js"></script> 
-<script type="text/javascript" src="thickbox/thickbox.js"></script> 
+<script type="text/javascript" src="thickbox/jquery.js"></script>
+<script type="text/javascript" src="thickbox/thickbox.js"></script>
 <link rel="stylesheet" href="thickbox/thickbox.css" type="text/css" media="screen" />
 
 

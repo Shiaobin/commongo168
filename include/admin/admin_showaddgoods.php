@@ -6,29 +6,29 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['ProdId'] != "") && ($_POST['ProdName'] != "") && ($_POST['PriceList'] != "") && ($_POST['LarCode'] != "") && ($_POST['MidCode'] != "")) {
-	
-  $img_string = array();	
-  
+
+  $img_string = array();
+
   //上傳圖片
   foreach ($_FILES["ImgPrev"]["error"] as $key => $error) {
-    if ($error == UPLOAD_ERR_OK) {	 
+    if ($error == UPLOAD_ERR_OK) {
      // echo"$error_codes[$error]";
 	  $num =  date('ymdhis') + $key;
-	  //$num1 = $key + $num + $key*2 + date('ymdhis'); 
+	  //$num1 = $key + $num + $key*2 + date('ymdhis');
 	  $img_string[$key] = $num.".jpg";
 
       move_uploaded_file(
-        realpath($_FILES["ImgPrev"]["tmp_name"][$key]), 
+        realpath($_FILES["ImgPrev"]["tmp_name"][$key]),
          "../images/goodsimg/".$img_string[$key]
          //"/var/www/html/sample/images/webimg/".$img_string[$key]
       ) or die("Problems with upload");
 
       resize_goods_image($img_string[$key]);
     }
-  } 
+  }
   print_r($_POST);
   //未上傳圖片使用預設(none.gif)imgfull
-  if($num == ""){	   
+  if($num == ""){
   //更新商品資訊
   $table_prodmain		= SYS_DBNAME . ".prodmain";
   $record = array(
@@ -125,14 +125,14 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 	  $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
 	  */
   }
-  
+
   $table_prod_img		= SYS_DBNAME . ".prod_img";
 	  $record = array(
 					'ProdId' => $_POST['ProdId'],
 					'img_name' => 'none.gif'
 					);
 	  dbInsert( $table_prod_img, $record );
-	/*  
+	/*
   $insertSQL = sprintf("INSERT INTO prod_img (ProdId, img_name) VALUES (%s, 'none.gif')",
                           GetSQLValueString($_POST['ProdId'], "text"));
 
@@ -177,7 +177,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 						GetSQLValueString($img_string[0], "text"));
 
   mysql_select_db($database_webshop, $webshop);
-  $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());  
+  $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());
   */
   $post_spec1_text = $_POST['post_spec1_text'];
   $post_spec2_text = $_POST['post_spec2_text'];
@@ -208,17 +208,17 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					'opertor' =>  "admin"
 					);
 	  dbInsert( $table_prodSpec, $record );
-	  
+
   }
   }
-	  
+
   if($_POST['LarCode']=="") $_POST['LarCode'] = 0;
   if(count($img_string) > 0) $img = $img_string[0];
   else                       $img = "";
-  
 
-  
-  
+
+
+
 
   //更新圖片資訊
   for($i=0; $i<count($img_string); $i++){
@@ -228,7 +228,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 					'img_name' => $img_string[$i]
 					);
 	  dbInsert( $table_prod_img, $record );
-	 /* 
+	 /*
     $insertSQL = sprintf("INSERT INTO prod_img (ProdId, img_name) VALUES (%s, %s)",
                           GetSQLValueString($_POST['ProdId'], "text"),
 		     			  GetSQLValueString($img_string[$i], "text"));
@@ -237,14 +237,14 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
     $Result2 = mysql_query($insertSQL, $webshop) or die(mysql_error());
 	*/
   }
-  
-  
+
+
   $insertGoTo = "admingoods.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
     $insertGoTo .= $_SERVER['QUERY_STRING'];
   }
-  header('Location:'.$insertGoTo); 
+  header('Location:'.$insertGoTo);
 }
 
 ?>
@@ -263,7 +263,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
   */
   $table_prodclass		= SYS_DBNAME . ".prodclass";
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_prodclass} ORDER BY LarSeq ASC", 
+		  'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_prodclass} ORDER BY LarSeq ASC",
 		  'mssql'	=> "SELECT DISTINCT LarCode FROM {$table_prodclass} ORDER BY LarSeq ASC",
 		  'oci8'	=> "SELECT DISTINCT LarCode FROM {$table_prodclass} ORDER BY LarSeq ASC"
 		  );
@@ -276,7 +276,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
 $row_endItemRec = -1;
 if(isset($_POST['LarCode'])){
   $class = $_POST['LarCode'];
-/*  
+/*
   mysql_select_db($database_webshop, $webshop);
   $query_endItemRec = sprintf("SELECT * FROM prodclass where LarCode = %s ORDER BY MidSeq ASC",
                                GetSQLValueString($_POST['LarCode'], "text"));
@@ -287,7 +287,7 @@ if(isset($_POST['LarCode'])){
   $table_prodclass		= SYS_DBNAME . ".prodclass";
 $whereClause = "LarCode='{$_POST['LarCode']}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 		);
@@ -301,7 +301,7 @@ else{
 <!--------------------------------------------------------------------------------->
 <h3 class=ttl01 >新增上架商品</h3>
 <script>
-$( document ).ready(function() 
+$( document ).ready(function()
 {
   	$('#addgoods').submit(function()
   	{
@@ -329,17 +329,17 @@ $( document ).ready(function()
 <form name="addgoods" action="<?php echo $editFormAction; ?>" method="POST" enctype="multipart/form-data" id="addgoods">
   <tr>
     <td>1.所屬大類<font color="#FF3333">  *</font>
-      <select id="LarCode" name="LarCode" onchange="this.form.submit()" 
+      <select id="LarCode" name="LarCode" onchange="this.form.submit()"
               style="width:20%; height:90%; margin: 3px">
-      <option value="0"></option> 
+      <option value="0"></option>
       <?php
-	    foreach ($row_itemRec as $key => $array){ 
+	    foreach ($row_itemRec as $key => $array){
 	  ?>
         <option value="<?php echo $array['LarCode']?>" <?php if($array['LarCode'] == $class) {echo "selected=\"selected\"";} ?>>
 		<?php echo $array['LarCode']?></option>
       <?php
-      } 
-      
+      }
+
       ?>
       </select>
     </td>
@@ -349,11 +349,11 @@ $( document ).ready(function()
     <td>2.所屬中類<font color="#FF3333">  *</font>
       <select id="MidCode" name="MidCode" style="width:50%; height:90%; margin: 3px">
       <?php
-	     foreach ($row_endItemRec as $key => $array){  
+	     foreach ($row_endItemRec as $key => $array){
 	  ?>
         <option value="<?php echo $array['MidCode']?>"><?php echo $array['MidCode']?></option>
       <?php
-      } 
+      }
       ?>
       </select>
     </td>
@@ -417,7 +417,7 @@ $( document ).ready(function()
        CKEDITOR.replace( 'MemoSpec' );
      </script>
    </td>
-  </tr> 
+  </tr>
   <!----------------------------支付返回---------------------------->
   <tr>
     <td>12.支付返回:
@@ -497,7 +497,7 @@ function addTableField( aContext )
 	var parent = aContext.parentNode;
 	while (parent) //find table id
 	{ //Loop through until you find the desired parent tag name
-		if (parent.tagName && parent.tagName.toLowerCase() == "table") 
+		if (parent.tagName && parent.tagName.toLowerCase() == "table")
 		{
 			table_id = parent.id;
 			break;
@@ -512,7 +512,7 @@ function addTableField( aContext )
 	var langth = table.getElementsByTagName("tr").length;
 	var row = table.insertRow(langth);
 	var cell1 = row.insertCell(0);
-	
+
 	// Add some text to the new cells:
 	cell1.innerHTML = '<label><input type="text" name="pro_spec' + table_id.split("_")[3] + '_text[]" style="margin-left: 3px"/>' +
 						'</label><label><input type="button" name="pro_spec' + table_id.split("_")[3] + '_plus2" value="+" onClick="addTableField(this)" style="margin-left: 3px; width: 20px;"/> </label>';

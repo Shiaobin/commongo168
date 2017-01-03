@@ -3,7 +3,7 @@
     <a href="admineditconfig.php"><dd><img src="img/icon.png"  align=absmiddle >綜合設置</dd></a>
     <a href="adminwebitem.php"><dd><img src="img/icon.png"  align=absmiddle >網頁分類管理</dd></a>
     <a href="adminweb.php"><dd><img src="img/icon.png"  align=absmiddle >網頁新增修改</dd></a>
-    <a href="adminwebframe.php"><dd><img src="img/icon.png"  align=absmiddle >自助頁面</dd></a> 
+    <a href="adminwebframe.php"><dd><img src="img/icon.png"  align=absmiddle >自助頁面</dd></a>
   </dl>
 
 <h2>商品管理</h2>
@@ -24,7 +24,7 @@
 <h2>信箱管理</h2>
   <dl>
     <a href="adminmailconfig.php"><dd><img src="img/icon.png"  align=absmiddle >信件回覆設置</dd></a>
-    <a href="adminmailbox.php"><dd><img src="img/icon.png"  align=absmiddle >收件匣&nbsp;<?php include("adminmailcount.php"); ?></dd></a>    
+    <a href="adminmailbox.php"><dd><img src="img/icon.png"  align=absmiddle >收件匣&nbsp;<?php include("adminmailcount.php"); ?></dd></a>
 </dl>
 <!---------------------------------------------------------------------------->
 <h2>客戶管理</h2>

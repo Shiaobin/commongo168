@@ -23,7 +23,7 @@
       </div></td>
   </tr>
   <tr>
-    <td><div align="center"><a href="<?php echo $siteurl;?>"><font color="#FF0000">點擊返回首頁</font></a> 
+    <td><div align="center"><a href="<?php echo $siteurl;?>"><font color="#FF0000">點擊返回首頁</font></a>
       </div></td>
   </tr>
 </table>

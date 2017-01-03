@@ -4,8 +4,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['msg_title'] != "") && ($_POST['mem_nickname'] != "")) {  
-  
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['msg_title'] != "") && ($_POST['mem_nickname'] != "")) {
+
     //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
 
@@ -17,8 +17,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
   else {
 	$img = "none.gif";
   }
-  
-  
+
+
   $insertSQL = sprintf("INSERT INTO shop_member_msg (msg_title, mem_nickname, msg_send, msg_img) VALUES (%s, %s, %s, %s)",
                        GetSQLValueString($_POST['msg_title'], "text"),
                        GetSQLValueString($_POST['mem_nickname'], "text"),
@@ -67,13 +67,13 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
 <h3 class=ttl01 >新增討論主題</h3>
 
 <table width="650" border="0" cellspacing="0" cellpadding="0" class="formTable">
-<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editmsg">
 
   <!-----------------------------討論主題----------------------------->
   <tr>
     <td>1.討論主題<font color="#FF3333">  *</font>:<input name="msg_title" type="text" class=sizeL /></td>
-  </tr> 
+  </tr>
   <!-----------------------------留言人----------------------------->
   <tr>
     <td>2.發表人<font color="#FF3333">  *</font>:<input name="mem_nickname" type="text" class=sizeS /></td>
@@ -81,7 +81,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
   <!----------------------------上傳圖片---------------------------->
   <tr>
      <td>3.圖片:
-       <input name="upload_img" type="file" value="Select a File..." style="width:50%; height:100%; margin: 3px"/> 
+       <input name="upload_img" type="file" value="Select a File..." style="width:50%; height:100%; margin: 3px"/>
      </td>
   </tr>
   <!----------------------------留言內容---------------------------->

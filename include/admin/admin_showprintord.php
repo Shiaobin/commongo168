@@ -31,7 +31,7 @@ if (isset($_GET['OrderNum'])) {
   $colname_ordmainRec = $_GET['OrderNum'];
 }
 mysql_select_db($database_webshop, $webshop);
-$query_ordmainRec = sprintf("SELECT * FROM orderlist WHERE OrderNum = %s", 
+$query_ordmainRec = sprintf("SELECT * FROM orderlist WHERE OrderNum = %s",
                              GetSQLValueString($colname_ordmainRec, "text"));
 $ordmainRec = mysql_query($query_ordmainRec, $webshop) or die(mysql_error());
 $row_ordmainRec = mysql_fetch_assoc($ordmainRec);
@@ -53,8 +53,8 @@ $totalRows_ordsubRec = mysql_num_rows($ordsubRec);
 <link href="../../style.css" rel="stylesheet" type="text/css" />
 <title>後台編輯訂單</title>
   <!--------------------javascript更改order_status id變數------------------------------>
-  <Script>    
-  function changeOrderStatus(){ 
+  <Script>
+  function changeOrderStatus(){
     var Status;
     Status=document.adminRec.Status.value;
 	location.href="admineditord.php?Status="+Status;
@@ -69,7 +69,7 @@ $totalRows_ordsubRec = mysql_num_rows($ordsubRec);
     printPage.document.write("</PRE>");
     printPage.document.close("</BODY></HTML>");
  }
-</Script> 
+</Script>
 
 <div id="print_block">
 <table width="800" height="30" border="1" bordercolor="#003399" cellpadding="8" cellspacing="0">
@@ -85,7 +85,7 @@ $totalRows_ordsubRec = mysql_num_rows($ordsubRec);
       <tr>
         <td width="50%" align="left">訂單編號:<font color="#0000FF"><?php echo $row_ordmainRec['OrderNum']; ?></font></td>
       </tr>
-      <tr>  
+      <tr>
         <td width="50%" align="left">訂單日期:<?php echo $row_ordmainRec['OrderTime']; ?></td>
       </tr>
   </table>

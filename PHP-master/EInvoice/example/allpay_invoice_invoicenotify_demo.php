@@ -10,7 +10,7 @@ try
 		$allpay_invoice->Invoice_Url 		= 'http://einvoice-stage.allpay.com.tw/Invoice/TriggerIssue' ;
 		$allpay_invoice->MerchantID 		= '2000132' ;
 		$allpay_invoice->HashKey 		= 'ejCk326UnaZWKisg' ;
-		$allpay_invoice->HashIV 		= 'q9jcZX8Ib9LM8wYk' ; 
+		$allpay_invoice->HashIV 		= 'q9jcZX8Ib9LM8wYk' ;
 // 3.寫入發票相關資訊
 		$allpay_invoice->Send['InvoiceNo'] 	= 'AL00001934'; 				// 發票號碼
 		$allpay_invoice->Send['NotifyMail'] 	= 'test@localhost.com'; 			// 發送電子信箱

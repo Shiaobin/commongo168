@@ -4,7 +4,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新") && ($_POST['frame_name'] != "")) {	
+if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新") && ($_POST['frame_name'] != "")) {
 	$table_index_frame		= SYS_DBNAME . ".index_frame";
   $record = array(
   				'frame_text' => $_POST['frame_text'],
@@ -12,10 +12,10 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新") && (
 				'set_open' => $_POST['set_open']
 				);
   $whereClause = "frame_no={$_POST['frame_no']}";
-		
+
   dbUpdate( $table_index_frame, $record, $whereClause );
   /*
-  $updateSQL = sprintf("UPDATE index_frame SET frame_text=%s, frame_name=%s, set_open=%s where frame_no=%s", 
+  $updateSQL = sprintf("UPDATE index_frame SET frame_text=%s, frame_name=%s, set_open=%s where frame_no=%s",
 					   GetSQLValueString($_POST['frame_text'], "text"),
 					   GetSQLValueString($_POST['frame_name'], "text"),
 					   GetSQLValueString($_POST['set_open'], "int"),
@@ -42,7 +42,7 @@ if (isset($_GET['frame_no'])) {
 $table_index_frame		= SYS_DBNAME . ".index_frame";
 $whereClause = "frame_no='{$cloume_showpagesRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_index_frame} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_index_frame} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_index_frame} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_index_frame} WHERE {$whereClause}"
 		);
@@ -59,7 +59,7 @@ $totalRows_showpagesRec = mysql_num_rows($showpagesRec);
 <h3 class=ttl01 >編輯自助頁面</h3>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
-<form name="editpages" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editpages" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editpages">
 
   <tr>
@@ -83,7 +83,7 @@ $totalRows_showpagesRec = mysql_num_rows($showpagesRec);
    <td >
 <script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
     <textarea id="frame_text" name="frame_text" class="ckeditor" cols="50" rows="30" ><?php echo $row_showpagesRec['frame_text']; ?></textarea></td>
-  </tr> 
+  </tr>
   <!------------------------新增按鈕---------------------------->
   <tr>
       <input type="hidden" name="frame_no" id="frame_no" value="<?php echo $row_showpagesRec['frame_no']; ?>"/>

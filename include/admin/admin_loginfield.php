@@ -19,22 +19,22 @@ if (isset($_POST['username'])) {
   $MM_redirectLoginFailed = "adminlogin.php";
   $MM_redirecttoReferrer = false;
   mysql_select_db($database_webshop, $webshop);
-  
+
   $LoginRS__query=sprintf("SELECT username, userpsw FROM shop_admin WHERE username=%s AND userpsw=%s",
-    GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text")); 
-   
+    GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text"));
+
   $LoginRS = mysql_query($LoginRS__query, $webshop) or die(mysql_error());
   $loginFoundUser = mysql_num_rows($LoginRS);
   if ($loginFoundUser) {
     $loginStrGroup = "";
-    
+
 	if (PHP_VERSION >= 5.1) {session_regenerate_id(true);} else {session_regenerate_id();}
     //declare two session variables and assign them
     $_SESSION['MM_AdminName'] = $loginUsername;
-    $_SESSION['MM_AdminGroup'] = $loginStrGroup;	      
+    $_SESSION['MM_AdminGroup'] = $loginStrGroup;
 
     if (isset($_SESSION['PrevUrl']) && false) {
-      $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
+      $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
     }
     header("Location: " . $MM_redirectLoginSuccess );
   }
@@ -45,8 +45,8 @@ if (isset($_POST['username'])) {
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../../style.css" rel="stylesheet" type="text/css" />
-<title>登入欄位</title>    
-    
+<title>登入欄位</title>
+
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="32%" height="100%" rowspan="4">&nbsp;</td>
@@ -56,7 +56,7 @@ if (isset($_POST['username'])) {
       	<!-------------------------------------------------------------->
         <tr>
           <td width="26%" height="8%" align="center"><span class="text_login"> 帳號</span></td>
-          <td width="74%" >       
+          <td width="74%" >
             <label for="username"></label>
             <input type="text" name="username" id="username" style="width:97%; height:40px"/>
           </td>
@@ -67,7 +67,7 @@ if (isset($_POST['username'])) {
           <td>
            <label for="userpsw"></label>
            <input type="text" name="userpsw" id="userpsw" style="width:97%; height:40px" />
-          </td> 
+          </td>
         </tr>
         <!-------------------------------------------------------------->
         <tr>

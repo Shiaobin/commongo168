@@ -18,7 +18,7 @@ $table_shop_member_msg		= SYS_DBNAME . ".shop_member_msg";
 $whereClause = "1=1";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_shop_member_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}"
 );
@@ -37,7 +37,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showmsgRec") == false && 
+    if (stristr($param, "pageNum_showmsgRec") == false &&
         stristr($param, "totalRows_showmsgRec") == false) {
       array_push($newParams, $param);
     }
@@ -57,11 +57,11 @@ if ((isset($_POST["open_btn"])) && ($_POST["open_btn"] == "公開")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."msg_no='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $record = array( 'set_open' => '1' );
 	  $table_shop_member_msg		= SYS_DBNAME . ".shop_member_msg";
 	  $whereClause = "CONCAT($update_string)";
-	  
+
 	  dbUpdate( $table_shop_member_msg, $record, $whereClause );
 	  /*
 	  $updateSQL = "UPDATE shop_member_msg SET set_open='1' WHERE CONCAT($update_string)";
@@ -84,11 +84,11 @@ if ((isset($_POST["close_btn"])) && ($_POST["close_btn"] == "隱藏")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."msg_no='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $record = array( 'set_open' => '0' );
 	  $table_shop_member_msg		= SYS_DBNAME . ".shop_member_msg";
 	  $whereClause = "CONCAT($update_string)";
-	  
+
 	  dbUpdate( $table_shop_member_msg, $record, $whereClause );
 	  /*
 	  $updateSQL = "UPDATE shop_member_msg SET set_open='0' WHERE CONCAT($update_string)";
@@ -111,14 +111,14 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."msg_no='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  //刪除圖片
 	  $column = "*";
 	  $table_shop_member_msg		= SYS_DBNAME . ".shop_member_msg";
 	  $whereClause = "CONCAT($string)";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_shop_member_msg} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_shop_member_msg} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_shop_member_msg} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_shop_member_msg} WHERE {$whereClause}"
 	  );
@@ -129,15 +129,15 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
       $searchImg = mysql_query($searchSQL, $webshop) or die(mysql_error());
 	  $row_searchImg = mysql_fetch_assoc($searchImg);
 		*/
-      foreach ($row_searchImg as $key => $array){ 
-	  if(($array['msg_img'] != "none.gif")){ 
+      foreach ($row_searchImg as $key => $array){
+	  if(($array['msg_img'] != "none.gif")){
           unlink("../images/discussimg/medium/".$array["msg_img"]);
   		  unlink("../images/discussimg/small/".$array["msg_img"]);}
       }
-	  
+
 	  $table_shop_member_msg		= SYS_DBNAME . ".shop_member_msg";
 	  $whereClause = "CONCAT($delete_string)";
-					
+
 	  dbDelete( $table_shop_member_msg, $whereClause );
 	  /*
 	  $deleteSQL = "DELETE FROM shop_member_msg WHERE CONCAT($delete_string)";
@@ -145,13 +145,13 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
       $Result = mysql_query($deleteSQL, $webshop) or die(mysql_error());
 	  */
 	  //刪除子留言及圖片
-	  
+
 	  $column = "*";
 	  $table_shop_member_sub_msg		= SYS_DBNAME . ".shop_member_sub_msg";
 	  $whereClause = "CONCAT($string)";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_shop_member_sub_msg} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_shop_member_sub_msg} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_shop_member_sub_msg} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_shop_member_sub_msg} WHERE {$whereClause}"
 	  );
@@ -161,22 +161,22 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 	  $subImg = mysql_query($subSQL, $webshop) or die(mysql_error());
 	  $row_subImg = mysql_fetch_assoc($subImg);
 	  */
-	  foreach ($row_subImg as $key => $array){ 
-	  if(($array['msg_img'] != "none.gif")){ 
+	  foreach ($row_subImg as $key => $array){
+	  if(($array['msg_img'] != "none.gif")){
           unlink("../images/discussimg/medium/".$array["msg_img"]);
   		  unlink("../images/discussimg/small/".$array["msg_img"]);}
       }
-	  
+
 	  $table_shop_member_sub_msg		= SYS_DBNAME . ".shop_member_sub_msg";
 	  $whereClause = "CONCAT($delete_string)";
-					
+
 	  dbDelete( $table_shop_member_sub_msg, $whereClause );
 	  /*
 	  $deleteSubSQL = "DELETE FROM shop_member_sub_msg WHERE CONCAT($delete_string)";
       mysql_select_db($database_webshop, $webshop);
       $subResult = mysql_query($deleteSubSQL, $webshop) or die(mysql_error());
 	  */
-	  
+
 	  $deleteGoTo = "adminmembermsg.php";
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$deleteGoTo'";
@@ -189,17 +189,17 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "加新話題")) {
 	$addGoTo = "adminaddmembermsg.php";
     echo "<script type='text/javascript'>";
     echo "window.location.href='$addGoTo'";
-    echo "</script>"; 
+    echo "</script>";
 }
 ?>
 
 
 <script>
-function check_all(obj,cName) 
-{ 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
-} 
+function check_all(obj,cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
+}
 </script>
 <h3 class=ttl01 >討論區管理</h3>
 
@@ -230,7 +230,7 @@ function check_all(obj,cName)
       </td>
       <td align="left" ><a href="admineditmembermsg.php?msg_no=<?php echo $array['msg_no']; ?>"><?php echo $array['msg_title']; ?></a></td>
       <td height="50%"><a href="admineditmembermsg.php?msg_no=<?php echo $array['msg_no']; ?>">
-        <img src="../images/discussimg/small/<?php echo $array['msg_img']; ?>" alt="" name="image" 
+        <img src="../images/discussimg/small/<?php echo $array['msg_img']; ?>" alt="" name="image"
            width="78px" height="65px" id="image" align="center" style="padding:5px;"/></a>
       </td>
       <td width="14%"><?php echo $array['mem_nickname']; ?></td>
@@ -250,7 +250,7 @@ function check_all(obj,cName)
   </td>
 </tr>
 <!-----------------------------page control----------------------------->
-<tr> 
+<tr>
   <td colspan="8" align="right" bgcolor="#cfcfcf">
     <table border="0">
       <tr>

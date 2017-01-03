@@ -206,13 +206,13 @@ textarea:focus, input:focus{
     display: block;
 }
 .aabbc:hover .smlist_video
-{ 
+{
 	opacity: 1;
-	border: 1px solid #c7c8c9;					
+	border: 1px solid #c7c8c9;
 	position: absolute;
 	background: #FFF;
 	z-index:800;
-	top: 32px;	
+	top: 32px;
 	margin-top: 0px;
 	margin-left: 5px;
 	display: block;
@@ -220,8 +220,8 @@ textarea:focus, input:focus{
 	visibility:visible;
 }
 .smlist_video {
-	opacity: 0;                
-	border: 1px solid #c7c8c9;					
+	opacity: 0;
+	border: 1px solid #c7c8c9;
 	position: absolute;
 	background: #FFF;
 	z-index:800;
@@ -231,13 +231,13 @@ textarea:focus, input:focus{
 	transition: all 0.2s;
 	visibility: hidden;
 }
-.hreflist_video{   
-	padding-left: 15px;               
+.hreflist_video{
+	padding-left: 15px;
 	padding-right: 40px;
 	display: block;
 	height: 40px;
-	line-height: 40px;	
-	text-decoration: none;								
+	line-height: 40px;
+	text-decoration: none;
     width:100%;
 	font-size: 20px;
 }

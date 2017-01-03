@@ -1,13 +1,13 @@
 <?php  //------------------------------新增留言----------------------------------//
 if (isset($_POST["update"]) && isset($_POST["update"]) == "更新") {
-	
+
 	if(!isset($_POST['Sex'])) $_POST['Sex'] = 2;
 	if(!isset($_POST['MaritalStatus'])) $_POST['MaritalStatus'] = 2;
-	
+
 	$table_usermain = SYS_DBNAME . ".usermain";
 	$whereClause = "usernum={$_POST['usernum']}";
 	$record = array
-	(	
+	(
 		'UserName' => $_POST['UserName'],
 		'UserPassword' => $_POST['modify_pass_chk'],
 		'HomePhone' => $_POST['HomePhone'],
@@ -23,9 +23,9 @@ if (isset($_POST["update"]) && isset($_POST["update"]) == "更新") {
 		'CompanyName' => $_POST['CompanyName'],
 		'Memo' => $_POST['Memo']
 	);
-		
+
 	$is_update = dbUpdate( $table_usermain, $record, $whereClause );
-  
+
 /*
     $updateSQL = sprintf("UPDATE usermain SET UserName=%s, UserPassword=%s, HomePhone=%s, UserMail=%s, ZipCode=%s, Address=%s, UserQQ=%s, Sex=%s, MaritalStatus=%s, Birthday=%s, IncomeRange=%s, Occupation=%s, CompanyName=%s, Memo=%s WHERE usernum=%s",
 						  GetSQLValueString($_POST['UserName'], "text"),
@@ -47,8 +47,8 @@ if (isset($_POST["update"]) && isset($_POST["update"]) == "更新") {
     mysql_select_db($database_webshop, $webshop);
     $Result = mysql_query($updateSQL) or die(mysql_error());
   */
-    $insertGoTo = "index.php";	
-  
+    $insertGoTo = "index.php";
+
     //Show message window
     echo "<script language=\"javascript\">";
     echo "window.alert(\"會員資料修改完成\");";
@@ -66,7 +66,7 @@ $table_usermain		= SYS_DBNAME . ".usermain";
 $whereClause = "usernum='{$cloume_showmemberRec}'";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause}",
 		'mssql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause}",
 		'oci8'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause}"
 );
@@ -85,24 +85,24 @@ $totalRows_showmemberRec = mysql_num_rows($showmemberRec);
 
 <!-------------------------填寫會員資訊----------------------------->
 <script type="text/javascript">
-function checkid(){ 
+function checkid(){
   if(document.createMember.mem_id.value.length > 0) {
 	  if(!checkId(document.createMember.mem_id.value))
 		alert('帳號只能包含英文或數字');
 
 	  else if(document.createMember.mem_id.value.length<2)
 		alert('帳號長度過短，請重新輸入');
-		
+
 	  else if(document.createMember.mem_id.value.length>15)
 		alert('帳號長度過長，請重新輸入');
-	  else 
-	     document.forms["check"].submit(); 
+	  else
+	     document.forms["check"].submit();
   }
-  else 
+  else
     alert('請輸入登入帳號');
-} 
-function checkform(form){ 
-  if(document.createMember.modify_pass.value.length == 0) 
+}
+function checkform(form){
+  if(document.createMember.modify_pass.value.length == 0)
     alert('請輸入登入密碼\n');
   else if(!checkId(document.createMember.modify_pass.value))
 		alert('密碼只能包含英文或數字');
@@ -110,35 +110,35 @@ function checkform(form){
 		alert('密碼長度過短，請重新輸入');
   else if(document.createMember.modify_pass.value.length > 10)
 		alert('密碼長度過長，請重新輸入');
-  else if(document.createMember.modify_pass_chk.value.length == 0) 
+  else if(document.createMember.modify_pass_chk.value.length == 0)
     alert('請輸入確認密碼\n');
   else if(document.createMember.modify_pass.value != document.createMember.modify_pass_chk.value)
     alert('確認密碼輸入錯誤\n');
-  else if(document.createMember.UserName.value.length == 0) 
+  else if(document.createMember.UserName.value.length == 0)
     alert('請輸入真實姓名\n');
-  else if(document.createMember.HomePhone.value.length == 0) 
+  else if(document.createMember.HomePhone.value.length == 0)
     alert('請輸入聯絡手機\n');
-  else if(document.createMember.UserMail.value.length == 0) 
+  else if(document.createMember.UserMail.value.length == 0)
     alert('請輸入電子信箱\n');
-  else if (document.createMember.UserMail.value.indexOf('@') < 1 || 
+  else if (document.createMember.UserMail.value.indexOf('@') < 1 ||
            document.createMember.UserMail.value.indexOf('@')==(document.createMember.UserMail.value.length-1) )
     alert('電子信箱輸入錯誤\n');
-  else if(document.createMember.ZipCode.value.length == 0) 
+  else if(document.createMember.ZipCode.value.length == 0)
     alert('請輸入郵遞區號\n');
-  else if(document.createMember.Address.value.length == 0) 
+  else if(document.createMember.Address.value.length == 0)
     alert('請輸入聯絡地址\n');
   else  {
-	document.forms["update"].submit(); 
+	document.forms["update"].submit();
   }
-} 
-function checkId(str){ 
- var reg=/[^A-Za-z0-9_]/g 
-     if (reg.test(str)){ 
-         return (false); 
+}
+function checkId(str){
+ var reg=/[^A-Za-z0-9_]/g
+     if (reg.test(str)){
+         return (false);
      }
-	 else{ 
-         return(true);     
-     } 
+	 else{
+         return(true);
+     }
 }
 function MM_callJS(jsStr) { //v2.0
   return eval(jsStr)
@@ -146,7 +146,7 @@ function MM_callJS(jsStr) { //v2.0
 </script>
 <h2>會員基本資料修改</h2>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
-  <form action="" method="post" name="createMember" id="createMember"> 
+  <form action="" method="post" name="createMember" id="createMember">
 
   <tr>
     <td width="20%" align="right">登入帳號:</td>
@@ -159,7 +159,7 @@ function MM_callJS(jsStr) { //v2.0
       <input name="UserPassword" type="hidden" value="<?php echo $row_showmemberRec['UserPassword'];?>" />
       <input name="modify_pass" type="text" id="modify_pass" value="<?php echo $row_showmemberRec['UserPassword'];?>"
        class="sizeS"/>
-      長度：5至10個字符 
+      長度：5至10個字符
     </td>
   </tr>
    <!-------------------------------------------------------------->
@@ -167,7 +167,7 @@ function MM_callJS(jsStr) { //v2.0
     <td width="20%" align="right">確認密碼:</td>
     <td width="80%" align="left">
       <input name="modify_pass_chk" type="password" id="modify_pass_chk" value="<?php echo $row_showmemberRec['UserPassword'];?>" class="sizeS"/>
-      確認您剛才輸入的密碼 
+      確認您剛才輸入的密碼
     </td>
   </tr>
   <!-------------------------------------------------------------->
@@ -206,14 +206,14 @@ function MM_callJS(jsStr) { //v2.0
     <td width="20%" align="right">聯絡地址:</td>
     <td width="80%" align="left">
       <input name="Address" type="text" id="Address" value="<?php echo $row_showmemberRec['Address'];?>"
-       class="sizeL"/> 
+       class="sizeL"/>
     </td>
   </tr>
   <!-------------------------------------------------------------->
   <tr>
     <td width="20%" align="right">LineID:</td>
     <td width="80%" align="left">
-      <input name="UserQQ" type="text" id=" UserQQ" value="<?php echo $row_showmemberRec['UserQQ'];?>" 
+      <input name="UserQQ" type="text" id=" UserQQ" value="<?php echo $row_showmemberRec['UserQQ'];?>"
        class="sizeS"/>
     </td>
   </tr>
@@ -222,10 +222,10 @@ function MM_callJS(jsStr) { //v2.0
     <td height="15%" align="right">性 別:</td>
     <td align="left">
       <label>
-        <input type="radio" name="Sex" value="0" id="Sex_0" 
+        <input type="radio" name="Sex" value="0" id="Sex_0"
 		<?php if($row_showmemberRec['Sex']== 0) echo "checked=checked";?>/>男</label>
       <label>
-        <input type="radio" name="Sex" value="1" id="Sex_1" 
+        <input type="radio" name="Sex" value="1" id="Sex_1"
         <?php if($row_showmemberRec['Sex']== 1) echo "checked=checked";?>/>女</label>
     </td>
   </tr>
@@ -234,12 +234,12 @@ function MM_callJS(jsStr) { //v2.0
     <td height="15%" align="right">婚 否:</td>
     <td align="left">
       <label>
-        <input type="radio" name="MaritalStatus" value="0" id="MaritalStatus_0" 
+        <input type="radio" name="MaritalStatus" value="0" id="MaritalStatus_0"
         <?php if($row_showmemberRec['MaritalStatus']== 0) echo "checked=checked";?>/>未婚</label>
       <label>
-        <input type="radio" name="MaritalStatus" value="1" id="MaritalStatus_1" 
+        <input type="radio" name="MaritalStatus" value="1" id="MaritalStatus_1"
         <?php if($row_showmemberRec['MaritalStatus']== 1) echo "checked=checked";?>/>已婚</label>
-      
+
     </td>
   </tr>
   <!-------------------------------------------------------------->
@@ -297,7 +297,7 @@ function MM_callJS(jsStr) { //v2.0
     <td height="8%" colspan="2"></td>
   </tr>
   <!-------------------------------------------------------------->
-  </form> 
+  </form>
 </table>
 <?php
  // mysql_free_result($showmemberRec);

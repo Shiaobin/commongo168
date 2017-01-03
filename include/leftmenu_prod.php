@@ -2,13 +2,13 @@
 $(function(){
 	var pathname = location.pathname.split("\/");
 	var jsp      = pathname[pathname.length -1];
-	
+
 	var $a = $("#nav").find("a[href='"+ php +"']");
 	$a.parent("li").addClass("active");
 });
 </script>
 <div id="nav">
-<?php 
+<?php
 $result_Prod_Lar = selectAll_no_where($webshop,"*","prodclass","LarSeq ASC");
 $LarSeq_num = "";
 while($rs = mysql_fetch_array($result_Prod_Lar))

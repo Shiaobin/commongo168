@@ -16,26 +16,26 @@ $column = "*";
 $whereClause = "CONCAT($string)";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productRemarkRec}, {$maxRows_productRemarkRec} ", 
+		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productRemarkRec}, {$maxRows_productRemarkRec} ",
 		'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productRemarkRec}, {$maxRows_productRemarkRec} ",
 		'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productRemarkRec}, {$maxRows_productRemarkRec} "
 );
 $row_productRemarkRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 /*
 mysql_select_db($database_webshop, $webshop);
-$query_productRemarkRec = "SELECT * FROM prodmain  
+$query_productRemarkRec = "SELECT * FROM prodmain
 where CONCAT($string) ORDER BY ProdNum ASC";
 $query_limit_productRemarkRec = sprintf("%s LIMIT %d, %d", $query_productRemarkRec, $startRow_productRemarkRec, $maxRows_productRemarkRec);
 $productRemarkRec = mysql_query($query_limit_productRemarkRec, $webshop) or die(mysql_error());
 $row_productRemarkRec = mysql_fetch_assoc($productRemarkRec);
 */
-$total_productRemarkRec = sizeof($row_productHotRec); 
+$total_productRemarkRec = sizeof($row_productHotRec);
 
 if(isset($_GET['totalRows_productRemarkRec'])){
     $totalRows_productRemarkRec = $_GET['totalRows_productRemarkRec'];
 }else{
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC ", 
+		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC ",
 		'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC ",
 		'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY ProdNum ASC "
 );
@@ -50,7 +50,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_productRemarkRec") == false && 
+    if (stristr($param, "pageNum_productRemarkRec") == false &&
         stristr($param, "totalRows_productRemarkRec") == false) {
       array_push($newParams, $param);
     }
@@ -79,17 +79,17 @@ $queryString_productRemarkRec = sprintf("&totalRows_productRemarkRec=%d%s", $tot
 			$table_prodmain		= SYS_DBNAME . ".prodmain";
 			  $column = "*";
 			  $whereClause = "ProdNum={$array['ProdNum']}";
-			  
+
 			  $sql['list']['select'] = array(
-					  'mysql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ", 
+					  'mysql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ",
 					  'mssql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ",
 					  'oci8'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC "
 			  );
 			  $row_showRemarklistRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
-			  
+
 			  /*
-			  $query_showRemarklistRec = sprintf("SELECT * FROM prodmain 
-			  INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId 
+			  $query_showRemarklistRec = sprintf("SELECT * FROM prodmain
+			  INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId
 			  WHERE ProdNum=%s order by img_no ASC", GetSQLValueString($row_productRemarkRec['ProdNum'], "text"));
 		      $showRemarklistRec = mysql_query($query_showRemarklistRec, $webshop) or die(mysql_error());
 		      $row_showRemarklistRec = mysql_fetch_assoc($showRemarklistRec);

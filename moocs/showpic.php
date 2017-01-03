@@ -10,7 +10,7 @@ mt_srand((double)microtime() * 1000000);  //重置隨機值
 
 //隨機取得6個小寫英字a-z
 for($i=0; $i<4; $i++){
-$ans_str = mt_rand(97,122);  
+$ans_str = mt_rand(97,122);
 $ans_now .= chr($ans_str);
 }
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* <%if Session("estore_userid")<>"" then %>
 
 <%
@@ -29,8 +29,8 @@ if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){
 		</tr>
 		<tr >
 		  <td>
-          <font size=3>密&nbsp;碼:<input type="password" class=sizeSs name="password" size="20"> 
-			<input type="hidden" name="Userlogin" value="True">		  
+          <font size=3>密&nbsp;碼:<input type="password" class=sizeSs name="password" size="20">
+			<input type="hidden" name="Userlogin" value="True">
 			</td>
 		</tr>
 

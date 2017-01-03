@@ -1,6 +1,6 @@
 <?php require('../utility/init.php'); ?>
 
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -19,7 +19,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -37,40 +37,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -113,7 +113,7 @@ if ((isset($_GET['LarSeq']) && ($_GET['MidSeq']))) {
 $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "LarSeq='{$cloume_showitemLarRec}' AND MidSeq='{$cloume_showitemMidRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause}"
 		);
@@ -138,15 +138,15 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 	$table_compclass		= SYS_DBNAME . ".compclass";
 	$whereClause = "LarSeq='{$cloume_showitemLarRec}'";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq DESC", 
+			'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq DESC",
 			'mssql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq DESC",
 			'oci8'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq DESC"
 			);
 	$row_showgoodsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 	$totalRows_showgoodsRec = sizeof($row_showgoodsRec);
-/*	
+/*
 	    mysql_select_db($database_webshop, $webshop);
-        $query_showgoodsRec = sprintf("SELECT * FROM compclass WHERE LarSeq = %s ORDER BY MidSeq ASC", 
+        $query_showgoodsRec = sprintf("SELECT * FROM compclass WHERE LarSeq = %s ORDER BY MidSeq ASC",
                                        GetSQLValueString($cloume_showitemLarRec, "int"));
         $showgoodsRec = mysql_query($query_showgoodsRec, $webshop) or die(mysql_error());
         $row_showgoodsRec = mysql_fetch_assoc($showgoodsRec);
@@ -190,40 +190,40 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
           <tr align="left">
             <td width="100%"><?php echo $row_showitemMidRec['LarCode']; ?></td>
           </tr>
-        
+
           <?php
 			  $table_compclass		= SYS_DBNAME . ".compclass";
 			  $whereClause = "LarSeq='{$cloume_showitemLarRec}'";
 			  $sql['list']['select'] = array(
-					  'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+					  'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 					  'mssql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 					  'oci8'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 					  );
 			  $row_showgoodsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 			  $totalRows_showgoodsRec = sizeof($row_showgoodsRec);
-	  
+
             /*mysql_select_db($database_webshop, $webshop);
-            $query_showgoodsRec = sprintf("SELECT * FROM compclass WHERE LarSeq = %s ORDER BY MidSeq ASC", 
+            $query_showgoodsRec = sprintf("SELECT * FROM compclass WHERE LarSeq = %s ORDER BY MidSeq ASC",
                                            GetSQLValueString($cloume_showitemLarRec, "int"));
             $showgoodsRec = mysql_query($query_showgoodsRec, $webshop) or die(mysql_error());
             $row_showgoodsRec = mysql_fetch_assoc($showgoodsRec);
             $totalRows_showgoodsRec = mysql_num_rows($showgoodsRec);*/
             if ($totalRows_showgoodsRec > 0) {
-            foreach ($row_showgoodsRec as $key => $array){  ?>   
+            foreach ($row_showgoodsRec as $key => $array){  ?>
           <tr align="left">
             <td width="100%"><?php echo $array['MidSeq']." - ".$array['MidCode']; ?></td>
           </tr>
-          <?php 
+          <?php
             }}?>
-  
-<!-------------------------------------------------------------->      
+
+<!-------------------------------------------------------------->
       <tr>
         <td>名稱:
           <input type="text" name="MidCode" id="MidCode"  class=sizeS />
           <input name="LarCode" type="hidden" value="<?php echo $row_showitemMidRec['LarCode']; ?>" /><font color="#0000FF">[建議：中類名稱字數控制在8個字以內]</font>
         </td>
       </tr>
-      
+
       <tr>
         <td>
           <input type="submit" name="MM_insert" id="MM_insert" value="新增" style="font-size:16px;width:60px;height:30px"/>

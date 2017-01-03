@@ -1,5 +1,5 @@
 # robots.txt for  http://www.v88t.com/
 User-agent: *
-Allow: / 
+Allow: /
 
 Sitemap: http://www.v88t.com/sitemap.xml

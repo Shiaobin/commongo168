@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){
 ?>
@@ -14,17 +14,17 @@ if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){
 ?>
 
 	  <script language="JavaScript" src="jsroot/checklogin.js"></script>
-	 
+
 	  <form method="post" name="loginbox" action="userlogin.php" onsubmit="return checkform();">
 		 <TABLE  class='table table-bordered table-striped' ><tr ><td>
           <font size=3>帳&nbsp;號:<input type="text"  name="userid"  class="input-medium">
-		  
+
 		  </td>
 		</tr>
 		<tr >
 		  <td>
-          <font size=3>密&nbsp;碼:<input type="password"  name="password"  class="input-medium"> 
-			<input type="hidden" name="Userlogin" value="True">		  
+          <font size=3>密&nbsp;碼:<input type="password"  name="password"  class="input-medium">
+			<input type="hidden" name="Userlogin" value="True">
 			</td>
 		</tr>
 

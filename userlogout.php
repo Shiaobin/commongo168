@@ -37,7 +37,7 @@ if(isset($_SESSION['yuserid']) and $_SESSION['ypassword'])
       </div></td>
   </tr>
   <tr>
-    <td><div align="center"><a href="index.php"><font color="#FF0000">點擊返回首頁</font></a> 
+    <td><div align="center"><a href="index.php"><font color="#FF0000">點擊返回首頁</font></a>
       </div></td>
   </tr>
 </table>

@@ -1,9 +1,9 @@
 var Config = (function () {
- 
+
   var instance;
- 
+
   function init() {
- 
+
     return {
     	pwdreg : function(){
     		return /[a-zA-Z0-9]{5,13}/;
@@ -26,11 +26,11 @@ var Config = (function () {
     	shiprang : function(){
     		return 1000;
     	}
- 
+
     };
- 
+
   };
- 
+
   return {
     getInstance: function () {
       if ( !instance ) {
@@ -39,5 +39,5 @@ var Config = (function () {
       return instance;
     }
   };
- 
+
 })();

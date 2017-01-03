@@ -12,7 +12,7 @@ if (isset($_GET['tabindex'])) {
 }
 ?>
 <?php  //-----------------------------新增廣告資訊------------------------------------//
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {	
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {
 
   //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
@@ -33,7 +33,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {
 				'img_class_id' => $cloume_showidRec
 				);
   dbInsert( $table_index_image_slide, $record );
-  
+
   /*
   $insertSQL = sprintf("INSERT INTO index_image_slide (slide_index, slide_img, slide_url, slide_text, img_class_id) VALUES (%s, %s, %s, %s, %s)",
 					    GetSQLValueString($_POST['slide_index'], "int"),

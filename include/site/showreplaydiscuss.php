@@ -16,8 +16,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['mem_nickname'] != "")&& ($_POST['msg_send'] != "")) {  
-  
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST['mem_nickname'] != "")&& ($_POST['msg_send'] != "")) {
+
     //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
 
@@ -25,13 +25,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 	move_uploaded_file(realpath($_FILES["upload_img"]["tmp_name"]), "images/discussimg/".$img
         ) or die("Problems with upload");
         //resize_discuss_img($img);
-		
+
   }
   else {
 	$img = "none.gif";
   }
-  
-  
+
+
   $insertSQL = sprintf("INSERT INTO shop_member_sub_msg (msg_no, mem_nickname, msg_send, msg_img) VALUES (%s, %s, %s, %s)",
                        GetSQLValueString($_POST['msg_no'], "text"),
                        GetSQLValueString($_POST['mem_nickname'], "text"),
@@ -80,7 +80,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
 <!-------------------------------------------------------------->
 <h2>回應主題新增</h2>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
-<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editmsg">
   <!-------------------------------------------------------------->
 <input name="msg_no" type="hidden" value="<?php echo $row_showmsgRec['msg_no']; ?>" />
@@ -88,7 +88,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
   <tr>
     <td align="center">回應主題</td>
     <td align="left"><?php echo $row_showmsgRec['msg_title']; ?></td>
-  </tr> 
+  </tr>
   <!-----------------------------留言人----------------------------->
   <tr>
     <td  align="center">發表人<font color="#FF3333">  *</font></td>
@@ -98,7 +98,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
   <tr>
      <td width="10%" height="10%" align="center">頭像圖片</td>
      <td>
-       <input name="upload_img" type="file" value="Select a File..." style="width:50%; height:100%; margin: 3px"/> 
+       <input name="upload_img" type="file" value="Select a File..." style="width:50%; height:100%; margin: 3px"/>
      </td>
   </tr>
   <!----------------------------留言內容---------------------------->

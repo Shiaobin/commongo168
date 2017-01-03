@@ -8,7 +8,7 @@ if ((isset($_GET['LarSeq']) && ($_GET['MidSeq']))) {
 $table_prodclass		= SYS_DBNAME . ".prodclass";
 $whereClause = "LarSeq='{$cloume_showitemLarRec}' AND MidSeq='{$cloume_showitemMidRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}"
 		);
@@ -33,7 +33,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 	$table_prodclass		= SYS_DBNAME . ".prodclass";
 	$whereClause = "LarSeq='{$cloume_showitemLarRec}'";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+			'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 			'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 			'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 			);
@@ -41,7 +41,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 	$totalRows_showgoodsRec = sizeof($row_showgoodsRec);
 	/*
 	    mysql_select_db($database_webshop, $webshop);
-        $query_showgoodsRec = sprintf("SELECT * FROM prodclass WHERE LarSeq = %s ORDER BY MidSeq ASC", 
+        $query_showgoodsRec = sprintf("SELECT * FROM prodclass WHERE LarSeq = %s ORDER BY MidSeq ASC",
                                        GetSQLValueString($cloume_showitemLarRec, "int"));
         $showgoodsRec = mysql_query($query_showgoodsRec, $webshop) or die(mysql_error());
         $row_showgoodsRec = mysql_fetch_assoc($showgoodsRec);
@@ -87,12 +87,12 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
       <tr align="left">
         <td width="100%"><?php echo $row_showitemMidRec['LarCode']; ?></td>
       </tr>
-    
+
       <?php
 	  $table_prodclass		= SYS_DBNAME . ".prodclass";
 	  $whereClause = "LarSeq='{$cloume_showitemLarRec}'";
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+			  'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 			  'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 			  'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 			  );
@@ -100,30 +100,30 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增") && ($_POST
 	  $totalRows_showgoodsRec = sizeof($row_showgoodsRec);
 	/*
         mysql_select_db($database_webshop, $webshop);
-        $query_showgoodsRec = sprintf("SELECT * FROM prodclass WHERE LarSeq = %s ORDER BY MidSeq ASC", 
+        $query_showgoodsRec = sprintf("SELECT * FROM prodclass WHERE LarSeq = %s ORDER BY MidSeq ASC",
                                        GetSQLValueString($cloume_showitemLarRec, "int"));
         $showgoodsRec = mysql_query($query_showgoodsRec, $webshop) or die(mysql_error());
         $row_showgoodsRec = mysql_fetch_assoc($showgoodsRec);
         $totalRows_showgoodsRec = mysql_num_rows($showgoodsRec);*/
         if ($totalRows_showgoodsRec > 0) {
-        foreach ($row_showgoodsRec as $key => $array){  ?>   
+        foreach ($row_showgoodsRec as $key => $array){  ?>
       <tr align="left">
         <td width="100%"><?php echo $array['MidSeq']." - ".$array['MidCode']; ?></td>
       </tr>
-      <?php 
+      <?php
         }}?>
   </table>
   </td>
   </tr>
-  
-  
+
+
   <tr align="left">
     <td width="100%">名稱:
    	  <input type="text" name="MidCode" id="MidCode" class=sizeM />
       <input name="LarCode" type="hidden" value="<?php echo $row_showitemMidRec['LarCode']; ?>" /><font color="#0000FF">[建議：中類名稱字數控制在6個字以內]</font>
     </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">
    	  <input type="submit" name="MM_insert" id="MM_insert" value="新增" style="font-size:16px;width:60px;height:30px" />

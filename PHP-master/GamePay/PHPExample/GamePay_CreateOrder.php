@@ -5,7 +5,7 @@
 		$search_list = array('%2d', '%5f', '%2e', '%21', '%2a', '%28', '%29');
 		$replace_list = array('-', '_', '.', '!', '*', '(', ')');
 		$value = str_replace($search_list, $replace_list ,$value);
-		
+
 		return $value;
 	}
 	//產生檢查碼
@@ -62,12 +62,12 @@ $form_array = array(
    "ClientBackURL" => $client_back_url,
 	"NeedExtraPaidInfo" => $needExtraPaidInfo
   );
-  
+
      # 調整ksort排序規則--依自然排序法(大小寫不敏感)
      ksort($form_array, SORT_NATURAL |SORT_FLAG_CASE);
      # 取得 Mac Value
 	$form_array['CheckMacValue'] = _getMacValue($hash_key, $hash_iv, $form_array);
-	
+
 $html_code = '<form target="_blank" method=post action="' . $gateway_url . '">';
 foreach ($form_array as $key => $val) {
     $html_code .= "<input type='text' name='" . $key . "' value='" . $val . "'><BR>";

@@ -9,7 +9,7 @@ var addCartCK = function(obj){
 	var name      = $("#p_name").text();
 	var buyamount = $("#p_amount").val();
 	var reurl       = "product.jsp" + location.search;
-		
+
 	var url   = PostUrl.getInstance().addcart();
 	var data  = {gid:gid, colorid:colorid, img:img, name:name, buyamount:buyamount, url:reurl};
 	doAjaxFunc(url, data, setAddCartBack);
@@ -23,7 +23,7 @@ var colorItemCK = function(){
 	$("#p_addcart").attr("imgurl", $(this).attr("listimg"));
 	var color = ($(this).attr("color") == "無" || $(this).attr("color") == undefined) ? "" : "("+ $(this).attr("color") +")";
 	$("#p_name").text($("#p_name").attr("product") + color);
-	
+
 	var len = ($(this).attr("amount") >= 10) ? 10 : $(this).attr("amount");
 	$("#p_amount").empty();
 	for(var i=1; i<=len; i++){

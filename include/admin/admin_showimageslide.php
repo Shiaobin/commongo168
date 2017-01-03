@@ -10,7 +10,7 @@ $startRow_showgoodsRec = $pageNum_showgoodsRec * $maxRows_showgoodsRec;
 $table_index_image_slide		= SYS_DBNAME . ".index_image_slide";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause} LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}", 
+		'mysql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause} LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 		'mssql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause} LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 		'oci8'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause} LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}"
 		);
@@ -35,7 +35,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showgoodsRec") == false && 
+    if (stristr($param, "pageNum_showgoodsRec") == false &&
         stristr($param, "totalRows_showgoodsRec") == false) {
       array_push($newParams, $param);
     }
@@ -55,29 +55,29 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."slide_no='".$_POST['select_banner'][$i]."'";
       }
-	  
+
 	  //刪除圖片
 	  $table_index_image_slide		= SYS_DBNAME . ".index_image_slide";
 	  $whereClause = "CONCAT($delete_string)";
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT * FROM {$table_index_image_slide} WHERE {$whereClause}"
 			  );
 	  $row_searchImg = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-	  
+
       mysql_select_db($database_webshop, $webshop);
       $searchSQL = "SELECT * FROM index_image_slide WHERE CONCAT($delete_string) ";
       $searchImg = mysql_query($searchSQL, $webshop) or die(mysql_error());
 	  $row_searchImg = mysql_fetch_assoc($searchImg);
 
-      foreach ($row_searchImg as $key => $array){    
-	  if(($array['slide_img'] != "none.gif")){ 
+      foreach ($row_searchImg as $key => $array){
+	  if(($array['slide_img'] != "none.gif")){
           unlink("../images/slideimg/".$array["slide_img"]);}
   		  //unlink("../images/newsimg/small/".$row_searchImg["imgfull"]);}
       }
-	  
-	  
+
+
 	  //刪除廣告資料
 	  $table_index_image_slide		= SYS_DBNAME . ".index_image_slide";
 	  $whereClause = "CONCAT($delete_string)";
@@ -97,9 +97,9 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 ?>
 
 <script>
-function check_all(obj,cName) { 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
+function check_all(obj,cName) {
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
 }
 
 function editSlide(btn) {
@@ -138,7 +138,7 @@ function addSlide(btn) {
         <td><input name="select_banner[]" type="checkbox" value="<?php echo $array['slide_no']; ?>" /></td>
         <td><?php echo $array['slide_index']; ?></td>
         <td>
-          <img src="../../images/slideimg/<?php echo $array['slide_img']; ?>" alt="" name="image" 
+          <img src="../../images/slideimg/<?php echo $array['slide_img']; ?>" alt="" name="image"
            width="100px" height="50px" id="image" align="center" style="padding:5px;"/>
         </td>
         <td align="left"><?php echo $array['slide_url']; ?></td>
@@ -156,7 +156,7 @@ function addSlide(btn) {
         <td align="center"><input id="<?php //echo $no;?>" name="<?php //echo $row_showImgClassRec["img_class_id"]; ?>" type="button" value="新增連結圖片" onclick="addSlide(this);" style="margin:5px"></td>
       </tr>
     <!-----------------------------page control----------------------------->
-    <tr> 
+    <tr>
       <td colspan="7" align="right" bgcolor="#cfcfcf" >
         <table border="0">
           <tr>

@@ -21,40 +21,40 @@ if(($ProdNum)=="-1"){
   $column = "*";
   $table_compmain		= SYS_DBNAME . ".compmain";
   $whereClause = "LarCode='{$LarCode}' AND MidCode='{$MidCode}' AND Online='1'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_compmain} LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_compmain} LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_compmain} LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_compmain} LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC"
   );
-  
+
   $row_webRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
   /*
   mysql_select_db($database_webshop, $webshop);
-  $query_webRec = sprintf("SELECT * FROM compmain 
-  LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId 
+  $query_webRec = sprintf("SELECT * FROM compmain
+  LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId
   WHERE LarCode=%s && MidCode=%s && Online='1'
   order by img_no ASC",GetSQLValueString($LarCode, "text"),GetSQLValueString($MidCode, "text"));
   $webRec = mysql_query($query_webRec, $webshop) or die(mysql_error());
   $row_webRec = mysql_fetch_assoc($webRec);
   */
-  
+
 }else{
   $column = "*";
   $table_compmain		= SYS_DBNAME . ".compmain";
   $whereClause = "LarCode='{$LarCode}' AND MidCode='{$MidCode}' AND ProdNum={$ProdNum} AND Online='1'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_compmain} LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_compmain} LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_compmain} LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_compmain} LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC"
   );
-  
+
   $row_webRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
   /*
   mysql_select_db($database_webshop, $webshop);
-  $query_webRec = sprintf("SELECT * FROM compmain 
-  LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId 
+  $query_webRec = sprintf("SELECT * FROM compmain
+  LEFT JOIN comp_img ON comp_img.ProdId = compmain.ProdId
   WHERE LarCode=%s && MidCode=%s && ProdNum=%s && Online='1'
   order by img_no ASC",GetSQLValueString($LarCode, "text"),GetSQLValueString($MidCode, "text"),GetSQLValueString($ProdNum, "int"));
   $webRec = mysql_query($query_webRec, $webshop) or die(mysql_error());
@@ -67,13 +67,13 @@ if(($ProdNum)=="-1"){
   $column = "*";
   $table_compclass		= SYS_DBNAME . ".compclass";
   $whereClause = "LarCode='{$LarCode}' AND MidCode='{$MidCode}'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause}", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause}",
 		  'mssql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause}",
 		  'oci8'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause}"
   );
-  
+
   $row_showClassRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
   /*
 mysql_select_db($database_webshop, $webshop);
@@ -83,8 +83,8 @@ $row_showClassRec = mysql_fetch_assoc($showClassRec);
 */
 ?>
 <!--------------------------------------------------------------------------------->
-<script type="text/javascript" src="include/thickbox/jquery.js"></script> 
-<script type="text/javascript" src="include/thickbox/thickbox.js"></script> 
+<script type="text/javascript" src="include/thickbox/jquery.js"></script>
+<script type="text/javascript" src="include/thickbox/thickbox.js"></script>
 <link rel="stylesheet" href="include/thickbox/thickbox.css" type="text/css" media="screen" />
 
 <h3 class="ttl01">目前位置:<a href="index.php">首頁</a>>><?php echo $row_showClassRec["LarCode"];?>>><?php echo $row_showClassRec["MidCode"];?></h3>
@@ -108,7 +108,7 @@ $row_showClassRec = mysql_fetch_assoc($showClassRec);
              </tr>
              <!----------------------------------------出現簡述(ProdDisc!=0)----------------------------------------->
                 <?php }else{ ?>
-             <tr>   
+             <tr>
                 <td>
 					<?php if(($row_webRec["ProdDisc"] != "0") && ($snum != 1)){ ?>
                         <table width="100%" height="250px" border="0" cellpadding="0" cellspacing="0">
@@ -136,15 +136,15 @@ $id = $row_webRec["ProdId"];
   $column = "*";
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "ProdId='{$id}'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC"
   );
-  
+
   $row_showimgRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-  
+
 /*
 $query_showimgRec = sprintf("SELECT * FROM comp_img WHERE ProdId='$id' order by img_no ASC", GetSQLValueString($cloume_showImgRec, "text"));
 $showimgRec = mysql_query($query_showimgRec, $webshop) or die(mysql_error());
@@ -156,12 +156,12 @@ $totalRows_showimgRec = sizeof($row_showimgRec);
 <?php if($totalRows_showimgRec > 0) { ?>
 
         <?php foreach ($row_showimgRec as $key => $array){ ?>
-         
+
 <span class="TB_Image"><a href='../../showwebpic.php?pic=<?php echo $array['img_name']; ?>&keepThis=true&TB_iframe=true&height=500&width=600' class='thickbox' >
 <img src="../../images/webimg/small/<?php echo $array['img_name']; ?>" alt="<?php echo $array['ProdDisc']; ?>" name="image" id="image" style="padding:2px;"/></a></span>
-   
+
         <?php } ?>
-   
+
   <?php } ?>
     <!--------------------------------------------------------------------------------->
     </td>

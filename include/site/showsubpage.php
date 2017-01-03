@@ -7,10 +7,10 @@ if (isset($_GET['index_item_id'])) {
 }
 
 mysql_select_db($database_webshop, $webshop);
-$query_pageRec = sprintf("SELECT * FROM index_pages WHERE index_pages.index_item_id=%s && set_open='1' ORDER BY pages_date ASC", GetSQLValueString($index_item_id, "text")); 
+$query_pageRec = sprintf("SELECT * FROM index_pages WHERE index_pages.index_item_id=%s && set_open='1' ORDER BY pages_date ASC", GetSQLValueString($index_item_id, "text"));
 $pageRec = mysql_query($query_pageRec, $webshop) or die(mysql_error());
 $row_pageRec = mysql_fetch_assoc($pageRec);
-$total_pageRec = mysql_num_rows($pageRec); 
+$total_pageRec = mysql_num_rows($pageRec);
 ?>
 <?php  //------------------------------取得網頁大項資訊------------------------------//
 mysql_select_db($database_webshop, $webshop);

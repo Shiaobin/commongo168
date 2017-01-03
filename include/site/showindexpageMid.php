@@ -23,7 +23,7 @@ $column = "*";
 $whereClause = "CONCAT($string)";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productRec}, {$maxRows_productRec}", 
+		'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productRec}, {$maxRows_productRec}",
 		'mssql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productRec}, {$maxRows_productRec}",
 		'oci8'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause} ORDER BY ProdNum ASC LIMIT {$startRow_productRec}, {$maxRows_productRec}"
 );
@@ -32,18 +32,18 @@ $total_productRec = sizeof($row_productRec);
 
 /*
 mysql_select_db($database_webshop, $webshop);
-$query_productRec = "SELECT * FROM compmain  
+$query_productRec = "SELECT * FROM compmain
 where CONCAT($string) ORDER BY ProdNum ASC";
 $query_limit_productRec = sprintf("%s LIMIT %d, %d", $query_productRec, $startRow_productRec, $maxRows_productRec);
 $productRec = mysql_query($query_limit_productRec, $webshop) or die(mysql_error());
 $row_productRec = mysql_fetch_assoc($productRec);
-$total_productRec = mysql_num_rows($productRec); 
+$total_productRec = mysql_num_rows($productRec);
 */
 if(isset($_GET['totalRows_productRec'])){
     $totalRows_NewsRec = $_GET['totalRows_productRec'];
 }else{
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause} ORDER BY ProdNum ASC", 
+		'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause} ORDER BY ProdNum ASC",
 		'mssql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause} ORDER BY ProdNum ASC",
 		'oci8'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause} ORDER BY ProdNum ASC"
 );
@@ -65,7 +65,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_productRec") == false && 
+    if (stristr($param, "pageNum_productRec") == false &&
         stristr($param, "totalRows_productRec") == false) {
       array_push($newParams, $param);
     }
@@ -80,13 +80,13 @@ $queryString_productRec = sprintf("&totalRows_productRec=%d%s", $totalRows_produ
   $column = "*";
   $table_compclass		= SYS_DBNAME . ".compclass";
   $whereClause = "LarCode='{$LarCode}' AND MidCode='{$MidCode}'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause}", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause}",
 		  'mssql'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause}",
 		  'oci8'	=> "SELECT {$column} FROM {$table_compclass} WHERE {$whereClause}"
   );
-  
+
   $row_showClassRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
   /*
 mysql_select_db($database_webshop, $webshop);
@@ -114,14 +114,14 @@ $column = "*";
 $whereClause = "ProdNum={$array['ProdNum']}";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compmain} INNER JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC", 
+		'mysql'	=> "SELECT * FROM {$table_compmain} INNER JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC",
 		'mssql'	=> "SELECT * FROM {$table_compmain} INNER JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC",
 		'oci8'	=> "SELECT * FROM {$table_compmain} INNER JOIN comp_img ON comp_img.ProdId = compmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC"
 );
 $row_showsublistRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
 /*
-			  $query_showsublistRec = sprintf("SELECT * FROM compmain 
-			  INNER JOIN comp_img ON comp_img.ProdId = compmain.ProdId 
+			  $query_showsublistRec = sprintf("SELECT * FROM compmain
+			  INNER JOIN comp_img ON comp_img.ProdId = compmain.ProdId
 			  WHERE ProdNum=%s order by img_no ASC", GetSQLValueString($row_productRec['ProdNum'], "text"));
 		      $showsublistRec = mysql_query($query_showsublistRec, $webshop) or die(mysql_error());
 		      $row_showsublistRec = mysql_fetch_assoc($showsublistRec);

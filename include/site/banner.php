@@ -182,9 +182,9 @@
       <?php  $num = 0; ?>
       <?php if($banner->checkIfNull()) { ?>
       <?php do {  ?>
-               <img src="../../images/bannerimg/<?php $banner->getImage(); ?>" border="0" name="<?php echo $num; ?>" 
+               <img src="../../images/bannerimg/<?php $banner->getImage(); ?>" border="0" name="<?php echo $num; ?>"
 		        id="<?php echo $num; ?>" width="30" height="30" onMouseOver="mouse_in(this);"/>
-      <?php    $num++; ?>   
+      <?php    $num++; ?>
       <?php } while ($banner->fetchBanner()); ?>
       <?php }?>
     </div>
@@ -221,11 +221,11 @@
 
 <!----<SCRIPT Language="JavaScript">
 var b_delay = 3000;
-var bannerID; 
+var bannerID;
 var b = 0;
 var b_links = new Array();
 var b_imgs = new Array();
- 
+
 var banner_info = <?php $banner->showBanner(); ?>;
 
 function LoadB_Imgs(banner){
@@ -241,7 +241,7 @@ function RotateBanner(){
 
   if (b < <?php $banner->showTotal(); ?> -1) b++;
   else  b = 0;
-  
+
   bannerID=setTimeout("RotateBanner()",b_delay);
 }
 
@@ -249,7 +249,7 @@ function LoadFunctions(){
   RotateBanner();
 }
 
-function mouse_in(img){  
+function mouse_in(img){
   document.all.myTable.background = img.src;
   b = img.id;
 }
@@ -259,7 +259,7 @@ function mouse_in(img){
 <table id="myTable" width="96%" height="400" border="1" style="background-size:100%; background-repeat:no-repeat"  >
   <tr>
     <td align="right" valign="bottom">--->
-   
+
 <!-- </td>
   </tr>
 </table>

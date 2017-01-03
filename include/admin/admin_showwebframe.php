@@ -9,7 +9,7 @@ $column = "*";
 $table_index_frame		= SYS_DBNAME . ".index_frame";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_index_frame} LIMIT {$startRow_showpagesRec}, {$maxRows_showpagesRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_index_frame} LIMIT {$startRow_showpagesRec}, {$maxRows_showpagesRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_index_frame} LIMIT {$startRow_showpagesRec}, {$maxRows_showpagesRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_index_frame} LIMIT {$startRow_showpagesRec}, {$maxRows_showpagesRec}"
 );
@@ -36,7 +36,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showpagesRec") == false && 
+    if (stristr($param, "pageNum_showpagesRec") == false &&
         stristr($param, "totalRows_showpagesRec") == false) {
       array_push($newParams, $param);
     }
@@ -49,11 +49,11 @@ $queryString_showpagesRec = sprintf("&totalRows_showpagesRec=%d%s", $totalRows_s
 
 
 //------------------------------------刪除---------------------------------//
-$action=isset($_GET["action"])? $_GET["action"] : ""; 
-switch ($action){ 
- case "delLar": 
+$action=isset($_GET["action"])? $_GET["action"] : "";
+switch ($action){
+ case "delLar":
  	delLar();
- break; 
+ break;
 }
 
 function delLar(){
@@ -61,11 +61,11 @@ function delLar(){
   if (isset($_GET['frame_no'])) {
   	$cloume_showitemLarRec = $_GET['frame_no'];
   }
-  
+
   $table_index_frame		= SYS_DBNAME . ".index_frame";
 	  $whereClause = "frame_no='{$cloume_showitemLarRec}'";
 	  dbDelete( $table_index_frame, $whereClause );
-	  
+
   /*
   $deleteSQL = sprintf("DELETE FROM index_frame WHERE frame_no=%s",
                        GetSQLValueString($cloume_showitemLarRec, "int"));

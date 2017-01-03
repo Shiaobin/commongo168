@@ -44,18 +44,18 @@ try
  echo "訂單成立時間".$szTradeDate."<br>";
  echo "AllPay交易編號".$szTradeNo."<br>";*/
 
- 
- 
+
+
  if(isset($_GET['OrderNum']) && $szRtnCode==1){
-	 
+
 	 $query="UPDATE orderlist SET PayStatus='1' WHERE OrderNum='".$_GET['OrderNum']."'";
  	 $result=mysql_query($query, $webshop) or die("cannot connect to table" . mysql_error( ));
  	}
  	header('location:my_order_detail.php?OrderNum='.$_GET['OrderNum']);
  } else {
- 
+
  if(isset($_GET['OrderNum'])){
-	 
+
 	 $query="UPDATE orderlist SET PayStatus='0' WHERE OrderNum='".$_GET['OrderNum']."'";
  	 $result=mysql_query($query, $webshop) or die("cannot connect to table" . mysql_error( ));
  	}

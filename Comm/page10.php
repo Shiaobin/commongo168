@@ -1,14 +1,14 @@
 <?php
-if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){ 
+if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){
 echo "<table>
  <tr><th ><font size=4px>
  會 員 中 心:&nbsp;&nbsp;";?>
  <a href="my_info.php">個人資料</a> |&nbsp; <a href="my_order.php">個人訂單 |&nbsp; <a href="userlogout.php">登出</a></font>
  </th></tr>
-   
-  <tr> 
+
+  <tr>
     <td>
-   </table> 
+   </table>
    <table style="font-size:15px"; >
       <?php
 $userid=$_SESSION['yuserid'];
@@ -31,10 +31,10 @@ $num=mysql_num_rows($result);
 
 <?php
 if($num==0){
-echo "<br><br><table><tr><td>對不起！您查詢的訂單<b> ["&OrderNum&"] </b><br><br><B>不屬於您的登陸賬號，或者已經被管理員刪除</B>！<br>請您仔細檢查！<br><br>如果還有問題，請聯繫網站管理員</td></tr></table></td></tr>";	
+echo "<br><br><table><tr><td>對不起！您查詢的訂單<b> ["&OrderNum&"] </b><br><br><B>不屬於您的登陸賬號，或者已經被管理員刪除</B>！<br>請您仔細檢查！<br><br>如果還有問題，請聯繫網站管理員</td></tr></table></td></tr>";
 }
 else{
-while($rs_orderlist = mysql_fetch_array($result_orderlist)){ 
+while($rs_orderlist = mysql_fetch_array($result_orderlist)){
 
 ?>
 
@@ -47,19 +47,19 @@ while($rs_orderlist = mysql_fetch_array($result_orderlist)){
 <tr><td colspan="4">郵政編碼：<?php echo $rs_orderlist['ZipCode']; ?></td></tr>
 <tr><td colspan="4">配送方式：<?php echo $rs_orderlist['pei']; ?></td></tr>
 <tr><td colspan="4">配送費用：<?php echo $rs_orderlist['fei']; ?>元</td></tr>
-<tr><td colspan="4">訂單備註：<?php echo $rs_orderlist['Notes']; ?></td></tr>  
-<tr><td colspan="4">客服處理情況：<?php echo $rs_orderlist['Memo']; ?></td></tr>  
+<tr><td colspan="4">訂單備註：<?php echo $rs_orderlist['Notes']; ?></td></tr>
+<tr><td colspan="4">客服處理情況：<?php echo $rs_orderlist['Memo']; ?></td></tr>
 
 <tr><td width="25%">產品名稱</td><td width="25%">購買數量</td><td width="25%">購買單價</td><td width="25%"> 合 計</td></tr>
 
 <!--%
  Total = 0
- do while not rsorder.eof 
+ do while not rsorder.eof
  Sum = csng(rsorder("BuyPrice"))* rsorder("ProdUnit")
- Sum = FormatNumber(Sum,0) 
+ Sum = FormatNumber(Sum,0)
  Total = Sum + Total '計算總金額
- Discount = rsorder("Discount") 
-%--> 
+ Discount = rsorder("Discount")
+%-->
 <?php
 $query_orderdetail=  "select A.UserId,A.OrderNum,A.ProdUnit,A.ProdPrice,A.BuyPrice,A.goods_spec_1,A.goods_spec_2,C.ProdName,C.ProdNum,C.LarCode,C.MidCode,C.ProdId
 		  from orderdetail A,prodmain C
@@ -68,7 +68,7 @@ $result_orderdetail=mysql_query($query_orderdetail, $webshop) or die("cannot con
 while($rs_orderdetail = mysql_fetch_array($result_orderdetail)){
 $sum = $rs_orderdetail['ProdUnit']*$rs_orderdetail['BuyPrice'];
 ?>
-<tr>	
+<tr>
 <td width="50%"><a href="prodshow.php?ProdId=<?php echo $rs_orderdetail['ProdId']; ?>&LarCode=<?php echo $rs_orderdetail['LarCode']; ?>&MidCode=<?php echo $rs_orderdetail['MidCode']; ?>&ProdNum=<?php echo $rs_orderdetail['ProdNum']; ?>" target="blank_"><?php echo $rs_orderdetail['ProdName']; ?></a>　</td>
 <td width="50%"><?php echo $rs_orderdetail['ProdUnit']; ?></td>
 <td width="50%"><?php echo $rs_orderdetail['BuyPrice']; ?></td>
@@ -86,11 +86,11 @@ end if
 
 <TR>
 	<TD colspan="4">
-	&nbsp;&nbsp;折前總價：<?php echo $rs_orderlist['OrderSum']; ?> 元<br>                   
-	&nbsp;&nbsp;本次折扣：<?php echo $rs_orderlist['UserKou']; ?>0折<br>                 
-	&nbsp;&nbsp;折後總價：<?php echo $rs_orderlist['OrderSum']*$rs_orderlist['UserKou']; ?> 元<br>	                 
-	&nbsp;&nbsp;配送費用：<?php echo $rs_orderlist['fei']; ?> 元<br>                   
-	&nbsp;&nbsp;總計費用：<?php echo ($rs_orderlist['OrderSum']*$rs_orderlist['UserKou'])+$rs_orderlist['fei']; ?> 元</font></td>             
+	&nbsp;&nbsp;折前總價：<?php echo $rs_orderlist['OrderSum']; ?> 元<br>
+	&nbsp;&nbsp;本次折扣：<?php echo $rs_orderlist['UserKou']; ?>0折<br>
+	&nbsp;&nbsp;折後總價：<?php echo $rs_orderlist['OrderSum']*$rs_orderlist['UserKou']; ?> 元<br>
+	&nbsp;&nbsp;配送費用：<?php echo $rs_orderlist['fei']; ?> 元<br>
+	&nbsp;&nbsp;總計費用：<?php echo ($rs_orderlist['OrderSum']*$rs_orderlist['UserKou'])+$rs_orderlist['fei']; ?> 元</font></td>
 </TR>
 <!--%
 set rsorder=nothing
@@ -102,7 +102,7 @@ set rsorder=nothing
 end sub
 
 sub error_order()
- response.write "<br><br><table><tr><td>對不起！您查詢的訂單<b> ["&OrderNum&"] </b><br><br><B>不屬於您的登陸賬號，或者已經被管理員刪除</B>！<br>請您仔細檢查！<br><br>如果還有問題，請聯繫網站管理員</td></tr></table></td></tr>" 
+ response.write "<br><br><table><tr><td>對不起！您查詢的訂單<b> ["&OrderNum&"] </b><br><br><B>不屬於您的登陸賬號，或者已經被管理員刪除</B>！<br>請您仔細檢查！<br><br>如果還有問題，請聯繫網站管理員</td></tr></table></td></tr>"
 end sub
 %-->
 <?php

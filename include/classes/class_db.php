@@ -26,7 +26,7 @@ class Db {
 		$this->username = $username;
 		$this->password = $password;
 		$this->hostname = $hostname;
-		
+
 		$this->Connect();
 	}
 
@@ -43,7 +43,7 @@ class Db {
 		}else{
 			$this->databaseLink = mysql_connect($this->hostname, $this->username, $this->password);
 		}*/
-		$this->databaseLink = mysql_pconnect($this->hostname, $this->username, $this->password, TRUE) or trigger_error(mysql_error(),E_USER_ERROR); 
+		$this->databaseLink = mysql_pconnect($this->hostname, $this->username, $this->password, TRUE) or trigger_error(mysql_error(),E_USER_ERROR);
 
 		if(!$this->databaseLink){
    		$this->lastError = 'Could not connect to server: ' . mysql_error($this->databaseLink);
@@ -87,7 +87,7 @@ class Db {
 	function getConnection() {
 		return $this->databaseLink;
 	}
-	
+
 	// Executes MySQL query
 	function ExecuteSQL($query){
 		$this->lastQuery 	= $query;

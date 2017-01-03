@@ -15,28 +15,28 @@ if (isset($_GET['class_id'])) {
   $column = "*";
   $table_news		= SYS_DBNAME . ".news";
   $whereClause = "Online='1'";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY uup DESC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY uup DESC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY uup DESC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY uup DESC"
   );
-  
+
   $row_newsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
- /* 
+ /*
 mysql_select_db($database_webshop, $webshop);
 $query_NewsRec = "SELECT * FROM news WHERE Online='1' ORDER BY uup, PubDate DESC";
 $query_limit_NewsRec = sprintf("%s LIMIT %d, %d", $query_NewsRec, $startRow_NewsRec, $maxRows_NewsRec);
 $newsRec = mysql_query($query_limit_NewsRec, $webshop) or die(mysql_error());
 $row_newsRec = mysql_fetch_assoc($newsRec);
 */
-$total_newsRec = sizeof($row_newsRec); 
+$total_newsRec = sizeof($row_newsRec);
 
 if(isset($_GET['totalRows_NewsRec'])){
     $totalRows_NewsRec = $_GET['totalRows_NewsRec'];
 }else{
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_news} WHERE {$whereClause} ORDER BY uup, PubDate DESC ", 
+		'mysql'	=> "SELECT * FROM {$table_news} WHERE {$whereClause} ORDER BY uup, PubDate DESC ",
 		'mssql'	=> "SELECT * FROM {$table_news} WHERE {$whereClause} ORDER BY uup, PubDate DESC ",
 		'oci8'	=> "SELECT * FROM {$table_news} WHERE {$whereClause} ORDER BY uup, PubDate DESC "
 );
@@ -50,7 +50,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_NewsRec") == false && 
+    if (stristr($param, "pageNum_NewsRec") == false &&
         stristr($param, "totalRows_NewsRec") == false) {
       array_push($newParams, $param);
     }
@@ -65,10 +65,10 @@ $queryString_NewsRec = sprintf("&totalRows_NewsRec=%d%s", $totalRows_NewsRec, $q
 <h2>最新消息</h2>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableLayout02">
- 
+
   <?php if (sizeof( $row_newsRec ) > 0)  { // Show if recordset not empty ?>
-  <form name="updatePop" id="updatePop" action="" method="post">  
-    <?php 
+  <form name="updatePop" id="updatePop" action="" method="post">
+    <?php
 	    foreach ($row_newsRec as $key => $array) { ?>
           <tr>
             <td width="5%" align="left">
@@ -89,10 +89,10 @@ $queryString_NewsRec = sprintf("&totalRows_NewsRec=%d%s", $totalRows_NewsRec, $q
             <!-------------------------------------------------------------->
             <td width="15%" align="left">人氣值:<?php echo $array["cktimes"];?></td>
           </tr>
-    <?php 
+    <?php
 	} ?>
 
-  </form> 		
+  </form>
   <?php } // Show if recordset not empty ?>
   <!-------------------------------------------------------------->
   <tr>
@@ -110,7 +110,7 @@ $queryString_NewsRec = sprintf("&totalRows_NewsRec=%d%s", $totalRows_NewsRec, $q
         <a href="<?php printf("%s?pageNum_NewsRec=%d%s", $currentPage, min($totalPages_NewsRec, $pageNum_NewsRec + 1), $queryString_NewsRec); ?>">
           <img src="images/symbol/Next.gif" class="img"/></a>
       <?php } // Show if not last page ?>
- 
+
       <?php if ($pageNum_NewsRec < $totalPages_NewsRec) { // Show if not last page ?>
         <a href="<?php printf("%s?pageNum_NewsRec=%d%s", $currentPage, $totalPages_NewsRec, $queryString_NewsRec); ?>">
           <img src="images/symbol/Last.gif" class="img"/></a>

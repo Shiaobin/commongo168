@@ -30,7 +30,7 @@ class CartItem
 		$this->_goods_quantity = $_goods_quantity;
 		$this->_goods_spec_1 = $_goods_spec_1;
 		$this->_goods_spec_2 = $_goods_spec_2;
-		
+
 		$this->_calc();
 	}
 
@@ -64,7 +64,7 @@ class CartItem
 		$item['goods_total'] = $this->_goods_total;
 		$item['goods_spec_1'] = $this->_goods_spec_1;
 		$item['goods_spec_2'] = $this->_goods_spec_2;
-		
+
 		return $item;
 	}
 
@@ -112,7 +112,7 @@ class Cart
 		{
 			$this->_items[$goods_id] = null;
 		}
-		
+
 		$is_used = false;
 		foreach ($this->_items as $key => $item)
 		{
@@ -133,7 +133,7 @@ class Cart
 			$this->_items[$md5] = null;
 		}
 		if ( !is_object($this->_items[$md5]) /*&& !$is_used*/ )
-		{	
+		{
 			$this->_items[$md5] = new CartItem($md5, $ord_id, $MM_Username, $goods_id, $goods_name, $goods_price, $goods_stand, $goods_img, $goods_spec_1, $goods_spec_2, $goods_quantity);
 
 			$this->_refresh();
@@ -179,7 +179,7 @@ class Cart
 		$this->_refresh();
 		return $this->_total;
 	}
-	
+
 	// 取得所有的商品項目
 	function getAllItems()
 	{
@@ -207,20 +207,20 @@ class Cart
         	$this->_items = array();
 			$this->_total = 0;
         	$_SESSION['Cart']= $this;
-        	
+
     	 }
    		else
    		{
    			//echo "cart is not exit!";
    			$cart = $_SESSION['Cart'];
-			
-			
+
+
    			$this->_items = $cart->_items;
    			$this->_total = $cart->_total;
    			$this->_refresh();
-   			
+
    		}
-		
+
 	}
 
 	// 重新計算總價

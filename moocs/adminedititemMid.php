@@ -1,5 +1,5 @@
 <?php require('../utility/init.php'); ?>
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -18,7 +18,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -36,40 +36,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -109,7 +109,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
-  
+
   //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
 
@@ -118,18 +118,18 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
 	$a=substr($img,$num+1);
 	$img= date('his').".".$a;
 
-    /*if($_POST['pic']=="none.gif" ) $img = date('his').".jpg"; 
+    /*if($_POST['pic']=="none.gif" ) $img = date('his').".jpg";
 	else                      $img = $_POST['pic'];*/
-	
+
 	move_uploaded_file(realpath($_FILES["upload_img"]["tmp_name"]), "../images/app/".$img);
         resize_midcode_image($img);
   }
   else {
     $img = $_POST['pic'];
   }
-  
+
   $ClassId = $_POST['ClassId'];
-  
+
   //更新中項內容
   $table_prodclass		= SYS_DBNAME . ".prodclass";
   $record = array(
@@ -140,14 +140,14 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
   $whereClause = "ClassId='".$ClassId."'";
    dbUpdate( $table_prodclass, $record, $whereClause );
   $updateGoTo = "adminitem.php";
-  
+
   if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
     $updateGoTo .= $_SERVER['QUERY_STRING'];
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 
@@ -160,7 +160,7 @@ if (isset($_GET['ClassId'])) {
 $table_prodclass		= SYS_DBNAME . ".prodclass";
 $whereClause = "ClassId='".$cloume_showitemClassId."'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}"
 		);
@@ -177,17 +177,17 @@ $row_showitemMidRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
       <input id="MidCode" name="MidCode" type="text" class=sizeM value="<?php echo $row_showitemMidRec['MidCode']; ?>"/>
     </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">排序:
    	  <input type="int" name="upd_MidSeq" id="upd_MidSeq" class=sizeSss value="<?php echo $row_showitemMidRec['MidSeq']; ?>"/>
-   	  [不能與同一大類下其它中類的排序號重複]    
+   	  [不能與同一大類下其它中類的排序號重複]
     </td>
   </tr>
   <!----------------------------圖片---------------------------->
   <tr>
      <td width="12%" height="10%" align="left">
-       <img src="../../images/app/<?php echo $row_showitemMidRec['pic']; ?>" alt="" name="image" 
+       <img src="../../images/app/<?php echo $row_showitemMidRec['pic']; ?>" alt="" name="image"
            width="78px" height="65px" id="image" align="center" style="padding:5px;"/>
        <input name="pic" type="hidden" value="<?php echo $row_showitemMidRec['pic']; ?>" />
      </td>
@@ -195,10 +195,10 @@ $row_showitemMidRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
   <!----------------------------上傳圖片---------------------------->
   <tr>
      <td width="10%" height="10%" align="left">圖片[有手機板APP才需上傳圖片]
-       <input name="upload_img" type="file" value="Select a File..." class=sizeM /> 
+       <input name="upload_img" type="file" value="Select a File..." class=sizeM />
      </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">
       <input name="ClassId" type="hidden" value="<?php echo $row_showitemMidRec['ClassId']; ?>" />

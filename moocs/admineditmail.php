@@ -1,8 +1,8 @@
-<?php require('../utility/init.php'); 
+<?php require('../utility/init.php');
 include("../connections/webshop.php");
 ?>
 
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -21,7 +21,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -39,40 +39,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -110,31 +110,31 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "寄信")) {	
-  
+if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "寄信")) {
+
   $table_contact_msg		= SYS_DBNAME . ".contact_msg";
-  $record = array(  				
+  $record = array(
 				'Reply' => "1"
 				);
   $whereClause = "ID={$_POST['messageid']}";
-		
+
   dbUpdate( $table_contact_msg, $record, $whereClause );
-  
+
   $table_contact_re	= SYS_DBNAME . ".contact_re";
   $record = array(
 				'MessageId' => $_POST['messageid'],
 				'Subject' => $_POST['subject'],
-				'ReplyMessage' => $_POST['body'],			
+				'ReplyMessage' => $_POST['body'],
 				'ImgFull' => 'none.png'
 				);
   dbInsert( $table_contact_re, $record );
-  
-  
- 
+
+
+
   include_once("adminsendmail.php");
 
   /*
-  $updateSQL = sprintf("UPDATE contact_msg SET msg_back=%s, msg_back_date=%s, set_open=%s where ID=%s", 
+  $updateSQL = sprintf("UPDATE contact_msg SET msg_back=%s, msg_back_date=%s, set_open=%s where ID=%s",
 					   GetSQLValueString($_POST['msg_back'], "text"),
 					   GetSQLValueString($_POST['msg_back_date'], "text"),
 					   GetSQLValueString($_POST['set_open'], "tinyint"),
@@ -162,7 +162,7 @@ if (isset($_GET['ID'])) {
 $table_contact_msg		= SYS_DBNAME . ".contact_msg";
 $whereClause = "ID='{$cloume_showmsgRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_contact_msg} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_contact_msg} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_contact_msg} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_contact_msg} WHERE {$whereClause}"
 		);
@@ -173,7 +173,7 @@ $row_showmsgRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
 $table_contact_re  	= SYS_DBNAME . ".contact_re";
 $whereClause = "MessageId='{$cloume_showmsgRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_contact_re} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_contact_re} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_contact_re} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_contact_re} WHERE {$whereClause}"
 		);
@@ -201,14 +201,14 @@ function show(obj, id)
   {
     table.style.display='none';
 	obj.style.border='';
-    
+
   }
 }
 </script>
 
 <h3 class=ttl01 >信件內容</h3>
 <table width="600" border="0" cellspacing="0" cellpadding="0" class="formTable">
-<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editmsg">
 
       <input type="hidden" name="messageid" id="messageid" value="<?php echo $row_showmsgRec['ID']; ?>"/>
@@ -220,7 +220,7 @@ function show(obj, id)
   <!----------------------------日期---------------------------->
   <tr>
     <td>日期:<?php echo $row_showmsgRec['MessageDate']; ?></td>
-  </tr>  
+  </tr>
   <!----------------------------郵件---------------------------->
   <tr>
     <td>Email:<?php echo $row_showmsgRec['Email'];?></td>
@@ -242,11 +242,11 @@ function show(obj, id)
     <!------------------------------------------------------------->
   <tr>
     <td>
-    <font color="#0000FF"><?php 
+    <font color="#0000FF"><?php
 			if($row_showmsgRec['Reply']=="0")
 	          echo "未回覆</font>";
 	        else echo "已完成回覆</font>"; ?>
-	 
+
     </td>
   </tr>
     <!------------------------------------------------------------->
@@ -258,26 +258,26 @@ function show(obj, id)
         <!----------------------------留言日期---------------------------->
         <tr bgcolor="#CCCCCC">
           <td width="10%" height="20%" align="left" colspan="2">日期:<?php echo $array['ReplyDate'];?></td>
-        </tr>  
+        </tr>
         <!-----------------------------留言人----------------------------->
         <tr>
           <td colspan="2" height="20%" align="left">主旨:<?php echo $array['Subject'];?></td>
-         
+
         </tr>
         <!----------------------------留言圖片---------------------------->
         <tr>
           <td  colspan="2" height="50%" align="left">回覆內容:</br>
           <?php echo $array['ReplyMessage'];?>
-          </td>          
+          </td>
         </tr>
-        
+
         </table>
     </td>
   </tr>
         <?php
 	  }
 	  ?>
- 
+
   </tr>
 </table>
 <span id="txt" style='border: 1px solid black;background-clip: padding-box;font-size:20px; background-color: #DFDFDF;' onclick='show(this, "box")'>
@@ -288,7 +288,7 @@ function show(obj, id)
     <td align="center" colspan="2" bgcolor="#DFDFDF">回信區塊</td>
   </tr>
   <!----------------------------收件者---------------------------->
- 
+
   <tr >
     <td>1.收件者:
     <?php echo $row_showmsgRec['Name']." <"; ?>
@@ -299,10 +299,10 @@ function show(obj, id)
   </tr>
   <!----------------------------主旨---------------------------->
   <tr >
-    <td>2.主旨:<br>      
+    <td>2.主旨:<br>
       <input name="subject" type="text" class="sizeML"/>
    </td>
-  </tr> 
+  </tr>
    <!----------------------------信件內容---------------------------->
   <tr>
     <td>3.信件內容:<br>
@@ -314,17 +314,17 @@ function show(obj, id)
   <!--tr>
     <td>10.是否隱藏:
       <label>
-        <input type="radio" name="set_open" value="0" id="set_open_0" 
+        <input type="radio" name="set_open" value="0" id="set_open_0"
         <?php if ($row_showmsgRec['set_open'] == '0'): ?>checked='checked'<?php endif; ?>/>隱藏</label>
       <label>
-        <input type="radio" name="set_open" value="1" id="set_open_1" 
+        <input type="radio" name="set_open" value="1" id="set_open_1"
 		<?php if ($row_showmsgRec['set_open'] == '1'): ?>checked='checked'<?php endif; ?>/>公開</label>
     </td>
   </tr-->
   <!------------------------新增按鈕---------------------------->
   <tr>
     <td>
-      
+
       <input type="submit" name="update_msg"  value="寄信" style="width:10%; height:100%; margin: 3px"/>
       <input type="reset" name="reset"  value="重設" style="width:10%; height:100%; margin: 3px"/>
     </td>

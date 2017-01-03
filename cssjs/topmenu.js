@@ -1,9 +1,9 @@
 
-	$(document).ready(function(){												
+	$(document).ready(function(){
 
        //Navigation Menu Slider
         $('#nav-expander').on('click',function(e){
-      		e.preventDefault();			
+      		e.preventDefault();
       		$('body').toggleClass('nav-expanded');
       	});
       	$('#nav-close').on('click',function(e){
@@ -12,33 +12,33 @@
       	});
         $('#icon_search').on('click',function(e){
 			var inputsearch = $("#inputsearch");
-			
+
 			if(inputsearch.css('display')=='none')
 			{
 				inputsearch.slideDown("1000").focus();
 			}else{
 				inputsearch.slideUp("1000");
 			}
-		
-      	});	
-		
+
+      	});
+
 		$("#inputsearch").keypress(function(e){
   		code = (e.keyCode ? e.keyCode : e.which);
-  
+
   			if (code == 13)
   			{
-				
+
 				location.href="search.php?key="+$("#inputsearch").val();
-	 
-  			} 
-  		});	
+
+  			}
+  		});
 
 //-----------------------------商品數量增減-----------------------
 function addinput(num)
 {
 	snum=num;
 	if(snum>0)
-	{	
+	{
 		$('#addinput_area').css('display','');
 		$('#numinput_area').css('display','none');
 		$('#sqty').val(snum);
@@ -68,8 +68,8 @@ function addinput(num)
   });
   // This button will decrement the value till 0
   $(".sqtyminus").click(function(e) {
-	  
-	  
+
+
     // Stop acting like a button
     e.preventDefault();
     // Get the field name
@@ -123,7 +123,7 @@ function send()
 	qty=$("#qty").val();
 	sqty=$("#sqty").val();
 	if(isNaN(qty) || qty<=0)
-	{ 
+	{
 		$("#qty").val(1);
 	}
 	else if(isNaN(sqty) || parseInt(sqty) < parseInt(snum))
@@ -135,7 +135,7 @@ function send()
 	{
 
 		document.addgoods.submit();
-		
+
 	}
 }
 //-----------------------------商品數量增減-----------------------
@@ -157,4 +157,4 @@ function send()
                 easing: 'swing'
             }
         });
-      });  		  	    
+      });

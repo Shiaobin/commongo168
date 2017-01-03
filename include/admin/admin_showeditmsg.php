@@ -4,7 +4,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "更新")) {	
+if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "更新")) {
   $table_index_msg		= SYS_DBNAME . ".index_msg";
   $record = array(
   				'msg_back' => $_POST['msg_back'],
@@ -12,10 +12,10 @@ if ((isset($_POST["update_msg"])) && ($_POST["update_msg"] == "更新")) {
 				'set_open' => $_POST['set_open']
 				);
   $whereClause = "msg_no={$_POST['msg_no']}";
-		
+
   dbUpdate( $table_index_msg, $record, $whereClause );
   /*
-  $updateSQL = sprintf("UPDATE index_msg SET msg_back=%s, msg_back_date=%s, set_open=%s where msg_no=%s", 
+  $updateSQL = sprintf("UPDATE index_msg SET msg_back=%s, msg_back_date=%s, set_open=%s where msg_no=%s",
 					   GetSQLValueString($_POST['msg_back'], "text"),
 					   GetSQLValueString($_POST['msg_back_date'], "text"),
 					   GetSQLValueString($_POST['set_open'], "tinyint"),
@@ -43,7 +43,7 @@ if (isset($_GET['msg_no'])) {
 $table_index_msg		= SYS_DBNAME . ".index_msg";
 $whereClause = "msg_no='{$cloume_showmsgRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause}"
 		);
@@ -59,7 +59,7 @@ $totalRows_showmsgRec = mysql_num_rows($showmsgRec);
 ?>
 <h3 class=ttl01 >編輯留言訊息</h3>
 <table width="600" border="0" cellspacing="0" cellpadding="0" class="formTable">
-<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editmsg" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editmsg">
 
       <input type="hidden" name="msg_no" id="msg_no" value="<?php echo $row_showmsgRec['msg_no']; ?>"/>
@@ -71,7 +71,7 @@ $totalRows_showmsgRec = mysql_num_rows($showmsgRec);
   <!----------------------------諮詢日期---------------------------->
   <tr>
     <td>2.諮詢日期:<?php echo $row_showmsgRec['msg_send_date']; ?></td>
-  </tr>  
+  </tr>
   <!-----------------------------諮詢人----------------------------->
   <tr>
     <td>3.諮詢人:<?php echo $row_showmsgRec['msg_name']; ?></td>
@@ -101,7 +101,7 @@ $totalRows_showmsgRec = mysql_num_rows($showmsgRec);
   <!----------------------------回復---------------------------->
   <tr>
     <td>8.回復:
-    <font color="#0000FF"><?php 
+    <font color="#0000FF"><?php
 			if($row_showmsgRec['msg_back']=="")
 	          echo "新諮詢，未回復";
 	        else echo "已完成回復";
@@ -114,15 +114,15 @@ $totalRows_showmsgRec = mysql_num_rows($showmsgRec);
       <textarea id="msg_back" name="msg_back" cols="50" rows="10" ><?php echo $row_showmsgRec['msg_back'];?></textarea>
       <input name="msg_back_date" type="hidden" value="<?php $date=date("Y-m-d H:i:s"); echo date('Y-m-d H:i:s',strtotime($date))?>" />
    </td>
-  </tr> 
+  </tr>
   <!----------------------------是否隱藏---------------------------->
   <tr>
     <td>10.是否隱藏:
       <label>
-        <input type="radio" name="set_open" value="0" id="set_open_0" 
+        <input type="radio" name="set_open" value="0" id="set_open_0"
         <?php if ($row_showmsgRec['set_open'] == '0'): ?>checked='checked'<?php endif; ?>/>隱藏</label>
       <label>
-        <input type="radio" name="set_open" value="1" id="set_open_1" 
+        <input type="radio" name="set_open" value="1" id="set_open_1"
 		<?php if ($row_showmsgRec['set_open'] == '1'): ?>checked='checked'<?php endif; ?>/>公開</label>
     </td>
   </tr>

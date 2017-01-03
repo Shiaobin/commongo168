@@ -12,7 +12,7 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
                        GetSQLValueString($_POST['item_id'], "int"));
 
   $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
-  
+
   //更新中項內容
   $updateSQL = sprintf("UPDATE shop_end_item SET item_id=%s WHERE item_id=%s",
                        GetSQLValueString($_POST['upd_item_id'], "int"),
@@ -27,7 +27,7 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 
 //-----------------------------新增商品類別(大類)--------------------------------//
@@ -45,7 +45,7 @@ if ((isset($_POST["add_item"])) && ($_POST["add_item"] == "新增")) {
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$insertGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 
 //------------------------------刪除分頁類別(大類)--------------------------------//
@@ -63,17 +63,17 @@ if ((isset($_POST["del_item"])) && ($_POST["del_item"] == "刪除")) {
   }*/
   echo "<script type='text/javascript'>";
   echo "window.location.href='$deleteGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <?php
 //---------------------------新增修改商品類別(中類)---------------------------------//
 if ((isset($_POST["update_end_item"])) && ($_POST["update_end_item"] == "更新")) {
-	
+
   $updateSQL = sprintf("UPDATE shop_end_item SET end_item_id=%s, end_item_name=%s WHERE end_item_id=%s",
                        GetSQLValueString($_POST['upd_end_item_id'], "int"),
                        GetSQLValueString($_POST['end_item_name'], "text"),
-                       GetSQLValueString($_POST['end_item_id'], "int"));		   
+                       GetSQLValueString($_POST['end_item_id'], "int"));
 
   mysql_select_db($database_webshop, $webshop);
   $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
@@ -86,7 +86,7 @@ if ((isset($_POST["update_end_item"])) && ($_POST["update_end_item"] == "更新"
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 
 if ((isset($_POST["del_end_item"])) && ($_POST["del_end_item"] == "刪除")) {
@@ -103,7 +103,7 @@ if ((isset($_POST["del_end_item"])) && ($_POST["del_end_item"] == "刪除")) {
   }*/
   echo "<script type='text/javascript'>";
   echo "window.location.href='$deleteGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <?php  //--------------------------取出商品類別資訊-------------------------------//
@@ -150,18 +150,18 @@ $totalRows_showitemRec = mysql_num_rows($showitemRec);
                  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="goods">
                    <?php
 				     mysql_select_db($database_webshop, $webshop);
-				     $query_showgoodsRec = sprintf("SELECT * FROM shop_end_item WHERE item_id = %s", 
+				     $query_showgoodsRec = sprintf("SELECT * FROM shop_end_item WHERE item_id = %s",
 						  						GetSQLValueString($row_showitemRec['item_id'], "text"));
 				     $showgoodsRec = mysql_query($query_showgoodsRec, $webshop) or die(mysql_error());
 				     $row_showgoodsRec = mysql_fetch_assoc($showgoodsRec);
 				     $totalRows_showgoodsRec = mysql_num_rows($showgoodsRec);
 				     if ($totalRows_showgoodsRec > 0) {
-					   do {?>  
+					   do {?>
 					     <tr>
                          <form action="<?php echo $editFormAction; ?>" name="edit_end_item" method="POST" id="edit_end_item">
     					   <td width="3%">
                              <img src="../../images/list/icon.png" width="8" height="8" hspace="8" align="middle"/>
-                           </td> 
+                           </td>
                            <td width="5%" align="center"><input name="upd_end_item_id" type="text" id="upd_end_item_id" style="width:60%;font-size:20px" value="<?php echo $row_showgoodsRec['end_item_id']; ?>"/></td>
                            <td width="77%">
                              <input name="end_item_name" type="text" id="end_item_name" style="width:99%;font-size:20px" value="<?php echo $row_showgoodsRec['end_item_name']; ?>"/>
@@ -175,9 +175,9 @@ $totalRows_showitemRec = mysql_num_rows($showitemRec);
                            </td>
                            <td width="5%" align="center">
                            </td>
-                         </form> 
-  					     </tr>  
-					   <?php }while($row_showgoodsRec = mysql_fetch_assoc($showgoodsRec));}?>   
+                         </form>
+  					     </tr>
+					   <?php }while($row_showgoodsRec = mysql_fetch_assoc($showgoodsRec));}?>
 			     </table>
               </td>
             </tr>
@@ -186,8 +186,8 @@ $totalRows_showitemRec = mysql_num_rows($showitemRec);
               <td height="10%" colspan="3"></td>
             </tr>
          <!-------------------------------------------------------------->
-    
-         </table>  
+
+         </table>
       <?php } while ($row_showitemRec = mysql_fetch_assoc($showitemRec)); ?>
       </td>
       <?php }?>

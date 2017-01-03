@@ -10,7 +10,7 @@ try
 		$allpay_invoice->Invoice_Url 		= 'http://einvoice-stage.allpay.com.tw/Invoice/TriggerIssue' ;
 		$allpay_invoice->MerchantID 		= '2000132' ;
 		$allpay_invoice->HashKey 		= 'ejCk326UnaZWKisg' ;
-		$allpay_invoice->HashIV 		= 'q9jcZX8Ib9LM8wYk' ; 
+		$allpay_invoice->HashIV 		= 'q9jcZX8Ib9LM8wYk' ;
 // 3.寫入發票相關資訊
 		$allpay_invoice->Send['Tsr'] 		= 'ALLPAY201511241023171381912849'; 	// 交易單號
 		$allpay_invoice->Send['PayType'] 	= '3'; 					// 交易類別

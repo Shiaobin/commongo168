@@ -1,8 +1,8 @@
-<?php require('../utility/init.php'); 
+<?php require('../utility/init.php');
 include("../connections/webshop.php");
 ?>
 
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -21,7 +21,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "../index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -39,40 +39,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -118,12 +118,12 @@ $table_contact_msg		= SYS_DBNAME . ".contact_msg";
 $whereClause = "1=1";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}"
 );
 $row_showmsgRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-	/*			
+	/*
 mysql_select_db($database_webshop, $webshop);
 $query_showmsgRec = "SELECT * FROM contact_msg ORDER BY MessageDate DESC";
 $query_limit_showmsgRec = sprintf("%s LIMIT %d, %d", $query_showmsgRec, $startRow_showmsgRec, $maxRows_showmsgRec);
@@ -134,7 +134,7 @@ if (isset($_GET['totalRows_showmsgRec'])) {
   $totalRows_showmsgRec = $_GET['totalRows_showmsgRec'];
 } else {
   $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC", 
+		'mysql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC",
 		'mssql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC",
 		'oci8'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC"
   );
@@ -148,7 +148,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showmsgRec") == false && 
+    if (stristr($param, "pageNum_showmsgRec") == false &&
         stristr($param, "totalRows_showmsgRec") == false) {
       array_push($newParams, $param);
     }
@@ -163,7 +163,7 @@ $queryString_showmsgRec = sprintf("&totalRows_showmsgRec=%d%s", $totalRows_showm
 if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
   $name = trim($_POST["search_name"]);
   $open = $_POST["search_type"];
-  
+
   $string = "";
   if($open == 0)
       $string = $string."set_open = '0'";
@@ -175,13 +175,13 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
       $string = $string."Reply = '0'";
   else if($open == 4)
       $string = $string."Reply = '1'";
- 
+
   if($name != "") {
     //$string = $string." && "."locate(ProdDisc,'$name') > 0";
 	$string = $string." && Message LIKE '%$name%'"." || Name LIKE '%$name%'"." || Email LIKE '%$name%'";
   }
-  
-  
+
+
   $maxRows_showmsgRec = 10;
 $pageNum_showmsgRec = 0;
 if (isset($_GET['pageNum_showmsgRec'])) {
@@ -194,7 +194,7 @@ $table_contact_msg		= SYS_DBNAME . ".contact_msg";
 $whereClause = "$string";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC LIMIT {$startRow_showmsgRec}, {$maxRows_showmsgRec}"
 );
@@ -204,7 +204,7 @@ if (isset($_GET['totalRows_showmsgRec'])) {
   $totalRows_showmsgRec = $_GET['totalRows_showmsgRec'];
 } else {
   $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC", 
+		'mysql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC",
 		'mssql'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC",
 		'oci8'	=> "SELECT {$column} FROM {$table_contact_msg} WHERE {$whereClause} ORDER BY MessageDate DESC"
   );
@@ -217,7 +217,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showmsgRec") == false && 
+    if (stristr($param, "pageNum_showmsgRec") == false &&
         stristr($param, "totalRows_showmsgRec") == false) {
       array_push($newParams, $param);
     }
@@ -239,11 +239,11 @@ if ((isset($_POST["open_btn"])) && ($_POST["open_btn"] == "公開")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."ID='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $record = array( 'set_open' => '1' );
 	  $table_contact_msg		= SYS_DBNAME . ".contact_msg";
 	  $whereClause = "CONCAT($update_string)";
-	  
+
 	  dbUpdate( $table_contact_msg, $record, $whereClause );
 	  /*
 	  $updateSQL = "UPDATE contact_msg SET set_open='1' WHERE CONCAT($update_string)";
@@ -266,11 +266,11 @@ if ((isset($_POST["close_btn"])) && ($_POST["close_btn"] == "隱藏")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."ID='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $record = array( 'set_open' => '0' );
 	  $table_contact_msg		= SYS_DBNAME . ".contact_msg";
 	  $whereClause = "CONCAT($update_string)";
-	  
+
 	  dbUpdate( $table_contact_msg, $record, $whereClause );
 	  /*
 	  $updateSQL = "UPDATE contact_msg SET set_open='0' WHERE CONCAT($update_string)";
@@ -296,15 +296,15 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string_re != "") $delete_string_re = $delete_string_re." || ";
 		$delete_string_re = $delete_string_re."MessageId='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $table_contact_msg		= SYS_DBNAME . ".contact_msg";
 	  $whereClause = "CONCAT($delete_string)";
-					
+
 	  dbDelete( $table_contact_msg, $whereClause );
-	  
+
 	  $table_contact_re	= SYS_DBNAME . ".contact_re";
 	  $whereClause = "CONCAT($delete_string_re)";
-					
+
 	  dbDelete( $table_contact_re, $whereClause );
 	  /*
 	  $deleteSQL = "DELETE FROM contact_msg WHERE CONCAT($delete_string)";
@@ -320,11 +320,11 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 ?>
 
 <script>
-function check_all(obj,cName) 
-{ 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
-} 
+function check_all(obj,cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
+}
 </script>
 <h3 class=ttl01 >收件匣</h3>
  <form action="" method="POST" name="search_pages" id="search_pages" enctype="multipart/form-data">
@@ -364,7 +364,7 @@ function check_all(obj,cName)
 <tr align="center" bgcolor="#DFDFDF">
   <td width="2%"><p>選擇</p></td>
   <td width="12%">寄件者</td>
-  <td width="14%">日期</td>  
+  <td width="14%">日期</td>
   <td width="14%">狀態</td>
   <td width="5%">顯示</td>
 </tr>
@@ -394,7 +394,7 @@ function check_all(obj,cName)
   </td>
 </tr>
 <!-----------------------------page control----------------------------->
-<tr> 
+<tr>
   <td colspan="7" align="right" bgcolor="#cfcfcf" >
     <table border="0">
       <tr>

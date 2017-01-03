@@ -24,7 +24,7 @@ $shichang=$rs_head['shichang']; //市場價
 <script type="text/javascript" src="./cssjs/PostUrl.js"></script>
 <script type="text/javascript" src="./cssjs/Config.js"></script>
 <script type="text/javascript" src="./cssjs/jquery.blockUI.js"></script>
-<script type="text/javascript" src="cssjs/gotoTop.js"></script> 
+<script type="text/javascript" src="cssjs/gotoTop.js"></script>
 <script type="text/javascript">
 $(function(){
 	var url   = PostUrl.getInstance().sendinfo();
@@ -38,7 +38,7 @@ var userStatusBack = function(json){
 		$("#navbar-collapse-1").children("ul").children("li").eq(3).hide();
 	} else{
 		$("#navbar-collapse-1").children("ul").children("li").eq(2).hide();
-		$("#navbar-collapse-1").children("ul").children("li").eq(3).show(); 
+		$("#navbar-collapse-1").children("ul").children("li").eq(3).show();
 	}
 };
 </script>

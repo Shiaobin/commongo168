@@ -13,14 +13,14 @@ $table_news		= SYS_DBNAME . ".news";
 $whereClause = "1=1";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC LIMIT {$startRow_shownewsRec}, {$maxRows_shownewsRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC LIMIT {$startRow_shownewsRec}, {$maxRows_shownewsRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC LIMIT {$startRow_shownewsRec}, {$maxRows_shownewsRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC LIMIT {$startRow_shownewsRec}, {$maxRows_shownewsRec}"
 );
 $row_shownewsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC", 
+		'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC",
 		'mssql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC",
 		'oci8'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC"
 );
@@ -45,7 +45,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_shownewsRec") == false && 
+    if (stristr($param, "pageNum_shownewsRec") == false &&
         stristr($param, "totalRows_shownewsRec") == false) {
       array_push($newParams, $param);
     }
@@ -61,7 +61,7 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
   $class = ($_POST["search_class"]);
   $name = trim($_POST["search_name"]);
   $open = $_POST["search_type"];
-  
+
   $string = "";
   if($open == 0)
       $string = $string."Online = '0'";
@@ -69,15 +69,15 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
       $string = $string."Online = '1'";
   else if($open == 2)
       $string = $string."(Online = '0' || Online = '1')";
- 
+
   if($name != "") {
 	$string = $string." && "."NewsTitle LIKE '%$name%'";
   }
-  
+
   if($class != "-1") {
 	 $string = $string." && "."NewsClass = '$class'";
   }
-  
+
   $maxRows_shownewsRec = 10;
   $pageNum_shownewsRec = 0;
   if (isset($_GET['pageNum_shownewsRec'])) {
@@ -88,9 +88,9 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
   $column = "*";
   $table_news		= SYS_DBNAME . ".news";
   $whereClause = "CONCAT($string)";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC",
 		  'mssql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC",
 		  'oci8'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause} ORDER BY PubDate DESC"
   );
@@ -122,11 +122,11 @@ if ((isset($_POST["open_btn"])) && ($_POST["open_btn"] == "上線")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."NewsID='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $record = array( 'Online' => '1' );
 	  $table_news		= SYS_DBNAME . ".news";
 	  $whereClause = "CONCAT($update_string)";
-	  
+
 	  dbUpdate( $table_news, $record, $whereClause );
 	  /*
 	  $updateSQL = "UPDATE news SET Online='1' WHERE CONCAT($update_string)";
@@ -149,11 +149,11 @@ if ((isset($_POST["close_btn"])) && ($_POST["close_btn"] == "下線")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."NewsID='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $record = array( 'Online' => '0' );
 	  $table_news		= SYS_DBNAME . ".news";
 	  $whereClause = "CONCAT($update_string)";
-	  
+
 	  dbUpdate( $table_news, $record, $whereClause );
 	  /*
 	  $updateSQL = "UPDATE news SET Online='0' WHERE CONCAT($update_string)";
@@ -176,18 +176,18 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."NewsID='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  $column = "*";
 	  $table_news		= SYS_DBNAME . ".news";
 	  $whereClause = "CONCAT($delete_string)";
-	  
+
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT {$column} FROM {$table_news} WHERE {$whereClause}"
 	  );
 	  $row_searchImg = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-	  
+
 	  //刪除圖片
 	  /*
       mysql_select_db($database_webshop, $webshop);
@@ -195,23 +195,23 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
       $searchImg = mysql_query($searchSQL, $webshop) or die(mysql_error());
 	  $row_searchImg = mysql_fetch_assoc($searchImg);
 */
-      foreach ($row_searchImg as $key => $array){ 
-	  if(($array['imgfull'] != "none.gif")){ 
+      foreach ($row_searchImg as $key => $array){
+	  if(($array['imgfull'] != "none.gif")){
           unlink("../images/newsimg/medium/".$array["imgfull"]);
   		  unlink("../images/newsimg/small/".$array["imgfull"]);}
       }
-	  
-	  
+
+
 	  $table_news		= SYS_DBNAME . ".news";
 	  $whereClause = "CONCAT($delete_string)";
-					
+
 	  dbDelete( $table_news, $whereClause );
 	  /*
 	  $deleteSQL = "DELETE FROM news WHERE CONCAT($delete_string)";
       mysql_select_db($database_webshop, $webshop);
       $Result = mysql_query($deleteSQL, $webshop) or die(mysql_error());
 	  */
-	  
+
 	  $deleteGoTo = "adminnews.php";
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$deleteGoTo'";
@@ -220,7 +220,7 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 }
 ?>
 <?php  //---------------------------加資料功能-------------------------------//
-if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "加新聞")) { 
+if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "加新聞")) {
 	  $addGoTo = "adminaddnews.php";
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$addGoTo'";
@@ -228,20 +228,20 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "加新聞")) {
 }
 ?>
 <!--------------------------------------------------------------------------------->
-<Script>    
-  function searchclass(){ 
+<Script>
+  function searchclass(){
     var search_class;
     search_class=document.search_class.value;
 	location.href="adminnews.php?search_class="+search_class;
   }
-</Script> 
+</Script>
 
 <script>
-function check_all(obj,cName) 
-{ 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
-} 
+function check_all(obj,cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
+}
 </script>
 
 <h3 class=ttl01 >最新消息管理</h3>
@@ -273,7 +273,7 @@ function check_all(obj,cName)
         </td>
         <td align="center"><input type="submit" name="search_btn"  value="搜尋" style="font-size:16px;width:60px;height:30px" /></td>
       </tr>
-    </form>  
+    </form>
     </table>
   </td>
 </tr>
@@ -298,7 +298,7 @@ function check_all(obj,cName)
   <tr align="center">
       <td><input name="select_page[]" type="checkbox" value="<?php echo $array['NewsID']; ?>" /></td>
       <td height="50%">
-        <a href="admineditnews.php?NewsID=<?php echo $array['NewsID']; ?>"><img src="../../images/newsimg/small/<?php echo $array['imgfull']; ?>" alt="" name="image" 
+        <a href="admineditnews.php?NewsID=<?php echo $array['NewsID']; ?>"><img src="../../images/newsimg/small/<?php echo $array['imgfull']; ?>" alt="" name="image"
          width="75px" height="75px" id="image" align="center" style="padding:5px;"/></a>
       </td>
       <td><?php echo $array['NewsClass']; ?></td>
@@ -321,7 +321,7 @@ function check_all(obj,cName)
   <td align="center"><input name="add_btn" type="submit" value="加新聞" style="margin:5px"></td>
 </tr>
 <!-----------------------------page control----------------------------->
-<tr> 
+<tr>
   <td colspan="6" align="right" bgcolor="#cfcfcf">
     <table border="0">
       <tr>

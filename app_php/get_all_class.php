@@ -8,7 +8,7 @@ $db->query($sql);
 $i=0;
 $temp="";
 while($result=$db->fetch_array()){
-	
+
 	$pnum=$result["pnum"];
 	if($pnum==0 && $temp==$result["LarCode"]){
 	}else{
@@ -18,7 +18,7 @@ while($result=$db->fetch_array()){
 		$list[$i]["item_img"]=$result["pic"];
 		$list[$i]["url"]=$result["url"];
 		$list[$i]["pnum"]=$result["pnum"];
-		$list[$i]["snum"]=$result["snum"];		
+		$list[$i]["snum"]=$result["snum"];
 		$i++;
 	}
 	$temp=$result["LarCode"];

@@ -1,12 +1,12 @@
 <?php
-if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){ 
+if(isset($_SESSION['yuserid']) and $_SESSION['ypassword']){
 echo "<table  class='table table-bordered table-striped'>
  <tr><th ><font size=4px>
  會 員 中 心:&nbsp;&nbsp;";?>
  <a href="my_info.php">個人資料</a> |&nbsp; <a href="my_order.php">個人訂單 |&nbsp; <a href="userlogout.php">登出</a></font>
  </th></tr>
-   
-  <tr> 
+
+  <tr>
     <td>
       <?php
 $userid=$_SESSION['yuserid'];
@@ -28,7 +28,7 @@ echo "<br>";
 echo "您的會員級別為 <font color=red>".$rs['UserType']."</font></font>";
 }
 echo "</td></tr></table>";
-?> 
+?>
 <?php
 }else{
 include("loginbox.php");

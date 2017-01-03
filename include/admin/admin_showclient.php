@@ -15,7 +15,7 @@ $table_usermain		= SYS_DBNAME . ".usermain";
 $whereClause = "1=1";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause} ORDER BY SignDate DESC LIMIT {$startRow_showmemRec}, {$maxRows_showmemRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause} ORDER BY SignDate DESC LIMIT {$startRow_showmemRec}, {$maxRows_showmemRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause} ORDER BY SignDate DESC LIMIT {$startRow_showmemRec}, {$maxRows_showmemRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause} ORDER BY SignDate DESC LIMIT {$startRow_showmemRec}, {$maxRows_showmemRec}"
 );
@@ -45,7 +45,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);//切割字串並放入Array陣列中
   $newParams = array();
   foreach ($params as $param) {//將所有資料列出
-    if (stristr($param, "pageNum_showmemRec") == false && 
+    if (stristr($param, "pageNum_showmemRec") == false &&
         stristr($param, "totalRows_showmemRec") == false) {
       array_push($newParams, $param);//不分大小寫找出字串第一次出現的地方
     }//一個或多個單元加入陣列末尾
@@ -63,12 +63,12 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
 	/*mysql_select_db($database_webshop, $webshop);
 	$sql="CREATE TABLE shop_temp AS SELECT * FROM usermain;";
 	mysql_query($sql); */
-	
-	
+
+
   $nameID = trim($_POST["search_nameID"]);//去除字符串首尾空白等特殊符號或指定字符序列
   $name = trim($_POST["search_name"]);
   $date = $_POST["search_type"];
-  
+
   $date_yesterday = date("Y-m-d", strtotime('-1 day'));
   $date_today = date("Y-m-d", strtotime('0 day'));
   $date_tomorrow = date("Y-m-d", strtotime('1 day'));
@@ -81,8 +81,8 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
       		$string = $string."SignDate >= '$date_today' ";
   		else if($date == "2")
       		$string = $string."SignDate <= '$date_tomorrow'";
-  
-  
+
+
 
   if($nameID != "") {
     $string = $string." && "."UserId LIKE '%$nameID%'";
@@ -91,8 +91,8 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
     $string = $string." && "."UserName LIKE '%$name%'";
   }
 
-  
-  
+
+
   $maxRows_showmemRec = 30;
   $pageNum_showmemRec = 0;//確定變數是否有被設置，簡單講就是判斷是不是null
   if (isset($_GET['pageNum_showmemRec'])) {
@@ -103,15 +103,15 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
   $column = "*";
   $table_usermain		= SYS_DBNAME . ".usermain";
   $whereClause = "CONCAT($string)";
-  
+
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause} ORDER BY SignDate DESC LIMIT {$startRow_showmemRec}, {$maxRows_showmemRec}", 
+		  'mysql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause} ORDER BY SignDate DESC LIMIT {$startRow_showmemRec}, {$maxRows_showmemRec}",
 		  'mssql'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause} ORDER BY SignDate DESC LIMIT {$startRow_showmemRec}, {$maxRows_showmemRec}",
 		  'oci8'	=> "SELECT {$column} FROM {$table_usermain} WHERE {$whereClause} ORDER BY SignDate DESC LIMIT {$startRow_showmemRec}, {$maxRows_showmemRec}"
   );
   $row_showmemRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
   $totalRows_shownewsRec = sizeof($row_showmemRec);
-/*	
+/*
   mysql_select_db($database_webshop, $webshop);
   $query_showmemRec = "SELECT * FROM usermain WHERE CONCAT($string) ORDER BY SignDate DESC";
   $query_limit_showmemRec = sprintf("%s LIMIT %d, %d", $query_showmemRec, $startRow_showmemRec, $maxRows_showmemRec);
@@ -131,7 +131,7 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
 }
 ?>
 <!------------------------------------------------------刪除客戶---------------------------------------------------------------->
-<?php 
+<?php
 if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
     if(isset($_POST['select_member'])){
       $select_num = count($_POST['select_member']);
@@ -140,10 +140,10 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."UserId='".$_POST['select_member'][$i]."'";
       }
-	  
+
 	  $table_usermain		= SYS_DBNAME . ".usermain";
 	  $whereClause = "CONCAT($delete_string)";
-					
+
 	  dbDelete( $table_usermain, $whereClause );
 	  /*
 	  $deleteSQL = "DELETE FROM usermain WHERE CONCAT($delete_string)";
@@ -160,11 +160,11 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 <!--------------------------------------------------------------------------------------------------------------------------------->
 
 <script>
-function check_all(obj,cName) 
-{ 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
-} 
+function check_all(obj,cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
+}
 </script>
 
 <h3 class=ttl01 >客戶會員管理</h3>
@@ -190,7 +190,7 @@ function check_all(obj,cName)
         </td>
         <td width="10%" align="left"><input type="submit" name="search_btn"  value="搜尋"/></td>
       </tr>
-    </form>  
+    </form>
     </table>
   </td>
   </tr>
@@ -209,14 +209,14 @@ function check_all(obj,cName)
   <?php foreach ($row_showmemRec as $key => $array){ ?>
     <?php if ($totalRows_showmemRec > 0) { // Show if recordset not empty ?>
 	<tr align="center">
-	 
+
         <td height="20%"><?php echo $array['usernum']; ?></td>
         <td height="10%"><!--用於上傳檔案表單傳送編碼方式+標記對象名稱-->
           <a href="admineditclient.php?UserId=<?php echo $array['UserId']; ?>">
 		    <?php echo $array['UserId']; ?>
           </a></td>
         <td height="15%"><?php echo $array['UserName']; ?></td>
-        
+
         <td height="15%"><?php echo $array['UserType']; ?></td>
         <td height="15%"><?php echo $array['SignDate']; //*?></td>
         <td height="15%"><?php if($array['Status']==0) echo "正常";
@@ -233,7 +233,7 @@ function check_all(obj,cName)
   </tr>
 </form>
 
-<!-------------------------------------------------------------------------------------------------------------------------------->   
+<!-------------------------------------------------------------------------------------------------------------------------------->
   <tr>
     <td width="100%" height="20%" colspan="7" align="right" bgcolor="#cfcfcf">
 	  <table  border="0">
@@ -269,8 +269,8 @@ function check_all(obj,cName)
                         </a>
                         <?php } // Show if not last page ?>
                       </td>
-                    </tr> 
-                 </table> 
+                    </tr>
+                 </table>
 			</td>
             <td width="100%" height="20%" align="left">總:<?php echo $pageNum_showmemRec+1 ?>/<?php echo $totalPages_showmemRec_pages ?>頁　　總共:<?php echo $totalRows_showmemRec ?>個客戶 [<?php echo $maxRows_showmemRec ?>個/頁]</td>
       	</tr>

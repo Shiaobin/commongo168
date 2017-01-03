@@ -26,14 +26,14 @@ if ((isset($_POST["del_subMsg"])) && ($_POST["del_subMsg"] == "刪除")) {
 	  $subpic =	sprintf("SELECT * FROM shop_member_sub_msg WHERE sub_msg_no=%s",GetSQLValueString($_POST['sub_msg_no'], "int"));
 	  $delpic = mysql_query($subpic, $webshop) or die(mysql_error());
 	  $pic = mysql_fetch_assoc($delpic);
-	   if($pic['msg_img'] != "none.gif"){ 
+	   if($pic['msg_img'] != "none.gif"){
 		 unlink("../images/discussimg/medium/".$pic["msg_img"]);
 		 unlink("../images/discussimg/small/".$pic["msg_img"]);
 		}
-	  
+
 	  $updateSQL = sprintf("DELETE FROM shop_member_sub_msg WHERE sub_msg_no=%s",GetSQLValueString($_POST['sub_msg_no'], "int"));
       $Result = mysql_query($updateSQL, $webshop) or die(mysql_error());
-	  
+
 	  $updateGoTo = "adminmembersubmsg.php?msg_no=".$_POST["msg_no"];
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$updateGoTo'";
@@ -51,24 +51,24 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 		if($delete_string != "") $delete_string = $delete_string." || ";
 		$delete_string = $delete_string."sub_msg_no='".$_POST['select_page'][$i]."'";
       }
-	  
+
 	  mysql_select_db($database_webshop, $webshop);
 	  $subSQL = "SELECT * FROM shop_member_sub_msg WHERE CONCAT($delete_string) ";
 	  $subImg = mysql_query($subSQL, $webshop) or die(mysql_error());
 	  $row_subImg = mysql_fetch_assoc($subImg);
-	  
-	  do{ 
-	  if(($row_subImg['msg_img'] != "none.gif")){ 
+
+	  do{
+	  if(($row_subImg['msg_img'] != "none.gif")){
           unlink("../images/discussimg/medium/".$row_subImg["msg_img"]);
   		  unlink("../images/discussimg/small/".$row_subImg["msg_img"]);}
       }while ($row_subImg = mysql_fetch_assoc($subImg));
-	  
-	  
+
+
 	  $deleteSubSQL = "DELETE FROM shop_member_sub_msg WHERE CONCAT($delete_string)";
       mysql_select_db($database_webshop, $webshop);
       $subResult = mysql_query($deleteSubSQL, $webshop) or die(mysql_error());
-	  
-	  
+
+
 	  $deleteGoTo = "adminmembersubmsg.php?msg_no=".$_POST["no"];
 	  echo "<script type='text/javascript'>";
       echo "window.location.href='$deleteGoTo'";
@@ -82,11 +82,11 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 }
 ?>
 <script>
-function check_all(obj,cName) 
-{ 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
-} 
+function check_all(obj,cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
+}
 </script>
 
 <h3 class=ttl01 >回覆內容列表</h3>

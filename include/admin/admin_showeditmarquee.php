@@ -1,6 +1,6 @@
 <?php  //-----------------------------更新跑馬燈資訊------------------------------------//
-if ((isset($_POST["update_marquee"])) && ($_POST["update_marquee"] == "更新")) {	
-  
+if ((isset($_POST["update_marquee"])) && ($_POST["update_marquee"] == "更新")) {
+
   //更新跑馬燈資訊
   $table_ggg		= SYS_DBNAME . ".ggg";
   $record = array(
@@ -10,7 +10,7 @@ if ((isset($_POST["update_marquee"])) && ($_POST["update_marquee"] == "更新"))
 				'zimu2link' => $_POST['zimu2link']
 				);
   $whereClause = "1=1";
-		
+
   dbUpdate( $table_ggg, $record, $whereClause );
   /*
   $updateSQL = sprintf("UPDATE ggg SET zimu=%s, zimulink=%s, zimu2=%s, zimu2link=%s",
@@ -24,7 +24,7 @@ if ((isset($_POST["update_marquee"])) && ($_POST["update_marquee"] == "更新"))
   $updateGoTo = "admineditmarquee.php";
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <?php  //-----------------------------取得跑馬燈資訊------------------------------------//
@@ -32,13 +32,13 @@ if ((isset($_POST["update_marquee"])) && ($_POST["update_marquee"] == "更新"))
 $table_ggg		= SYS_DBNAME . ".ggg";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_ggg} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_ggg} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_ggg} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_ggg} WHERE {$whereClause}"
 		);
 $row_showmarqueeRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
-	  
-/*	  
+
+/*
 $query_showmarqueeRec = "SELECT * FROM ggg";
 $showmarqueeRec = mysql_query($query_showmarqueeRec, $webshop) or die(mysql_error());
 $row_showmarqueeRec = mysql_fetch_assoc($showmarqueeRec);
@@ -53,29 +53,29 @@ $totalRows_showmarqueeRec = mysql_num_rows($showmarqueeRec);
 
   <tr>
     <td>跑馬燈字幕一:
-      <input id="zimu" name="zimu"  type="text" class=sizeL 
+      <input id="zimu" name="zimu"  type="text" class=sizeL
        value="<?php echo $row_showmarqueeRec['zimu']; ?>" />
     </td>
   </tr>
   <!---------------------------字幕一連接------------------------------>
   <tr>
     <td>跑字幕一連接:
-      <input id="zimulink" name="zimulink" type="text" class=sizeL  
+      <input id="zimulink" name="zimulink" type="text" class=sizeL
        value="<?php echo $row_showmarqueeRec['zimulink']; ?>" />
     </td>
   </tr>
   <!---------------------------跑馬燈字幕二---------------------------->
   <tr>
     <td>跑馬燈字幕二:
-      <input id="zimu2" name="zimu2" type="text"  class=sizeL  
+      <input id="zimu2" name="zimu2" type="text"  class=sizeL
        value="<?php echo $row_showmarqueeRec['zimu2']; ?>" />
     </td>
   </tr>
-  
+
   <!---------------------------字幕二連接------------------------------>
   <tr>
     <td>跑字幕二連接:
-      <input id="zimu2link" name="zimu2link" type="text"  class=sizeL 
+      <input id="zimu2link" name="zimu2link" type="text"  class=sizeL
        value="<?php echo $row_showmarqueeRec['zimu2link']; ?>" />
     </td>
   </tr>

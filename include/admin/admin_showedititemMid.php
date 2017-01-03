@@ -6,32 +6,32 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
-  
+
   //上傳圖片
   if($_FILES['upload_img']['name'] != "" ) {
 
-    if($_POST['pic']=="none.gif" ) $img = date('his').".jpg"; 
+    if($_POST['pic']=="none.gif" ) $img = date('his').".jpg";
 	else                      $img = $_POST['pic'];
-	
+
 	move_uploaded_file(realpath($_FILES["upload_img"]["tmp_name"]), "../images/app/".$img);
         resize_midcode_image($img);
   }
   else {
     $img = $_POST['pic'];
   }
-  
-  
+
+
   //更新中項內容
   $updateSQL = sprintf("UPDATE prodclass SET MidSeq=%s, MidCode=%s, pic=%s WHERE MidSeq=%s AND LarSeq=%s",
                        GetSQLValueString($_POST['upd_MidSeq'], "int"),
 					   GetSQLValueString($_POST['MidCode'], "text"),
-					   GetSQLValueString($img, "text"),               
+					   GetSQLValueString($img, "text"),
 					   GetSQLValueString($_POST['MidSeq'], "int"),
 					   GetSQLValueString($_POST['LarSeq'], "int"));
 
   $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
-  
- 
+
+
   $updateGoTo = "adminitem.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
@@ -39,7 +39,7 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 
@@ -69,17 +69,17 @@ $totalRows_showitemMidRec = mysql_num_rows($showitemMidRec);
       <input id="MidCode" name="MidCode" type="text" class=sizeM value="<?php echo $row_showitemMidRec['MidCode']; ?>"/>
     </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">排序:
    	  <input type="int" name="upd_MidSeq" id="upd_MidSeq" class=sizeSss value="<?php echo $row_showitemMidRec['MidSeq']; ?>"/>
-   	  [不能與同一大類下其它中類的排序號重複]    
+   	  [不能與同一大類下其它中類的排序號重複]
     </td>
   </tr>
   <!----------------------------圖片---------------------------->
   <tr>
      <td width="12%" height="10%" align="left">
-       <img src="../../images/app/<?php echo $row_showitemMidRec['pic']; ?>" alt="" name="image" 
+       <img src="../../images/app/<?php echo $row_showitemMidRec['pic']; ?>" alt="" name="image"
            width="78px" height="65px" id="image" align="center" style="padding:5px;"/>
        <input name="pic" type="hidden" value="<?php echo $row_showitemMidRec['pic']; ?>" />
      </td>
@@ -87,10 +87,10 @@ $totalRows_showitemMidRec = mysql_num_rows($showitemMidRec);
   <!----------------------------上傳圖片---------------------------->
   <tr>
      <td width="10%" height="10%" align="left">圖片[有手機板APP才需上傳圖片]
-       <input name="upload_img" type="file" value="Select a File..." class=sizeM /> 
+       <input name="upload_img" type="file" value="Select a File..." class=sizeM />
      </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">
       <input name="MidSeq" type="hidden" value="<?php echo $row_showitemMidRec['MidSeq']; ?>" />

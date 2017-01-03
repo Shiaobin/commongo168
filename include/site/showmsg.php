@@ -14,7 +14,7 @@ $column = "*";
 $whereClause = "1=1";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_msgRec}, {$maxRows_msgRec} ", 
+		'mysql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_msgRec}, {$maxRows_msgRec} ",
 		'mssql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_msgRec}, {$maxRows_msgRec} ",
 		'oci8'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC LIMIT {$startRow_msgRec}, {$maxRows_msgRec} "
 );
@@ -26,13 +26,13 @@ $query_limit_msgRec = sprintf("%s LIMIT %d, %d", $query_msgRec, $startRow_msgRec
 $msgRec = mysql_query($query_limit_msgRec, $webshop) or die(mysql_error());
 $row_msgRec = mysql_fetch_assoc($msgRec);
 */
-$total_msgRec = sizeof($row_msgRec); 
+$total_msgRec = sizeof($row_msgRec);
 
 if(isset($_GET['totalRows_msgRec'])){
     $totalRows_msgRec = $_GET['totalRows_msgRec'];
 }else{
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC ", 
+		'mysql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC ",
 		'mssql'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC ",
 		'oci8'	=> "SELECT * FROM {$table_index_msg} WHERE {$whereClause} ORDER BY msg_send_date DESC "
 );
@@ -47,7 +47,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_msgRec") == false && 
+    if (stristr($param, "pageNum_msgRec") == false &&
         stristr($param, "totalRows_msgRec") == false) {
       array_push($newParams, $param);
     }
@@ -88,7 +88,7 @@ if (isset($_POST["add_btn"])) {
   if($_POST["msg_input"] == $_POST["msg_chk"]) {
 	$table_index_msg = SYS_DBNAME . ".index_msg";
 	$record = array
-	(	
+	(
 		'msg_ip' => $ip,
 		'msg_name' => $_POST['msg_name'],
 		'msg_mail' => $_POST['msg_mail'],
@@ -97,7 +97,7 @@ if (isset($_POST["add_btn"])) {
 		'msg_phone' => $_POST['msg_phone'],
 		'msg_title' => $_POST['msg_title']
 	);
-	
+
 	dbInsert( $table_index_msg, $record );
 	/*
     $insertSQL = sprintf("INSERT INTO index_msg (msg_ip, msg_name, msg_mail, msg_send, set_open, msg_phone, msg_title) VALUES (%s, %s, %s, %s, %s, %s, %s)",
@@ -112,8 +112,8 @@ if (isset($_POST["add_btn"])) {
     mysql_select_db($database_webshop, $webshop);
     $Result = mysql_query($isertSQL, $webshop) or die(mysql_error());
   */
-   
-     $insertGoTo = "feedback.php";	
+
+     $insertGoTo = "feedback.php";
     //Send information
     //$headers = "Content-Type:text/html; charset = UTF-8";
     //$body = "親愛的顧客 ".$_POST['ord_name']."您好!!<br>";
@@ -121,7 +121,7 @@ if (isset($_POST["add_btn"])) {
     //$body = $body."訂單總金額: ".$_POST['ord_total']."<br>";
     //$body = $body."訂單商品我們會儘快完成出貨!非常感謝您的惠顧!!";
     //mail($_POST['ord_email'],"感謝您的訂購!!",$body,$headers);
-  
+
     //Show message window
     echo "<script language=\"javascript\">";
     echo "window.alert(\"感謝您的留言\");";
@@ -139,38 +139,38 @@ function MM_validateForm() { //v4.0
   if (document.getElementById){
     var i,p,q,nm,test,num,min,max,errors='',args=MM_validateForm.arguments;
     for (i=0; i<(args.length-2); i+=3) {
-	  test=args[i+2]; 
+	  test=args[i+2];
 	  val=document.getElementById(args[i]);
-      if (val) { 
-	     nm=val.name; 
+      if (val) {
+	     nm=val.name;
 		 if ((val=val.value)!="") {
-           if (test.indexOf('isEmail')!=-1) { 
+           if (test.indexOf('isEmail')!=-1) {
 		     p=val.indexOf('@');
-             if (p<1 || p==(val.length-1)) 
+             if (p<1 || p==(val.length-1))
 			   errors+='- '+nm+' must contain an e-mail address.\n';
            }
-		   else if (test!='R') { 
+		   else if (test!='R') {
 		     num = parseFloat(val);
-             if (isNaN(val)) 
+             if (isNaN(val))
 		       errors+='- '+nm+' must contain a number.\n';
-             if (test.indexOf('inRange') != -1) { 
+             if (test.indexOf('inRange') != -1) {
 		       p=test.indexOf(':');
-               min=test.substring(8,p); 
+               min=test.substring(8,p);
 			   max=test.substring(p+1);
-               if (num<min || max<num) 
+               if (num<min || max<num)
 			     errors+='- '+nm+' must contain a number between '+min+' and '+max+'.\n';
-             } 
-	       } 
-	     } 
-	     else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n'; 
-	  }  
-    } 
+             }
+	       }
+	     }
+	     else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n';
+	  }
+    }
 	if(document.sendMsg.msg_input.value != document.sendMsg.msg_chk.value)
     errors += '- 驗證碼輸入錯誤，請重新輸入.\n';
-	
+
     if (errors) alert('The following error(s) occurred:\n'+errors);
     document.MM_returnValue = (errors == '');
-  } 
+  }
 }
 </script>
 <table width="96%" border="0" cellspacing="0">
@@ -186,8 +186,8 @@ function MM_validateForm() { //v4.0
     <td align="center" height="30" ><font color="#FFFFFF">回覆時間</font></td>
   </tr>
   <!-------------------------------------------------------------->
-  <?php if ($total_msgRec > 0) { // Show if recordset not empty ?> 
-    <?php 
+  <?php if ($total_msgRec > 0) { // Show if recordset not empty ?>
+    <?php
 	    foreach ($row_msgRec as $key => $array){ ?>
           <tr bgcolor="#CCCCCC">
             <td width="22%" align="center" height="30" >
@@ -214,7 +214,7 @@ function MM_validateForm() { //v4.0
           <!-------------------------------------------------------------->
           <?php if($array["set_open"] == 1){ ?>
           <tr>
-            <td colspan="5" align="left" height="30" ><font color="#FF3333"><b>  #</font>留言內容：</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <td colspan="5" align="left" height="30" ><font color="#FF3333"><b>  #</font>留言內容：</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			  <?php echo str_replace("\r\n","<br />",$array["msg_send"]);}?>
             </td>
           </tr>
@@ -228,8 +228,8 @@ function MM_validateForm() { //v4.0
               <font color="#CC0033"><font color="#FF3333">  #</font><b>客服回覆：</b></font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php if($array["set_open"] == 1) echo str_replace("\r\n","<br />",$array["msg_back"]); else echo "悄悄話";?>
             </td>
           </tr>
-    <?php 
-	}  ?>		
+    <?php
+	}  ?>
   <?php } // Show if recordset not empty ?>
   <!-------------------------------------------------------------->
   <tr>
@@ -271,7 +271,7 @@ function MM_validateForm() { //v4.0
 </table>
 <!-------------------------填寫留言------------------------------->
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="formTable">
-  <form action="" method="post" name="sendMsg" id="sendMsg" onsubmit="MM_validateForm('msg_name','','R','msg_mail','','RisEmail','msg_chk','','R','msg_send','','R');return document.MM_returnValue"> 
+  <form action="" method="post" name="sendMsg" id="sendMsg" onsubmit="MM_validateForm('msg_name','','R','msg_mail','','RisEmail','msg_chk','','R','msg_send','','R');return document.MM_returnValue">
   <!-------------------------------------------------------------->
   <tr>
 <th><p>標題<b>※</b></p></th>
@@ -312,7 +312,7 @@ function MM_validateForm() { //v4.0
     </td>
   </tr>
   <!-------------------------------------------------------------->
-  </form> 
+  </form>
 </table>
 <?php
 //mysql_free_result($msgRec);

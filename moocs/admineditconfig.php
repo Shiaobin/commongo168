@@ -1,7 +1,7 @@
 <?php require('../utility/init.php'); ?>
 <?php //require('../include/admin_system.php'); ?>
 
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -20,7 +20,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "../index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -38,40 +38,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -110,12 +110,12 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_config"])) && ($_POST["update_config"] == "更新")) {	
+if ((isset($_POST["update_config"])) && ($_POST["update_config"] == "更新")) {
 
   $table_shopsetup = SYS_DBNAME . ".shopsetup";
   $whereClause = "ID=1";
   $record = array
-  (	
+  (
 	  'sitename' => $_POST['sitename'],
 	  'siteurl' => $_POST['siteurl'],
 	  'reg' => $_POST['reg'],
@@ -153,7 +153,7 @@ if ((isset($_POST["update_config"])) && ($_POST["update_config"] == "更新")) {
 	  'fei3' => $_POST['fei3'],
 	  'fei4' => $_POST['fei4']
   );
-	  
+
   $is_update = dbUpdate( $table_shopsetup, $record, $whereClause );
 
   $updateGoTo = "admineditconfig.php";
@@ -166,9 +166,9 @@ if ((isset($_POST["update_config"])) && ($_POST["update_config"] == "更新")) {
 <?php  //-----------------------------取得網站設置資訊------------------------------------//
 	$column = "*";
 	$table_shopsetup		= SYS_DBNAME . ".shopsetup";
-	
+
   	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT {$column} FROM {$table_shopsetup} ", 
+			'mysql'	=> "SELECT {$column} FROM {$table_shopsetup} ",
 			'mssql'	=> "SELECT {$column} FROM {$table_shopsetup} ",
 			'oci8'	=> "SELECT {$column} FROM {$table_shopsetup} "
 	);
@@ -178,7 +178,7 @@ if ((isset($_POST["update_config"])) && ($_POST["update_config"] == "更新")) {
 <h3 class=ttl01><font color=#800080>網站設置</h3>
 <table width="650" border="0" cellspacing="0" cellpadding="0" class="formTable">
 <!---------------------編輯網站資訊--------------------------------->
-<form name="editconfig" action="<?php echo $editFormAction; ?>" method="POST" 
+<form name="editconfig" action="<?php echo $editFormAction; ?>" method="POST"
  enctype="multipart/form-data" id="editconfig">
   <tr>
     <td width="20%" align="right">網站名稱:</td>
@@ -233,7 +233,7 @@ if ((isset($_POST["update_config"])) && ($_POST["update_config"] == "更新")) {
     <td width="80%" colspan="3" align="left">
       <input id="adm_fb" name="adm_fb" type="text" class="sizeML" value="<?php echo $row_showconfigRec['adm_fb']; ?>"/></td>
   </tr>
-  <!----------------------------聯絡電話  ---------------------------->  
+  <!----------------------------聯絡電話  ---------------------------->
   <tr>
     <td width="20%" align="right">聯絡電話:</td>
     <td width="80%" colspan="3" align="left">
@@ -254,7 +254,7 @@ if ((isset($_POST["update_config"])) && ($_POST["update_config"] == "更新")) {
     <td width="80%" colspan="3" align="left">
       <textarea id="adm_kf" name="adm_kf" cols="20" rows="5"><?php echo $row_showconfigRec['adm_kf']; ?></textarea>
     </td>
-  </tr>  
+  </tr>
   <!----------------------------網站內容描述--------------------------->
   <tr>
     <td width="20%" align="right">網站內容描述:</td>
@@ -280,102 +280,102 @@ if ((isset($_POST["update_config"])) && ($_POST["update_config"] == "更新")) {
   <tr>
     <td width="20%" align="right">網站計數器初始值:</td>
     <td width="80%" colspan="3" align="left">
-      <input id="jsq" name="jsq"   type="text" class="sizeSs" value="<?php if($row_showconfigRec['jsq']!="") echo $row_showconfigRec['jsq']; 
+      <input id="jsq" name="jsq"   type="text" class="sizeSs" value="<?php if($row_showconfigRec['jsq']!="") echo $row_showconfigRec['jsq'];
 	        else echo "0";?>"/> [設大後，不能恢復以前的小值]
     </td>
   </tr>
 
   <!----------------------------------------------------------->
   <tr><td colspan="2">
-        <p align="left"><h3 class=ttl01><font color=#800080>會員等級及折扣設置:</h3></td></tr>		                              
+        <p align="left"><h3 class=ttl01><font color=#800080>會員等級及折扣設置:</h3></td></tr>
 
 
-	<tr><td align="right">會員等級一:</td><td width="80%"> <input type="text" class="sizeS" value="<?php echo $row_showconfigRec['usertype1']; ?>" name="usertype1" >  
-        [至少有一個會員等級]                           
-      </td></tr>		                              
-
-
-	<tr><td align="right">折扣:</td><td width="80%"> <input type="text" class="sizeSss" value="<?php echo $row_showconfigRec['kou1']; ?>" name="kou1" >  
-        [取值0-10，數字越小優惠越大]                           
-      </td></tr>		                              
-
-
-	<tr><td align="right">會員等級二:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['usertype2']; ?>" name="usertype2"  class="sizeS">  
-        [如沒有，可空出]                           
-      </td></tr>		                              
-
-
-	<tr><td align="right">折扣:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['kou2']; ?>" name="kou2" class="sizeSss">  
-      </td></tr>		                              
-
-
-	<tr><td align="right">會員等級三:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['usertype3']; ?>" name="usertype3" class="sizeS">  
-        [如沒有，可空出]                           
-      </td></tr>		                              
-
-
-	<tr><td align="right">折扣:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['kou3']; ?>" name="kou3" class="sizeSss">  
-      </td></tr>		                              
-
-
-	<tr><td align="right">會員等級四:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['usertype4']; ?>" name="usertype4" class="sizeS">  
-        [如沒有，可空出]                           
-      </td></tr>		                              
-
-
-	<tr><td align="right">折扣:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['kou4']; ?>" name="kou4" class="sizeSss">  
+	<tr><td align="right">會員等級一:</td><td width="80%"> <input type="text" class="sizeS" value="<?php echo $row_showconfigRec['usertype1']; ?>" name="usertype1" >
+        [至少有一個會員等級]
       </td></tr>
-      
-    <tr><td align="right">會員等級五:</td><td width="80%"> 
-      <input type=text value="<?php echo $row_showconfigRec['usertype5']; ?>" name="usertype5" class="sizeS">  
-        [如沒有，可空出]                           
-      </td></tr>		                              
 
 
-	<tr><td align="right">折扣</td><td width="80%"> 
-      <input type=text value="<?php echo $row_showconfigRec['kou5']; ?>" name="kou5" class="sizeSss">  
-      </td></tr> 
-      
-    <tr><td align="right">會員等級六:</td><td width="80%"> 
-      <input type=text value="<?php echo $row_showconfigRec['usertype6']; ?>" name="usertype6" class="sizeS">  
-        [如沒有，可空出]                           
-      </td></tr>		                              
+	<tr><td align="right">折扣:</td><td width="80%"> <input type="text" class="sizeSss" value="<?php echo $row_showconfigRec['kou1']; ?>" name="kou1" >
+        [取值0-10，數字越小優惠越大]
+      </td></tr>
 
 
-	<tr><td align="right">折扣:</td><td width="80%"> 
-      <input type=text value="<?php echo $row_showconfigRec['kou6']; ?>" name="kou6" class="sizeSss">  
-      </td></tr>		                              
+	<tr><td align="right">會員等級二:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['usertype2']; ?>" name="usertype2"  class="sizeS">
+        [如沒有，可空出]
+      </td></tr>
+
+
+	<tr><td align="right">折扣:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['kou2']; ?>" name="kou2" class="sizeSss">
+      </td></tr>
+
+
+	<tr><td align="right">會員等級三:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['usertype3']; ?>" name="usertype3" class="sizeS">
+        [如沒有，可空出]
+      </td></tr>
+
+
+	<tr><td align="right">折扣:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['kou3']; ?>" name="kou3" class="sizeSss">
+      </td></tr>
+
+
+	<tr><td align="right">會員等級四:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['usertype4']; ?>" name="usertype4" class="sizeS">
+        [如沒有，可空出]
+      </td></tr>
+
+
+	<tr><td align="right">折扣:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['kou4']; ?>" name="kou4" class="sizeSss">
+      </td></tr>
+
+    <tr><td align="right">會員等級五:</td><td width="80%">
+      <input type=text value="<?php echo $row_showconfigRec['usertype5']; ?>" name="usertype5" class="sizeS">
+        [如沒有，可空出]
+      </td></tr>
+
+
+	<tr><td align="right">折扣</td><td width="80%">
+      <input type=text value="<?php echo $row_showconfigRec['kou5']; ?>" name="kou5" class="sizeSss">
+      </td></tr>
+
+    <tr><td align="right">會員等級六:</td><td width="80%">
+      <input type=text value="<?php echo $row_showconfigRec['usertype6']; ?>" name="usertype6" class="sizeS">
+        [如沒有，可空出]
+      </td></tr>
+
+
+	<tr><td align="right">折扣:</td><td width="80%">
+      <input type=text value="<?php echo $row_showconfigRec['kou6']; ?>" name="kou6" class="sizeSss">
+      </td></tr>
 
 
 	<tr><td colspan="2">
-        <h3 class=ttl01><font color=#800080>配送方式及費用設置:</h3></td></tr>		                       
+        <h3 class=ttl01><font color=#800080>配送方式及費用設置:</h3></td></tr>
 
-	<tr><td align="right">配送方式一:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['pei1']; ?>" name="pei1" class="sizeS">  
-        [至少有一種配送方式] </td></tr>		                                                        
+	<tr><td align="right">配送方式一:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['pei1']; ?>" name="pei1" class="sizeS">
+        [至少有一種配送方式] </td></tr>
 
-	<tr><td align="right">費用:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['fei1']; ?>" name="fei1" class="sizeSss">  
-        元 </td></tr>		                       
+	<tr><td align="right">費用:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['fei1']; ?>" name="fei1" class="sizeSss">
+        元 </td></tr>
 
-	<tr><td align="right">配送方式二</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['pei2']; ?>" name="pei2" class="sizeS">  
-        [如沒有，可空出] </td></tr>		                                                         
+	<tr><td align="right">配送方式二</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['pei2']; ?>" name="pei2" class="sizeS">
+        [如沒有，可空出] </td></tr>
 
-	<tr><td align="right">費用:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['fei2']; ?>" name="fei2" class="sizeSss">  
-        元 </td></tr>		                       
+	<tr><td align="right">費用:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['fei2']; ?>" name="fei2" class="sizeSss">
+        元 </td></tr>
 
-	<tr><td align="right">配送方式三:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['pei3']; ?>" name="pei3" class="sizeS">  
-        [如沒有，可空出] </td></tr>		                                                         
+	<tr><td align="right">配送方式三:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['pei3']; ?>" name="pei3" class="sizeS">
+        [如沒有，可空出] </td></tr>
 
-	<tr><td align="right">費用:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['fei3']; ?>" name="fei3" class="sizeSss">  
-        元 </td></tr>	
-	                       
+	<tr><td align="right">費用:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['fei3']; ?>" name="fei3" class="sizeSss">
+        元 </td></tr>
+
 
     <tr>
-      <td align="right">配送方式四</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['pei4']; ?>" name="pei4" class="sizeS">  
-        [如沒有，可空出] </td>                         
+      <td align="right">配送方式四</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['pei4']; ?>" name="pei4" class="sizeS">
+        [如沒有，可空出] </td>
     </tr>
     <tr>
-      <td align="right">費用:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['fei4']; ?>" name="fei4" class="sizeSss">  
-        元 </td> 
+      <td align="right">費用:</td><td width="80%"> <input type=text value="<?php echo $row_showconfigRec['fei4']; ?>" name="fei4" class="sizeSss">
+        元 </td>
     </tr>
       <!-----------------------------更新按鈕----------------------------->
   <tr>

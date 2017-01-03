@@ -102,30 +102,30 @@ if (isset($_POST['Invoice_Method']))
 	        	$Invoice_Url = 'http://einvoice-stage.allpay.com.tw/Invoice/TriggerIssue' ;
 		break;
 	}
-	
+
 	if($Invoice_Url == '')
 	{
 		$bError = true ;
-		$sMsg .= ( empty($sMsg) ? '' : WEB_MESSAGE_NEW_LINE ) . '請選擇動作方式';	
+		$sMsg .= ( empty($sMsg) ? '' : WEB_MESSAGE_NEW_LINE ) . '請選擇動作方式';
 	}
 
 }
 
 if(!$bError && isset($_POST['Invoice_Method']))
-{	
-	
+{
+
 	try
 	{
 		include_once('AllPay_Invoice.php');
 		$allpay_invoice = new AllInvoice ;
-		
+
 		// 1.服務參數
 		$allpay_invoice->Invoice_Method 		= $Invoice_Method ;
 		$allpay_invoice->Invoice_Url 			= $Invoice_Url;
 		$allpay_invoice->MerchantID 			= $sAllpay_Merchant_Id;
 		$allpay_invoice->HashKey 			= $sAllpay_Hash_Key;
 		$allpay_invoice->HashIV 			= $sAllpay_Hash_Iv;
-		
+
 		// 2.基本參數
 		$aItems	= array();
 		$aItems[0]['ItemName'] 				= $ItemName ;
@@ -135,9 +135,9 @@ if(!$bError && isset($_POST['Invoice_Method']))
 		$aItems[0]['ItemTaxType'] 			= $ItemTaxType ;
 		$aItems[0]['ItemAmount'] 			= $ItemAmount ;
 		$aItems[0]['ItemRemark'] 			= $ItemRemark ;
-		
+
 		$allpay_invoice->Send['Items'] 			= $aItems ;
-		
+
 		$allpay_invoice->Send['RelateNumber'] 		= $RelateNumber;
 		$allpay_invoice->Send['CustomerID'] 		= $CustomerID;
 		$allpay_invoice->Send['CustomerIdentifier'] 	= $CustomerIdentifier;
@@ -153,7 +153,7 @@ if(!$bError && isset($_POST['Invoice_Method']))
 		$allpay_invoice->Send['CarruerNum'] 		= $CarruerNum;
 		$allpay_invoice->Send['TaxType'] 		= $TaxType;
 		$allpay_invoice->Send['SalesAmount'] 		= $SalesAmount;
-		$allpay_invoice->Send['InvoiceRemark'] 		= $InvoiceRemark;	
+		$allpay_invoice->Send['InvoiceRemark'] 		= $InvoiceRemark;
 		$allpay_invoice->Send['InvType'] 		= $InvType;
 		$allpay_invoice->Send['vat'] 			= $vat;
 		$allpay_invoice->Send['DelayFlag'] 		= $DelayFlag;
@@ -175,14 +175,14 @@ if(!$bError && isset($_POST['Invoice_Method']))
 		$allpay_invoice->Send['Notify'] 		= $Notify;
 		$allpay_invoice->Send['InvoiceTag'] 		= $InvoiceTag;
 		$allpay_invoice->Send['Notified'] 		= $Notified;
-		
+
 		// 3.送出參數
 		$aReturn_Info = $allpay_invoice->Check_Out();
-		
+
 		// 4.返回陣列
 		foreach($aReturn_Info as $key => $value)
 		{
-			$sMsg .=   $key . ' => ' . $value . '<br>' ;	
+			$sMsg .=   $key . ' => ' . $value . '<br>' ;
 		}
 	}
 	catch (Exception $e)
@@ -191,7 +191,7 @@ if(!$bError && isset($_POST['Invoice_Method']))
 		$sMsg = $e->getMessage();
 	}
 
-}	
+}
 
 
 ?>
@@ -239,7 +239,7 @@ if(!$bError && isset($_POST['Invoice_Method']))
 					<th class="td-left">連線網址</th>
 					<td><div id="invoice_url"><?php echo $Invoice_Url ; ?></div></td>
 				</tr>
-			
+
 			</table>
 			<br>
 			<table border="0" cellspacing="0" cellpadding="0" id="table-form">
@@ -340,7 +340,7 @@ if(!$bError && isset($_POST['Invoice_Method']))
 				<tr>
 					<th class="td-left" id="143" title="空值:是&#10;‧預設格式如下&#10;備註1|備註2|備註3| … | 備註n&#10;‧若含二筆或以上的商品合計時，則以「|」符號區隔&#10;‧僅開放一般發票開立，單筆40最多字元">143.商品備註 ItemRemark</th>
 					<td><input name="ItemRemark" type="text" value="<?php echo $ItemRemark ; ?>" size="40" /></td>
-				
+
 					<th class="td-left" id="27" title="空值:否&#10;‧固定給定下述預設值&#10;->若為一般稅額計算時，則VAL = '07'&#10;->若為特種稅額計算時，則VAL = '08'">27.字軌類別 InvType</th>
 					<td>
 						<select name="InvType">
@@ -349,7 +349,7 @@ if(!$bError && isset($_POST['Invoice_Method']))
 							<option value="08" <?php if($InvType == '08'){echo 'selected' ; } ?>>08.特種稅額</option>
 						</select>
 					</td>
-					
+
 				</tr>
 				<tr>
 					<th class="td-left" id="28" title="空值:否&#10;‧預設格式如下&#10;「yyyy-MM-dd HH:mm:ss」&#10;‧不得大於當下時間且限48小時以內的時間&#10;‧不帶此參數或此參數無值時，發票開立時間預設為當下時間">28.發票開立時間 InvCreateDate</th>
@@ -472,7 +472,7 @@ if(!$bError && isset($_POST['Invoice_Method']))
 						</select>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<th class="td-left" id="48" title="空值:否&#10;‧固定給定下述預設值&#10;->若為發票開立時，則VAL = 'I'&#10;->若為發票作廢時，則VAL = 'II'&#10;->若為折讓開立時，則VAL = 'A'&#10;->若為折讓作廢時，則VAL = 'AI'&#10;->若為發票中獎時，則VAL = 'AW'">48.發送內容類型 InvoiceTag</th>
 					<td>
@@ -495,7 +495,7 @@ if(!$bError && isset($_POST['Invoice_Method']))
 						</select>
 					</td>
 				</tr>
-				
+
 			</table>
 			<br>
 			*僅提供單筆商品測試<br>
@@ -506,11 +506,11 @@ if(!$bError && isset($_POST['Invoice_Method']))
 </html>
 
 
-<style type="text/css"> 
+<style type="text/css">
     	#errormsg { color:#F00; border:1px solid #FFB468; font-size:14px; padding:6px 10px 6px 27px; margin:8px 0px;  no-repeat 5px 4px #FFFFE6; }
 	#contain-primary { clear:both; margin:10px 10px 40px 10px; position:relative; border:1px #E1E1E1 solid; padding:10px; background:#FFF; width="100%"}
 	.contain-title { background:#FFF; color:#D26900; font-size:18px; font-weight:bold; border:1px none #595959; border-bottom-style:dashed; padding-bottom:10px; margin-bottom:10px; }
-	
+
 	/* 表單 */
 	#table-form { width:100%; }
 	#table-form table { border:none; width:100%; }
@@ -519,14 +519,14 @@ if(!$bError && isset($_POST['Invoice_Method']))
 	#table-form .td-left { text-align:left; }
 	#table-form .td-right { text-align:right; }
 	#table-form .td-mark { background:#FFECF7; }
-	
-</style> 
+
+</style>
 
 
 <script type="text/javascript">
 <!--
 function ajax_query1()
-{	
+{
 	var select_invoice = document.form1.Invoice_Method.value ;
 
 	if(select_invoice == 'INVOICE')
@@ -576,12 +576,12 @@ function ajax_query1()
 		document.getElementById( "48" ).className = "td-mark";
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-left";
-		
-		
-		
+
+
+
 		document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Invoice/Issue";
 	}
-	
+
 	if(select_invoice == 'INVOICE_DELAY')
 	{
 		document.getElementById( "4" ).className = "td-left";
@@ -631,7 +631,7 @@ function ajax_query1()
 		document.getElementById( "143" ).className = "td-mark";
 		document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Invoice/DelayIssue";
 	}
-	
+
 	if(select_invoice == 'ALLOWANCE')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -681,7 +681,7 @@ function ajax_query1()
 		document.getElementById( "143" ).className = "td-mark";
 		document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Invoice/Allowance";
 	}
-	
+
 	if(select_invoice == 'INVOICE_VOID')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -731,7 +731,7 @@ function ajax_query1()
 		document.getElementById( "143" ).className = "td-mark";
 		document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Invoice/IssueInvalid";
 	}
-	
+
 	if(select_invoice == 'ALLOWANCE_VOID')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -781,7 +781,7 @@ function ajax_query1()
 		document.getElementById( "143" ).className = "td-mark";
 		document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Invoice/AllowanceInvalid";
 	}
-	
+
 	if(select_invoice == 'INVOICE_SEARCH' || select_invoice == 'INVOICE_VOID_SEARCH')
 	{
 		document.getElementById( "4" ).className = "td-left";
@@ -829,7 +829,7 @@ function ajax_query1()
 		document.getElementById( "48" ).className = "td-mark";
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
-		
+
 		if(select_invoice == 'INVOICE_SEARCH' )
 		{
 			document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Query/Issue";
@@ -839,7 +839,7 @@ function ajax_query1()
 			document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Query/IssueInvalid";
 		}
 	}
-	
+
 	if(select_invoice == 'ALLOWANCE_SEARCH' || select_invoice == 'ALLOWANCE_VOID_SEARCH')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -887,7 +887,7 @@ function ajax_query1()
 		document.getElementById( "48" ).className = "td-mark";
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
-		
+
 		if(select_invoice == 'ALLOWANCE_SEARCH' )
 		{
 			document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Query/Allowance";
@@ -897,7 +897,7 @@ function ajax_query1()
 			document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Query/AllowanceInvalid";
 		}
 	}
-	
+
 	if(select_invoice == 'INVOICE_NOTIFY')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -945,10 +945,10 @@ function ajax_query1()
 		document.getElementById( "48" ).className = "td-left";
 		document.getElementById( "49" ).className = "td-left";
 		document.getElementById( "143" ).className = "td-mark";
-		
+
 		document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Notify/InvoiceNotify";
 	}
-	
+
 	if(select_invoice == 'INVOICE_TRIGGER')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -996,10 +996,10 @@ function ajax_query1()
 		document.getElementById( "48" ).className = "td-mark";
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
-		
+
 		document.getElementById("invoice_url").innerHTML = "http://einvoice-stage.allpay.com.tw/Invoice/TriggerIssue";
 	}
-	
+
 }
 
 
@@ -1054,7 +1054,7 @@ if(select_invoice == 'INVOICE')
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
 	}
-	
+
 	if(select_invoice == 'INVOICE_DELAY')
 	{
 		document.getElementById( "4" ).className = "td-left";
@@ -1103,7 +1103,7 @@ if(select_invoice == 'INVOICE')
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
 	}
-	
+
 	if(select_invoice == 'ALLOWANCE')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -1152,7 +1152,7 @@ if(select_invoice == 'INVOICE')
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
 	}
-	
+
 	if(select_invoice == 'INVOICE_VOID')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -1201,7 +1201,7 @@ if(select_invoice == 'INVOICE')
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
 	}
-	
+
 	if(select_invoice == 'ALLOWANCE_VOID')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -1250,7 +1250,7 @@ if(select_invoice == 'INVOICE')
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
 	}
-	
+
 	if(select_invoice == 'INVOICE_SEARCH' || select_invoice == 'INVOICE_VOID_SEARCH')
 	{
 		document.getElementById( "4" ).className = "td-left";
@@ -1299,7 +1299,7 @@ if(select_invoice == 'INVOICE')
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
 	}
-	
+
 	if(select_invoice == 'ALLOWANCE_SEARCH' || select_invoice == 'ALLOWANCE_VOID_SEARCH')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -1348,7 +1348,7 @@ if(select_invoice == 'INVOICE')
 		document.getElementById( "49" ).className = "td-mark";
 		document.getElementById( "143" ).className = "td-mark";
 	}
-	
+
 	if(select_invoice == 'INVOICE_NOTIFY')
 	{
 		document.getElementById( "4" ).className = "td-mark";
@@ -1397,7 +1397,7 @@ if(select_invoice == 'INVOICE')
 		document.getElementById( "49" ).className = "td-left";
 		document.getElementById( "143" ).className = "td-mark";
 	}
-	
+
 	if(select_invoice == 'INVOICE_TRIGGER')
 	{
 		document.getElementById( "4" ).className = "td-mark";

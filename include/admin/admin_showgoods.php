@@ -16,17 +16,17 @@ $table_prodmain		= SYS_DBNAME . ".prodmain";
 $whereClause = "1=1";
 
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT {$column} FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}", 
+		'mysql'	=> "SELECT {$column} FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 		'mssql'	=> "SELECT {$column} FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 		'oci8'	=> "SELECT {$column} FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}"
 );
 $row_showgoodsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-	  
+
 
 
 
     $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ", 
+		'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ",
 		'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ",
 		'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC "
 );
@@ -41,7 +41,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   $params = explode("&", $_SERVER['QUERY_STRING']);
   $newParams = array();
   foreach ($params as $param) {
-    if (stristr($param, "pageNum_showgoodsRec") == false && 
+    if (stristr($param, "pageNum_showgoodsRec") == false &&
         stristr($param, "totalRows_showgoodsRec") == false &&
 		stristr($param, "class") == false &&
 		stristr($param, "name") == false &&
@@ -59,7 +59,7 @@ $queryString_showgoodsRec = sprintf("&totalRows_showgoodsRec=%d%s", $totalRows_s
 $currentPage = $_SERVER["PHP_SELF"];
 $table_prodclass		= SYS_DBNAME . ".prodclass";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY prodclass.LarSeq ASC", 
+		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY prodclass.LarSeq ASC",
 		'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY prodclass.LarSeq ASC",
 		'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause} ORDER BY prodclass.LarSeq ASC"
 		);
@@ -82,26 +82,26 @@ if (isset($_SESSION['search']) && $_SESSION['search']!="") {
 	$table_prodmain		= SYS_DBNAME . ".prodmain";
 	$whereClause = $_SESSION['search'];
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}", 
+			'mysql'	=> "SELECT * FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 			'mssql'	=> "SELECT * FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 			'oci8'	=> "SELECT * FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}"
 			);
 	$row_showgoodsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-	
-  
+
+
   $totalRows_showgoodsRec = sizeof($row_showgoodsRec);
-  
- 
+
+
 	  $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ", 
+		  'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ",
 		  'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ",
 		  'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC "
   );
   $all_showgoodsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 	  $totalRows_showgoodsRec = sizeof($all_showgoodsRec);
-  
 
- 
+
+
   $totalPages_showgoodsRec = ceil($totalRows_showgoodsRec/$maxRows_showgoodsRec)-1;
   if(isset($_GET['class']) && isset($_GET['name']) && isset($_GET['type'])) $clause="&class=".$class."&name=".$name."&type=".$open;
 }
@@ -109,7 +109,7 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
   $class = ($_POST["search_class"]);
   $name = trim($_POST["search_name"]);
   $open = $_POST["search_type"];
-  
+
   $string = "";
   if($open == 0)
       $string = $string."Online = '0'";
@@ -117,17 +117,17 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
       $string = $string."Online = '1'";
   else if($open == 2)
       $string = $string."(Online = '0' || Online = '1')";
- 
+
   if($name != "") {
     //$string = $string." && "."locate(ProdName,'$name') > 0";
 	$string = $string." && "."ProdName LIKE '%$name%'";
   }
-  
+
   if($class != "-1") {
 	  $table_prodclass		= SYS_DBNAME . ".prodclass";
 	  $whereClause = "ClassId = '$class'";
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}"
 			  );
@@ -136,38 +136,38 @@ if ((isset($_POST["search_btn"])) && ($_POST["search_btn"] == "搜尋")) {
 
 	 $class_LarCode = $row_endItemRec["LarCode"];
 	 $class_MidCode = $row_endItemRec["MidCode"];
-	 
+
 	 $string = $string." && "."prodmain.LarCode = '$class_LarCode' && prodmain.MidCode = '$class_MidCode'";
   }
-  
+
   $maxRows_showgoodsRec = 10;
   $pageNum_showgoodsRec = 0;
- 
+
   $startRow_showgoodsRec = $pageNum_showgoodsRec * $maxRows_showgoodsRec;
 
 	$table_prodmain		= SYS_DBNAME . ".prodmain";
 	$whereClause = "CONCAT($string)";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}", 
+			'mysql'	=> "SELECT * FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 			'mssql'	=> "SELECT * FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}",
 			'oci8'	=> "SELECT * FROM {$table_prodmain} LEFT JOIN prodclass ON prodclass.LarCode = prodmain.LarCode AND prodclass.MidCode = prodmain.MidCode WHERE {$whereClause} ORDER BY AddDate DESC LIMIT {$startRow_showgoodsRec}, {$maxRows_showgoodsRec}"
 			);
 	$row_showgoodsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-	
-  
+
+
   $totalRows_showgoodsRec = sizeof($row_showgoodsRec);
-  
+
 
 	  $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ", 
+		  'mysql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ",
 		  'mssql'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC ",
 		  'oci8'	=> "SELECT * FROM {$table_prodmain} WHERE {$whereClause} ORDER BY AddDate DESC "
   );
   $all_showgoodsRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 	  $totalRows_showgoodsRec = sizeof($all_showgoodsRec);
-  
 
-  
+
+
   $totalPages_showgoodsRec = ceil($totalRows_showgoodsRec/$maxRows_showgoodsRec)-1;
   $_SESSION['search']=$whereClause;
   $clause="&class=".$class."&name=".$name."&type=".$open;
@@ -182,13 +182,13 @@ if ((isset($_POST["open_btn"])) && ($_POST["open_btn"] == "上架")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."ProdId='".$_POST['select_good'][$i]."'";
       }
-	  
+
 	  $table_prodmain		= SYS_DBNAME . ".prodmain";
 	  $record = array( 'Online' => '1' );
 	  $whereClause = "CONCAT($update_string)";
 	  $is_update = dbUpdate( $table_prodmain, $record, $whereClause );
-           
-	
+
+
 	  $updateGoTo = "admingoods.php";
 	  header("location:$updateGoTo");
 	  /*echo "<script type='text/javascript'>";
@@ -206,12 +206,12 @@ if ((isset($_POST["close_btn"])) && ($_POST["close_btn"] == "下架")) {
 		if($update_string != "") $update_string = $update_string." || ";
 		$update_string = $update_string."ProdId='".$_POST['select_good'][$i]."'";
       }
-	  
+
 	  $table_prodmain		= SYS_DBNAME . ".prodmain";
 	  $record = array( 'Online' => '0' );
 	  $whereClause = "CONCAT($update_string)";
 	  $is_update = dbUpdate( $table_prodmain, $record, $whereClause );
-	
+
 	  $updateGoTo = "admingoods.php";
 	  header("location:$updateGoTo");
 	  /*echo "<script type='text/javascript'>";
@@ -233,30 +233,30 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 	  $table_prodmain		= SYS_DBNAME . ".prodmain";
 	  $whereClause = "CONCAT($delete_string)";
 	  dbDelete( $table_prodmain, $whereClause );
-	
+
       //delete good images
 	  $table_prod_img		= SYS_DBNAME . ".prod_img";
 	  $whereClause = "CONCAT($delete_string)";
 	  $sql['list']['select'] = array(
-			  'mysql'	=> "SELECT * FROM {$table_prod_img} WHERE {$whereClause}", 
+			  'mysql'	=> "SELECT * FROM {$table_prod_img} WHERE {$whereClause}",
 			  'mssql'	=> "SELECT * FROM {$table_prod_img} WHERE {$whereClause}",
 			  'oci8'	=> "SELECT * FROM {$table_prod_img} WHERE {$whereClause}"
 			  );
 	  $row_searchImg = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
-          
-	 
+
+
 	  //delete from goods spec
-	  
-	  
+
+
 	  $table_prodspec		= SYS_DBNAME . ".prodspec";
 	  $whereClause = "CONCAT($delete_string)";
 	  dbDelete( $table_prodspec, $whereClause );
-	 
-     
+
+
 	  foreach($row_searchImg as $key => $searchImg){
-      if($searchImg['img_name'] != "none.gif"){  
-          //delete images 	 
-       unlink("../images/goodsimg/medium/".$searchImg["img_name"]); 
+      if($searchImg['img_name'] != "none.gif"){
+          //delete images
+       unlink("../images/goodsimg/medium/".$searchImg["img_name"]);
        unlink("../images/goodsimg/small/".$searchImg["img_name"]);}
 	  }
 
@@ -265,9 +265,9 @@ if ((isset($_POST["delete_btn"])) && ($_POST["delete_btn"] == "刪除")) {
 	  dbDelete( $table_prod_img, $whereClause );
 
 
-     
-	    
-      
+
+
+
       $deleteGoTo = "admingoods.php";
       header("location:$deleteGoTo");
     }
@@ -284,9 +284,9 @@ if ((isset($_POST["add_btn"])) && ($_POST["add_btn"] == "加商品")) {
 ?>
 
 <script>
-function check_all(obj,cName) { 
-    var checkboxs = document.getElementsByName(cName); 
-    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;} 
+function check_all(obj,cName) {
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){checkboxs[i].checked = obj.checked;}
 }
 </script>
 
@@ -298,10 +298,10 @@ function check_all(obj,cName) {
           <select name="search_class" style="width:200px">
           <option value="-1">-----------------所有類別--------------------</option>
           <?php
-          foreach ($row_showClassRec as $key => $array){  
+          foreach ($row_showClassRec as $key => $array){
           ?>
             <option value="<?php echo $array['ClassId'];?>" <?php  if(isset($class) && $array['ClassId']==$class) echo "selected='selected'";?>>
-		      <?php 
+		      <?php
 			      echo $array['LarCode']." - ".$array['MidCode']
 			  ?>
             </option>
@@ -329,7 +329,7 @@ function check_all(obj,cName) {
         </td>
         <td align="center" ><input type="submit" name="search_btn"  value="搜尋"/></td>
       </tr>
-    </form>  
+    </form>
     </table>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableLayout01">
 <!-------------------------------------------------------------->
@@ -364,16 +364,16 @@ function check_all(obj,cName) {
 			  $table_prodmain		= SYS_DBNAME . ".prodmain";
 			  $column = "*";
 			  $whereClause = "ProdNum={$array['ProdNum']}";
-			  
+
 			  $sql['list']['select'] = array(
-					  'mysql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ", 
+					  'mysql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ",
 					  'mssql'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC ",
 					  'oci8'	=> "SELECT * FROM {$table_prodmain} INNER JOIN prod_img ON prod_img.ProdId = prodmain.ProdId WHERE {$whereClause} ORDER BY img_no ASC "
 			  );
 			  $row_showsublistRec = dbGetRow($sql['list']['select'][SYS_DBTYPE]);
-			 
+
 	  ?>
-   <a href="admineditgoods.php?ProdId=<?php echo $array['ProdId']; ?>"><img src="../../images/goodsimg/small/<?php echo $row_showsublistRec['img_name']; ?>" alt="" name="image" 
+   <a href="admineditgoods.php?ProdId=<?php echo $array['ProdId']; ?>"><img src="../../images/goodsimg/small/<?php echo $row_showsublistRec['img_name']; ?>" alt="" name="image"
          height="75px" id="image" align="center" style="padding:5px;"/></a>
       </td>
       <td ><?php echo $array['LarCode'].'/'.$array['MidCode']; ?></td>
@@ -393,7 +393,7 @@ function check_all(obj,cName) {
   <td align="center"><input name="add_btn" type="submit" value="加商品" style="margin:5px"></td>
 </tr>
 <!-----------------------------page control----------------------------->
-<tr> 
+<tr>
   <td colspan="7" align="right" bgcolor="#cfcfcf" >
     <table border="0">
       <tr>

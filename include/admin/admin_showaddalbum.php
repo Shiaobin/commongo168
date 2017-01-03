@@ -7,24 +7,24 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {
   $img_string = array();
-  if($_POST['end_item_id']=="") $_POST['end_item_id'] = 0;	
+  if($_POST['end_item_id']=="") $_POST['end_item_id'] = 0;
 
   //上傳圖片
   foreach ($_FILES["list_imgs"]["error"] as $key => $error) {
-    if ($error == UPLOAD_ERR_OK) {	 
+    if ($error == UPLOAD_ERR_OK) {
       echo"$error_codes[$error]";
 	  $num =  date('his') + $key;
 	  $img_string[$key] = $_POST['list_id'].$num.".jpg";
 
       move_uploaded_file(
-        realpath($_FILES["list_imgs"]["tmp_name"][$key]), 
+        realpath($_FILES["list_imgs"]["tmp_name"][$key]),
         "../images/albumimg/".$img_string[$key]
       ) or die("Problems with upload");
 
       resize_album_image($img_string[$key]);
     }
-  }	
-  
+  }
+
   //上傳封面圖片
   $img = "";
 
@@ -34,7 +34,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {
       move_uploaded_file(realpath($_FILES["list_img"]["tmp_name"]), "../images/albumimg/".$img);
       resize_album_image($img);
   }
-  
+
   //更新商品資訊
   $insertSQL = sprintf("INSERT INTO album_list (list_id, list_name, list_img, item_id, end_item_id) VALUES (%s, %s, %s, %s, %s)",
                         GetSQLValueString($_POST['list_id'], "text"),
@@ -45,7 +45,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {
 
   mysql_select_db($database_webshop, $webshop);
   $Result1 = mysql_query($insertSQL, $webshop) or die(mysql_error());
-  
+
   //更新圖片資訊
   for($i=0; $i<count($img_string); $i++){
     $insertSQL = sprintf("INSERT INTO album_list_img (list_id, img_name) VALUES (%s, %s)",
@@ -63,7 +63,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "新增")) {
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$insertGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <?php  //-----------------------------重設商品資訊------------------------------------//
@@ -71,7 +71,7 @@ if ((isset($_POST["MM_reset"])) && ($_POST["MM_reset"] == "重設")) {
   $insertGoTo = "adminaddalbum.php";
   echo "<script type='text/javascript'>";
   echo "window.location.href='$insertGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 <?php  //---------------------------取得商品類別(大類)---------------------------------//
@@ -125,11 +125,11 @@ else{
   <tr>
     <td width="10%" height="10%" align="center">所屬大類</td>
     <td width="40%" height="10%" colspan="3" align="left">
-      <select id="item_id" name="item_id" onchange="this.form.submit()" 
+      <select id="item_id" name="item_id" onchange="this.form.submit()"
               style="width:50%; height:90%; margin: 3px">
-      <option value="0"></option> 
+      <option value="0"></option>
       <?php
-	    do {  
+	    do {
 	  ?>
         <option value="<?php echo $row_itemRec['item_id']?>" <?php if($row_itemRec['item_id'] == $class) {echo "selected=\"selected\"";} ?>>
 		<?php echo $row_itemRec['item_name']?></option>
@@ -150,7 +150,7 @@ else{
     <td width="40%" height="10%" colspan="3" align="left">
       <select id="end_item_id" name="end_item_id" style="width:50%; height:90%; margin: 3px">
       <?php
-	    do {  
+	    do {
 	  ?>
         <option value="<?php echo $row_endItemRec['end_item_id']?>"><?php echo $row_endItemRec['end_item_name']?></option>
       <?php

@@ -12,17 +12,17 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
 				'LarCode' => $_POST['LarCode']
 				);
   $whereClause = "LarSeq={$_POST['LarSeq']}";
-		
+
   dbUpdate( $table_prodclass, $record, $whereClause );
   /*
   $updateSQL = sprintf("UPDATE prodclass SET LarSeq=%s, LarCode=%s WHERE LarSeq=%s",
                        GetSQLValueString($_POST['upd_LarSeq'], "int"),
-					   GetSQLValueString($_POST['LarCode'], "text"),               
+					   GetSQLValueString($_POST['LarCode'], "text"),
 					   GetSQLValueString($_POST['LarSeq'], "int"));
 
   $Result1 = mysql_query($updateSQL, $webshop) or die(mysql_error());
   */
- 
+
   $updateGoTo = "adminitem.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
@@ -30,7 +30,7 @@ if ((isset($_POST["update_item"])) && ($_POST["update_item"] == "更新")) {
   }
   echo "<script type='text/javascript'>";
   echo "window.location.href='$updateGoTo'";
-  echo "</script>"; 
+  echo "</script>";
 }
 ?>
 
@@ -43,7 +43,7 @@ if (isset($_GET['LarSeq'])) {
 $table_prodclass		= SYS_DBNAME . ".prodclass";
 $whereClause = "LarSeq='{$cloume_showitemLarRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}", 
+		'mysql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}",
 		'mssql'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}",
 		'oci8'	=> "SELECT * FROM {$table_prodclass} WHERE {$whereClause}"
 		);
@@ -71,14 +71,14 @@ $totalRows_showitemLarRec = mysql_num_rows($showitemLarRec);
       <input id="LarCode" name="LarCode" type="text" class=sizeM value="<?php echo $row_showitemLarRec['LarCode']; ?>"/>
     </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">排序:
    	  <input type="int" name="upd_LarSeq" id="upd_LarSeq" class=sizeSss value="<?php echo $row_showitemLarRec['LarSeq']; ?>"/>
-   	  [不能與其它大類的排序號重複，否則會出錯]    
+   	  [不能與其它大類的排序號重複，否則會出錯]
     </td>
   </tr>
-  
+
   <tr align="left">
     <td width="100%">
    <input name="LarSeq" type="hidden" value="<?php echo $row_showitemLarRec['LarSeq']; ?>" />

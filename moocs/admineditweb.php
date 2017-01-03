@@ -1,6 +1,6 @@
 <?php require('../utility/init.php'); ?>
 
-<?php // ** initialize the session ** 
+<?php // ** initialize the session **
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -19,7 +19,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_AdminName']);
   unset($_SESSION['MM_AdminGroup']);
   unset($_SESSION['PrevUrl']);
-	
+
   $logoutGoTo = "index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
@@ -37,40 +37,40 @@ $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
+  // When a visitor has logged into this site, the Session variable MM_AdminName set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
+    if (in_array($UserName, $arrUsers)) {
+      $isValid = true;
+    }
+    // Or, you may restrict access to only certain users based on their username.
+    if (in_array($UserGroup, $arrGroups)) {
+      $isValid = true;
+    }
+    if (($strUsers == "") && true) {
+      $isValid = true;
+    }
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "adminlogin.php";
-if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {   
+if (!((isset($_SESSION['MM_AdminName'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_AdminName'], $_SESSION['MM_AdminGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
@@ -110,13 +110,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {	
+if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
   //move_uploaded_file($_FILES["pages_img"]["tmp_name"], "..\webimg\pagesimg\\".$_FILES["pages_img"]["name"].".jpg");
-  $img_string = array();	
+  $img_string = array();
 
   //上傳圖片
   foreach ($_FILES["goods_img"]["error"] as $key => $error) {
-    if ($error == UPLOAD_ERR_OK) {	 
+    if ($error == UPLOAD_ERR_OK) {
        //echo"$error_codes[$error]";
 	   $type = $_FILES["goods_img"]["type"][$key];
 	   $img_type = explode("/",$type);
@@ -125,7 +125,7 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	   $img_string[$key] = $num.".".$img_type[1];
 
        move_uploaded_file(
-          ($_FILES["goods_img"]["tmp_name"][$key]), 
+          ($_FILES["goods_img"]["tmp_name"][$key]),
          //"/var/www/html/sample/images/webimg/".$img_string[$key]
          "../images/webimg/".$img_string[$key]
        ) or die("Problems with upload");
@@ -133,18 +133,18 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
        resize_web_image($img_string[$key]);
     }
   }
-  
+
   //取得首張圖片資訊
   if($_POST["img_num"] > 0) {
 	$cloume_showImgRec = "%";
 	if (isset($_GET['ProdId'])) {
       $cloume_showImgRec = $_GET['ProdId'];
     }
-	
+
 	$table_comp_img		= SYS_DBNAME . ".comp_img";
 	$whereClause = "ProdId='{$cloume_showImgRec}'";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} order by img_no ASC", 
+			'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} order by img_no ASC",
 			'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} order by img_no ASC",
 			'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} order by img_no ASC"
 			);
@@ -158,8 +158,8 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 	$img = $row_showimgRec["img_name"];
   }
   else if(count($img_string) > 0)  $img = $img_string[0];
-  else                             $img = "";    
-  
+  else                             $img = "";
+
   //預設圖片
   if($img == ""){
 	  $table_compmain		= SYS_DBNAME . ".compmain";
@@ -173,9 +173,9 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'ImgFull' => 'none.gif'
 				);
   $whereClause = "ProdId={$_POST['ProdId']}";
-		
+
   dbUpdate( $table_compmain, $record, $whereClause );
-  
+
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $record = array(
   				'ProdId' => $_POST['ProdId'],
@@ -195,10 +195,10 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'MemoSpec' => $_POST['MemoSpec']
 				);
   $whereClause = "ProdId={$_POST['ProdId']}";
-  
+
   dbUpdate( $table_compmain, $record, $whereClause );
 
-  //有上傳新圖片 
+  //有上傳新圖片
   }else{
   //更新網頁資訊
   $table_compmain		= SYS_DBNAME . ".compmain";
@@ -212,30 +212,30 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'ImgFull' => $img_string[0]
 				);
   $whereClause = "ProdId={$_POST['ProdId']}";
-  
+
   dbUpdate( $table_compmain, $record, $whereClause );
 
   }
-  
+
   /////////////////////////////ebooks////////////////////
   //上傳圖片
   if($_FILES['ebook_img']['name'] != "" ) {
 
-    if($_POST['pic_url']=="none.gif" ) $img_ebook = date('his').".jpg"; 
+    if($_POST['pic_url']=="none.gif" ) $img_ebook = date('his').".jpg";
 	else                      $img_ebook = $_POST['pic_url'];
-	
+
 	move_uploaded_file(($_FILES["ebook_img"]["tmp_name"]), "../images/webimg/".$img_ebook);
         resize_web_image($img_ebook);
   }
   else {
     $img_ebook = $_POST['pic_url'];
   }
-  
-  if($_FILES['pdf_url']['name'] != "" ) 
+
+  if($_FILES['pdf_url']['name'] != "" )
   {
 	  if( $_FILES["pdf_url"]["type"] == "application/pdf" )
 	  {
-		  	$pdf_ebook = date('his').".pdf"; 
+		  	$pdf_ebook = date('his').".pdf";
 			move_uploaded_file(($_FILES["pdf_url"]["tmp_name"]), "../files/ebooks/pdf/".$pdf_ebook);
 	  }
 	  else
@@ -243,14 +243,14 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 		  	  echo "<script type='text/javascript'>";
 			  echo "alert('請選擇PDF檔案上傳')";
 			  echo "</script>";
-			  return;  
+			  return;
 	  }
   }
   else
   {
 	  $pdf_ebook = $_POST['pdf_url_post'];
   }
-  
+
   if( isset( $_POST['youtube_url'] ) )
   {
 	  parse_str( parse_url( $_POST['youtube_url'], PHP_URL_QUERY ), $my_array_of_vars );
@@ -276,9 +276,9 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
 				'pic_url' => $img_ebook,
 				);
   $whereClause = "ProdId={$_POST['ProdId']}";
-		
+
   dbUpdate( $table_compmain, $record, $whereClause );
-  
+
 
 
   //更新圖片資訊
@@ -291,10 +291,10 @@ if ((isset($_POST["update_pages"])) && ($_POST["update_pages"] == "更新")) {
   dbInsert( $table_comp_img, $record );
 
   }
-  
-  
-  
-  
+
+
+
+
   $updateGoTo = "adminweb.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
@@ -318,7 +318,7 @@ if(($_GET['ProdId']) != ""){
 	$table_compmain		= SYS_DBNAME . ".compmain";
 	$whereClause = "compmain.ProdId='{$cloume_showpagesRec}'";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}", 
+			'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}",
 			'mssql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}",
 			'oci8'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}"
 			);
@@ -329,7 +329,7 @@ if(($_GET['ProdId']) != ""){
 	$table_compmain		= SYS_DBNAME . ".compmain";
 	$whereClause = "compmain.ProdNum='{$cloume_showpagesRec2}'";
 	$sql['list']['select'] = array(
-			'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}", 
+			'mysql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}",
 			'mssql'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}",
 			'oci8'	=> "SELECT * FROM {$table_compmain} WHERE {$whereClause}"
 			);
@@ -342,7 +342,7 @@ if(($_GET['ProdId']) != ""){
 $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "1=1";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC", 
+		'mysql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC",
 		'mssql'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC",
 		'oci8'	=> "SELECT DISTINCT LarCode FROM {$table_compclass} WHERE {$whereClause} ORDER BY LarSeq ASC"
 		);
@@ -353,7 +353,7 @@ $row_itemRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
 $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "compclass.LarCode='{$row_showpagesRec['LarCode']}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'mssql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'oci8'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 		);
@@ -365,7 +365,7 @@ if(isset($_POST['LarCode'])){
   $table_compclass		= SYS_DBNAME . ".compclass";
 $whereClause = "LarCode='{$_POST['LarCode']}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC", 
+		'mysql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'mssql'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC",
 		'oci8'	=> "SELECT * FROM {$table_compclass} WHERE {$whereClause} ORDER BY MidSeq ASC"
 		);
@@ -385,7 +385,7 @@ if (isset($_GET['ProdId'])) {
 $table_comp_img		= SYS_DBNAME . ".comp_img";
 $whereClause = "ProdId='{$cloume_showImgRec}'";
 $sql['list']['select'] = array(
-		'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC", 
+		'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC"
 		);
@@ -400,7 +400,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "img_no={$_POST['img_no']}";
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC", 
+		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC",
 		  'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no ASC"
 		  );
@@ -411,7 +411,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   unlink("../images/webimg/medium/".$row_showimgRec["img_name"]);
   unlink("../images/webimg/small/".$row_showimgRec["img_name"]);
   }
-	
+
   //刪除圖片資訊
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "img_no={$_POST['img_no']}";
@@ -420,21 +420,21 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
   //重新取得圖片資訊
   $cloume_showImgRec = "%";
   if (isset($_GET['ProdId'])) $cloume_showImgRec = $_GET['ProdId'];
-  
+
    $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "ProdId={$cloume_showImgRec}";
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause}", 
+		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause}",
 		  'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause}",
 		  'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause}"
 		  );
   $row_showimgRec = dbGetAll($sql['list']['select'][SYS_DBTYPE]);
   $totalRows_showimgRec = sizeof($row_showimgRec);
-  
+
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "ProdId='{$cloume_showImgRec}'";
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no DESC", 
+		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no DESC",
 		  'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no DESC",
 		  'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no DESC"
 		  );
@@ -459,7 +459,7 @@ if ((isset($_POST["delete_img"])) && ($_POST["delete_img"] == "刪除")) {
 		  $whereClause = "ProdId='{$cloume_showImgRec}'";
 		  dbUpdate( $table_compmain, $record, $whereClause );
 	}
-  
+
 }
 ?>
 <?php  //---------------------------刪除圖片---------------------------------//
@@ -469,14 +469,14 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
   $cloume_showImgRec = "%";
   if (isset($_GET['ProdId'])) $cloume_showImgRec = $_GET['ProdId'];
   $pic = $_POST['pic_url'];
-  
+
   unlink("../images/webimg/medium/".$pic );
   unlink("../images/webimg/small/".$pic );
-	
+
   $table_comp_img		= SYS_DBNAME . ".comp_img";
   $whereClause = "ProdId='{$cloume_showImgRec}'";
   $sql['list']['select'] = array(
-		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no DESC", 
+		  'mysql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no DESC",
 		  'mssql'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no DESC",
 		  'oci8'	=> "SELECT * FROM {$table_comp_img} WHERE {$whereClause} ORDER BY img_no DESC"
 		  );
@@ -501,7 +501,7 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
 		  $whereClause = "ProdId='{$cloume_showImgRec}'";
 		  dbUpdate( $table_compmain, $record, $whereClause );
 	}
-	
+
 }
 ?>
 <h3 class=ttl01 >編輯網頁資訊</h3>
@@ -511,7 +511,7 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
   <!----------------------------網頁圖片---------------------------->
   <?php if($totalRows_showimgRec > 0) { ?>
   <tr>
-  	
+
   	<td align="left" valign="bottom">
     	<table border="0" >
         <tr>
@@ -520,7 +520,7 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
             <td width=50>
 <a href="../../images/webimg/medium/<?php echo $array['img_name']; ?>" target=_blank >
 <img src="../../images/webimg/small/<?php echo $array['img_name']; ?>" alt="" name="image" width="120px"  id="image" align="center" style="padding:5px;"/></a><br />
-                <input name="img_no" type="hidden" value="<?php echo $array['img_no']; ?>"/> 
+                <input name="img_no" type="hidden" value="<?php echo $array['img_no']; ?>"/>
                 <input name="delete_img" type="submit" value="刪除"/><br />
             </td>
         </form>
@@ -536,38 +536,38 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
   <tr>
 
     <td  align="left" valign="bottom">
-      <input name="img_num" type="hidden" value="<?php echo $totalRows_showimgRec;?>" /> 
-      <input name="goods_img_first" type="hidden" value="<?php echo $row_showimgRec['img_name']; ?>" /> 
+      <input name="img_num" type="hidden" value="<?php echo $totalRows_showimgRec;?>" />
+      <input name="goods_img_first" type="hidden" value="<?php echo $row_showimgRec['img_name']; ?>" />
       <input type="file" name="goods_img[]" style="width:50%; height:90%; margin: 2px" multiple/>
     </td>
   </tr>
 
   <!-------------------------------------------------------------->
   <tr>
-   
+
     <td align="left"><font color=#0000FF>1.所屬大類
       <select id="LarCode" name="LarCode" onChange="this.form.submit()" style="width:20%; height:90%; margin: 3px">
       <option value="0"></option>
         <?php
-        foreach ($row_itemRec as $key => $array){ 
+        foreach ($row_itemRec as $key => $array){
         ?>
           <option value="<?php echo $array['LarCode']?>" <?php if($array['LarCode'] == $class) {echo "selected=\"selected\"";} ?>>
 		  <?php echo $array['LarCode']?></option>
         <?php
         }
-        
+
         ?>
       </select>
     </td>
   </tr>
   <!----------------------------所屬中類---------------------------->
   <tr>
-  
+
     <td align="left"><font color=#0000FF>2.所屬中類
-      <select id="MidCode" name="MidCode" > 
+      <select id="MidCode" name="MidCode" >
         <option value="0"></option>
         <?php
-        foreach ($row_endItemRec as $key => $array){ 
+        foreach ($row_endItemRec as $key => $array){
         ?>
         <option value="<?php echo $array['MidCode']?>"<?php if (!(strcmp($row_showpagesRec['MidCode'], $array['MidCode']))) {echo "selected=\"selected\"";} ?>><?php echo $array['MidCode']?></option>
         <?php
@@ -580,12 +580,12 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
   <!--<tr>
     <td  align="center">連結網址</td>
     <td   align="left">
-    <input name="paybackurl" type="text" style="width:58%; height:90%; margin: 3px" value="<?php //echo $row_showpagesRec['paybackurl']; ?>"/> 
+    <input name="paybackurl" type="text" style="width:58%; height:90%; margin: 3px" value="<?php //echo $row_showpagesRec['paybackurl']; ?>"/>
     </td>
   </tr>-->
   <!----------------------------文章簡述---------------------------->
   <tr>
-   
+
    <td valign="top"><font color=#0000FF>3.文章簡述<br>
     <textarea id="ProdDisc" name="ProdDisc" cols="80" rows="5"><?php echo $row_showpagesRec['ProdDisc']; ?></textarea><br />
     <font color="#FF0000">[若前台不想出現文章簡述 內容，則輸入 0 值即可。]
@@ -593,28 +593,28 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
   </tr>
   <!----------------------------詳細說明---------------------------->
   <tr>
-   
+
    <td align="left"><font color=#0000FF>4.詳細說明
 <script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
     <textarea id="MemoSpec" name="MemoSpec" class="ckeditor" cols="80" rows="20" ><?php echo $row_showpagesRec['MemoSpec']; ?></textarea></td>
-  </tr> 
-  
+  </tr>
+
   <!----------------------------youtube_url1--------------------------
   <tr>
      <td>5.Youtube URL1:
-       <input name="youtube_url" type="hidden" value="<?php //echo $row_showpagesRec['youtube_url'];?>" /> 
+       <input name="youtube_url" type="hidden" value="<?php //echo $row_showpagesRec['youtube_url'];?>" />
      </td>
   </tr>-->
   <!----------------------------youtube_url2--------------------------
   <tr>
      <td>6.Youtube URL2:
-       <input name="youtube_url_2" type="hidden" value="<?php //echo $row_showpagesRec['youtube_url_2'];?>" /> 
+       <input name="youtube_url_2" type="hidden" value="<?php //echo $row_showpagesRec['youtube_url_2'];?>" />
      </td>
   </tr>-->
   <!----------------------------youtube_url3--------------------------
   <tr>
      <td>7.Youtube URL3:
-       <input name="youtube_url_3" type="hidden" value="<?php //echo $row_showpagesRec['youtube_url_3'];?>" /> 
+       <input name="youtube_url_3" type="hidden" value="<?php //echo $row_showpagesRec['youtube_url_3'];?>" />
      </td>
   </tr>-->
 	<!----------------------------youtube_url3--------------------------
@@ -622,12 +622,12 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
      <td>8.PDF URL:
        <input name="pdf_url_post" type="hidden" value="<?php //echo $row_showpagesRec['pdf_url']; ?>" readonly/>
        <input name="pdf_url" type="hidden" value="" style="width:50%; height:100%; margin: 3px"/>
-       
+
      </td>
   </tr>-->
   <!----------------------------上傳圖片1--------------------------
   <tr>
-     <td>9.PHOTO URL:<img src="../../images/webimg/small/<?php //echo $row_showpagesRec['pic_url']; ?>" alt="" name="image" 
+     <td>9.PHOTO URL:<img src="../../images/webimg/small/<?php //echo $row_showpagesRec['pic_url']; ?>" alt="" name="image"
            width="120px" height="120px" id="image" align="center" style="padding:5px;"/>
        <input name="pic_url" type="hidden" value="<?php //echo $row_showpagesRec['pic_url']; ?>" />
        <input name="ebook_delete" type="submit" value="刪除"/>
@@ -637,7 +637,7 @@ if ((isset($_POST["ebook_delete"])) && ($_POST["ebook_delete"] == "刪除")) {
 -->
   <!------------------------新增按鈕---------------------------->
   <tr>
-  
+
       <input name="ProdId" type="hidden" value="<?php echo $row_showpagesRec['ProdId']; ?>" />
     <td   align="left">
       <input type="submit" name="update_pages"  value="更新" style="font-size:16px;width:50px;height:25px"/>
