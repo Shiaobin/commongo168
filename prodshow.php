@@ -134,7 +134,7 @@ $stmt->execute(array(':ProdId'=>$rs_prod['ProdId']));
 $row=$stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <?php if ($row): ?>
-                <p>賣家：<?= $row['UserName'] ?>（分數：<?= $row['AVG(ol.SellerRating)'] ?>）</p>
+                <p>賣家：<?= $row['UserName'] ?>（評分：<?php if (is_null($row['AVG(ol.SellerRating)'])): ?><?= '尚無' ?><?php else: ?><?= $row['AVG(ol.SellerRating)'] ?><?php endif; ?>）</p>
 <?php endif; ?>
                 <p class="text-product-p" id="p_gid">產品編號：<?php echo $rs_prod['ProdId'];?></p>
                 <h3 class="text-product-title" id="p_name" product="<?php echo $rs_prod['ProdName'];?>"><?php echo $rs_prod['ProdName'];?></h3>
