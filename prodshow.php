@@ -117,6 +117,25 @@ function change(img)
 }
 </script>
               <div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1 content-product-top-intro">
+<?php
+$stmt=$sysConn->prepare('SELECT AVG(ol.SellerRating), u.UserId, u.UserName
+FROM orderlist AS ol
+INNER JOIN usermain AS u
+ON ol.sellerId = u.UserId
+WHERE u.UserId IN (
+    SELECT u.UserId
+    FROM usermain AS u
+    INNER JOIN prodmain AS p
+    ON u.UserId = p.mem_id
+    WHERE p.ProdId = :ProdId
+)
+GROUP BY u.UserId;');
+$stmt->execute(array(':ProdId'=>$rs_prod['ProdId']));
+$row=$stmt->fetch(PDO::FETCH_ASSOC);
+?>
+<?php if ($row): ?>
+                <p>賣家：<?= $row['UserName'] ?>（分數：<?= $row['AVG(ol.SellerRating)'] ?>）</p>
+<?php endif; ?>
                 <p class="text-product-p" id="p_gid">產品編號：<?php echo $rs_prod['ProdId'];?></p>
                 <h3 class="text-product-title" id="p_name" product="<?php echo $rs_prod['ProdName'];?>"><?php echo $rs_prod['ProdName'];?></h3>
 

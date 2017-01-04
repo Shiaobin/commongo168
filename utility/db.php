@@ -14,7 +14,7 @@
 	if( SYS_DBTYPE == "mysql" )
 	{
 		$db_connection = "mysql:host={$db_host};port={$db_port};dbname={$db_name}";
-		$db_options = array(
+		$db_option = array(
 		    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
 		);
 	}
